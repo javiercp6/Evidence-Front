@@ -1,0 +1,115 @@
+<template>
+  <q-page class="flex flex-center bg-blue-grey-10">
+    <div
+      class="q-ma-md container-objectives"
+      style="background-color: rgba(255, 255, 255, 0.1)"
+    >
+      <div class="text-h5 q-pa-md text-blue-grey-1">Objetivos</div>
+      <div class="col text-blue-grey-1 objectives q-ma-sm">
+        Participar en al menos dos espacios de diálogo y debate (1 en el
+        edificio docente y 1 en la residencia estudiantil) con los estudiantes,
+        demostrando su formación integral y preparación política-ideológica
+      </div>
+      <div class="row inline q-pt-sm">
+        <div class="text-h5 q-pa-md text-blue-grey-1 d-block">Evidencias</div>
+        <div class="column q-ml-sm justify-center">
+          <q-btn
+            round
+            icon="add"
+            color="primary"
+            size="sm"
+            @click="prompt = true"
+          />
+        </div>
+      </div>
+      <div
+        v-for="n in 3"
+        :key="n"
+        class="row q-ma-sm container-item-objectives"
+      >
+        <div
+          class="text-blue-grey-1 q-pa-sm row items-center justify-center text-center"
+        >
+          <div class="">
+            <q-icon name="attach_file" size="md" />
+            <div class="text-caption">1 archivo</div>
+          </div>
+        </div>
+        <div class="col text-blue-grey-1 objectives q-ma-sm">
+          Participar en al menos dos espacios de diálogo y debate (1 en el
+          edificio docente y 1 en la residencia estudiantil) con los
+          estudiantes, demostrando su formación integral y preparación
+          política-ideológica
+        </div>
+        <div>
+          <div class="col-auto">
+            <q-btn color="blue-grey-1" round flat icon="more_vert">
+              <q-menu auto-close>
+                <q-list>
+                  <q-item clickable v-ripple>
+                    <q-item-section avatar
+                      ><q-icon color="orange-4" name="edit"
+                    /></q-item-section>
+                    <q-item-section>Editar</q-item-section>
+                  </q-item>
+                  <q-item clickable v-ripple>
+                    <q-item-section avatar
+                      ><q-icon color="red-5" name="delete"
+                    /></q-item-section>
+                    <q-item-section>Eliminar</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn>
+          </div>
+        </div>
+      </div>
+      <AddEvidence />
+    </div>
+  </q-page>
+</template>
+
+<script>
+import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
+import useAuth from "src/Modules/auth/composables/useAuth";
+
+export default defineComponent({
+  name: "IndexPage",
+
+  components: {
+    AddEvidence: defineAsyncComponent(() =>
+      import("../Componentes/AddEvidence.vue")
+    ),
+  },
+
+  setup() {
+    console.log("Index page");
+    const prompt = ref(false);
+    provide("prompt", prompt);
+    return {
+      value: 80,
+      prompt,
+    };
+  },
+});
+</script>
+<style lang="sass" scoped>
+.text-h5
+  padding: 5px
+
+.container-objectives
+  width: 100%
+  min-height: calc(100vh - (50px + 48px))
+  border-radius:10px
+  padding: 16px 10px
+
+.area-scroll
+  width: 100%
+  height: calc(calc(100vh - (50px + 48px)) - 64px)
+
+
+.container-item-objectives
+  border-radius:10px
+  cursor: pointer
+  background-color: rgba(255, 255, 255, 0.1)
+</style>

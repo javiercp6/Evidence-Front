@@ -1,0 +1,137 @@
+<template>
+  <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
+    <q-header elevated class="bg-black">
+      <q-toolbar>
+        <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+        <q-toolbar-title>Logo</q-toolbar-title>
+        <div class="q-gutter-sm row items-center no-wrap">
+          <q-btn
+            round
+            dense
+            flat
+            color="grey-8"
+            icon="video_call"
+            v-if="$q.screen.gt.sm"
+          >
+            <q-tooltip>Create a video or post</q-tooltip>
+          </q-btn>
+          <q-btn
+            round
+            dense
+            flat
+            color="grey-8"
+            icon="apps"
+            v-if="$q.screen.gt.sm"
+          >
+            <q-tooltip>Apps</q-tooltip>
+          </q-btn>
+          <q-btn
+            round
+            dense
+            flat
+            color="grey-8"
+            icon="message"
+            v-if="$q.screen.gt.sm"
+          >
+            <q-tooltip>Messages</q-tooltip>
+          </q-btn>
+          <q-btn round dense flat color="grey-8" icon="notifications">
+            <q-badge color="red" text-color="white" floating> 2 </q-badge>
+            <q-tooltip>Notifications</q-tooltip>
+          </q-btn>
+          <q-btn round flat>
+            <q-avatar size="26px"> </q-avatar>
+            <q-tooltip>Account</q-tooltip>
+          </q-btn>
+        </div>
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer
+      v-model="drawer"
+      show-if-above
+      :mini="miniState"
+      mini-to-overlay
+      @mouseover="miniState = false"
+      @mouseout="miniState = true"
+      :width="200"
+      :breakpoint="500"
+      bordered
+      dark
+      class="bg-blue-grey-10 drawer-layaut"
+    >
+      <q-scroll-area class="fit q-pa-sm">
+        <q-list padding>
+          <q-item clickable v-ripple class="item-link">
+            <q-item-section avatar>
+              <q-icon color="blue-grey-1" name="inbox" />
+            </q-item-section>
+
+            <q-item-section class="text-blue-grey-1"> Inbox </q-item-section>
+          </q-item>
+
+          <q-item active clickable v-ripple class="item-link">
+            <q-item-section avatar>
+              <q-icon color="blue-grey-1" name="star" />
+            </q-item-section>
+
+            <q-item-section class="text-blue-grey-1"> Star </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple class="item-link">
+            <q-item-section avatar>
+              <q-icon color="blue-grey-1" name="send" />
+            </q-item-section>
+
+            <q-item-section class="text-blue-grey-1"> Send </q-item-section>
+          </q-item>
+
+          <q-separator />
+
+          <q-item clickable v-ripple class="item-link">
+            <q-item-section avatar>
+              <q-icon color="blue-grey-1" name="drafts" />
+            </q-item-section>
+
+            <q-item-section class="text-blue-grey-1"> Drafts </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+      <div class="bg-secondary q-pa-sm">
+        <div class="text-center q-pb-sm">
+          <div class="text-subtitle1">Síguenos</div>
+          <div class="q-gutter-md" style="font-size: 2em"></div>
+        </div>
+        <div class="text-center">
+          © 2022 Ministerio Proclaim Cuba. Todos los derechos reservados
+        </div>
+      </div>
+    </q-page-container>
+  </q-layout>
+</template>
+
+<script>
+import { ref } from "vue";
+
+export default {
+  name: "LayoutPrueba",
+  setup() {
+    return {
+      drawer: ref(false),
+      miniState: ref(true),
+    };
+  },
+};
+</script>
+<style lang="sass" scoped>
+.item-link
+  border-radius: 10px
+  height: 10px
+
+.drawer-layaut
+  border-radius: 10px
+</style>
