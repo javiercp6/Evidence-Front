@@ -4,64 +4,112 @@
       class="q-ma-md container-objectives"
       style="background-color: rgba(255, 255, 255, 0.1)"
     >
-      <div class="text-h4 q-pa-md text-blue-grey-1">Formación de pregrado</div>
-      <div class="row inline q-pt-sm">
-        <div class="text-h5 q-pa-md text-blue-grey-1 d-block">Objetivos</div>
-        <div class="column q-ml-sm justify-center">
-          <q-btn
-            round
-            icon="add"
-            color="primary"
-            size="sm"
-            @click="prompt = true"
-          />
+      <FormCriterion />
+      <FormObjective />
+      <FormDeleteObjective />
+      <div class="row">
+        <div class="text-h4 q-pa-md text-blue-grey-1">{{ area.name }}</div>
+        <q-space />
+        <div class="col-auto">
+          <q-btn color="blue-grey-1" round flat icon="more_vert">
+            <q-menu auto-close>
+              <q-list>
+                <q-item clickable v-ripple @click="aa">
+                  <q-item-section avatar
+                    ><q-icon color="orange-4" name="add"
+                  /></q-item-section>
+                  <q-item-section>Añadir Objetivos</q-item-section>
+                </q-item>
+                <q-item clickable v-ripple>
+                  <q-item-section avatar
+                    ><q-icon color="red-5" name="delete"
+                  /></q-item-section>
+                  <q-item-section>Eliminar</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
         </div>
       </div>
-      <div class="col text-blue-grey-1 objectives q-ma-sm">
-        <!-- <q-icon color="green" name="check_circle" size="xs" />
-        <q-icon color="red" name="cancel" size="xs" /> -->
-        <q-icon name="circle" size="xs" />
-        Formar profecionales integrales que se caractericen por su profundo
-        sentido humanista, firmeza político-ideologico, ser competentes, cultos,
-        y comprometidos con la Revolución cubana
-      </div>
-      <div class="row inline q-pt-sm">
-        <div class="text-h5 q-pa-md text-blue-grey-1 d-block">
-          Criterios de medida
-        </div>
-        <div class="column q-ml-sm justify-center">
-          <q-btn
-            round
-            icon="add"
-            color="primary"
-            size="sm"
-            @click="prompt = true"
-          />
-        </div>
-      </div>
+
       <div
-        v-for="n in 5"
-        :key="n"
-        class="container-item-objectives q-pa-xs q-ma-xs"
+        v-for="objective in area.objectives"
+        :key="objective._id"
+        class="q-pa-sm q-ma-sm container-item-objectives"
       >
-        <div class="col text-blue-grey-1 objectives q-ma-sm">
-          <!-- <q-icon color="green" name="check_circle" size="xs" />
+        <div class="row q-pt-sm">
+          <div class="text-h6 text-blue-grey-1 d-block">Objetivo</div>
+          <q-space />
+          <div class="col-auto">
+            <q-btn color="blue-grey-1" round flat icon="more_vert">
+              <q-menu auto-close>
+                <q-list>
+                  <q-item
+                    clickable
+                    v-ripple
+                    @click="(prompt = true), onCreateCriterion(objective._id)"
+                  >
+                    <q-item-section avatar
+                      ><q-icon color="orange-4" name="add"
+                    /></q-item-section>
+                    <q-item-section>Añadir Criterios de medida</q-item-section>
+                  </q-item>
+                  <q-item
+                    clickable
+                    v-ripple
+                    @click="deleteObjectivePromt(objective)"
+                  >
+                    <q-item-section avatar
+                      ><q-icon color="red-5" name="delete"
+                    /></q-item-section>
+                    <q-item-section>Eliminar</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn>
+          </div>
+          <!-- <div class="column q-ml-sm justify-center">
+            <q-btn
+              round
+              icon="add"
+              color="primary"
+              size="sm"
+              @click="prompt = true"
+            />
+          </div> -->
+        </div>
+        <div class="container-item-objectives q-pa-xs q-ma-xs">
+          <div class="col text-blue-grey-1 objectives q-ma-sm">
+            <!-- <q-icon color="green" name="check_circle" size="xs" />
         <q-icon color="red" name="cancel" size="xs" /> -->
-          <q-icon name="circle" size="xs" />
-          Las estrategias educativas del año académico, concebidas a partir de
-          la estrategia de la carrera, a través de las dimensiones: curricular,
-          político-ideológica y de extensión universitaria contribuye a la
-          formación integral de los asdasdasadasddas sacasdsadsad saadasdas
-          sadestudiantes, en correspondencia con los objetivos educativos e
-          instructivos del año.
-          <q-btn
-            round
-            icon="add"
-            color="primary"
-            size="xs"
-            @click="prompt = true"
-          />
-          <div>
+            <q-icon name="circle" size="xs" />
+            {{ objective.name }}
+          </div>
+        </div>
+        <div class="row inline q-pt-sm">
+          <div class="text-h6 text-blue-grey-1 d-block">Criterio de medida</div>
+          <!-- <div class="column q-ml-sm justify-center">
+            <q-btn
+              round
+              icon="add"
+              color="primary"
+              size="sm"
+              @click="prompt = true"
+            />
+          </div> -->
+        </div>
+        <div
+          v-for="criterion in objective.criterions"
+          :key="criterion._id"
+          class="q-ma-SM"
+        >
+          <div class="col text-blue-grey-1 text-edit q-ma-sm">
+            <!-- <q-icon color="green" name="check_circle" size="xs" />
+        <q-icon color="red" name="cancel" size="xs" /> -->
+            <q-icon name="circle" size="xs" />
+            {{ criterion.name }}
+
+            <!-- <div>
             <ul>
               <li>
                 Los profesores de cada brigada participan en la elaboración y
@@ -79,6 +127,7 @@
                 convocados.
               </li>
             </ul>
+          </div> -->
           </div>
         </div>
       </div>
@@ -131,23 +180,72 @@
 <script>
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
 import useAuth from "src/Modules/auth/composables/useAuth";
+import useArea from "../composables/useArea";
+import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   name: "IndexPage",
 
   components: {
-    /* AddEvidence: defineAsyncComponent(() =>
-      import("../Componentes/AddEvidence.vue")
-    ), */
+    FormCriterion: defineAsyncComponent(() =>
+      import("../Componentes/FormCriterion.vue")
+    ),
+    FormObjective: defineAsyncComponent(() =>
+      import("../Componentes/FormObjective.vue")
+    ),
+    FormDeleteObjective: defineAsyncComponent(() =>
+      import("../Componentes/FormDeleteObjective.vue")
+    ),
+  },
+
+  props: {
+    idArea: {
+      required: true,
+    },
   },
 
   setup() {
-    console.log("Index page");
+    const { getAreaById, area } = useArea();
+    const route = useRoute();
     const prompt = ref(false);
+    const promptObjective = ref(false);
+    const promptDeleteObjective = ref(false);
+    const idArea = ref(route.params.idArea);
+    const objectiveForm = ref({
+      id: "",
+      idArea,
+      name: "",
+      criterions: [""],
+    });
+    const criterionForm = ref({
+      idObjective: null,
+      name: "",
+    });
+    const editFormCriterion = ref(false);
     provide("prompt", prompt);
+    provide("criterionForm", criterionForm);
+    provide("editFormCriterion", editFormCriterion);
+    provide("objectiveForm", objectiveForm);
+    provide("promptObjective", promptObjective);
+    provide("promptDeleteObjective", promptDeleteObjective);
+
+    getAreaById(idArea.value);
+
     return {
       value: 80,
       prompt,
+      area,
+      onCreateCriterion(idObjective) {
+        criterionForm.value.idObjective = idObjective;
+      },
+      aa() {
+        promptObjective.value = true;
+      },
+      deleteObjectivePromt(objective) {
+        console.log("tttt");
+        objectiveForm.value.id = objective._id;
+        promptDeleteObjective.value = true;
+      },
     };
   },
 });
@@ -169,9 +267,11 @@ export default defineComponent({
 
 .container-item-objectives
   border-radius:10px
-  cursor: pointer
   background-color: rgba(255, 255, 255, 0.1)
 
 ul
   margin: 5px 0px
+
+.text-edit
+  cursor: pointer
 </style>

@@ -64,26 +64,26 @@
         <q-list padding>
           <q-item clickable v-ripple class="item-link">
             <q-item-section avatar>
-              <q-icon color="blue-grey-1" name="inbox" />
+              <q-icon name="home" />
             </q-item-section>
 
-            <q-item-section class="text-blue-grey-1"> Inbox </q-item-section>
+            <q-item-section> Inicio </q-item-section>
           </q-item>
 
-          <q-item active clickable v-ripple class="item-link">
+          <q-item active clickable v-ripple to="/area" class="item-link">
             <q-item-section avatar>
-              <q-icon color="blue-grey-1" name="star" />
+              <q-icon name="crop_square" />
             </q-item-section>
 
-            <q-item-section class="text-blue-grey-1"> Star </q-item-section>
+            <q-item-section class="text-blue-grey-1">Areas </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple class="item-link">
             <q-item-section avatar>
-              <q-icon color="blue-grey-1" name="send" />
+              <q-icon name="send" />
             </q-item-section>
 
-            <q-item-section class="text-blue-grey-1"> Send </q-item-section>
+            <q-item-section> Send </q-item-section>
           </q-item>
 
           <q-separator />
@@ -129,9 +129,11 @@ export default {
 </script>
 <style lang="sass" scoped>
 .item-link
-  border-radius: 10px
-  height: 10px
+ border-radius: 10px
+ height: 10px
+
+
 
 .drawer-layaut
-  border-radius: 10px
+ border-radius: 10px
 </style>

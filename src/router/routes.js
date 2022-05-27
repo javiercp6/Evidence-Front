@@ -19,7 +19,7 @@ const routes = [
     ...userRouter,
   },
   {
-    path: "/results_area",
+    path: "/area",
     ...resultsareaRouter,
   },
 

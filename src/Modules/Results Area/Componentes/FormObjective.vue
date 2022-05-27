@@ -1,34 +1,28 @@
 <template>
-  <q-dialog v-model="promptArea" persistent>
+  <q-dialog v-model="promptObjective" persistent>
     <q-card
       class="bg-blue-grey-10 card-evidencia"
       :style="$q.screen.gt.sm ? 'min-width: 850px' : 'min-width: 100%'"
     >
-      <q-form @submit.prevent="onSubmitArea">
+      <q-form @submit.prevent="onSubmitObjective">
         <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
-          <div class="text-h6 text-blue-grey-1">Nueva Área</div>
+          <div class="text-h6 text-blue-grey-1">Nuevo Objetivo</div>
         </q-card-section>
 
         <q-card-section
           class="q-pt-none"
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
-          <!-- <q-input
-          dense
-          v-model="address"
-          autofocus
-          @keyup.enter="prompt = false"
-        /> -->
           <q-input
             outlined
             dense
             class="q-pa-xs"
             input-style=" color: #ffffffa3 "
-            placeholder="Nombre"
-            v-model="areaForm.name"
+            placeholder="Objetivo"
+            v-model="objectiveForm.name"
           />
           <div class="row">
-            <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Objetivos</div>
+            <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Criterios</div>
             <div class="row q-ml-sm justify-center items-center">
               <div>
                 <q-btn
@@ -50,7 +44,7 @@
             </div>
           </div>
           <q-input
-            v-for="(objective, index) in areaForm.objectives"
+            v-for="(criterion, index) in objectiveForm.criterions"
             :key="index"
             outlined
             dense
@@ -58,8 +52,8 @@
             input-style=" color: #ffffffa3 "
             type="textarea"
             rows="3"
-            :placeholder="'Objetivo' + index"
-            v-model="areaForm.objectives[index]"
+            :placeholder="'Criterio' + index"
+            v-model="objectiveForm.criterions[index]"
           />
         </q-card-section>
 
@@ -88,67 +82,49 @@ import { useQuasar } from "quasar";
 //import useAuth from "../composables/useAuth";
 import useArea from "../composables/useArea";
 export default defineComponent({
-  name: "FormArea",
+  name: "FormObjective",
   setup() {
-    const { createArea, editArea } = useArea();
+    const { createObjective } = useArea();
     const $q = useQuasar();
-    const promptArea = inject("promptArea");
-    const areaForm = inject("areaForm");
-    const editFormArea = inject("editFormArea");
+    const promptObjective = inject("promptObjective");
+    const objectiveForm = inject("objectiveForm");
+
     const reset = () => {
-      areaForm.value.id = null;
-      areaForm.value.name = "";
-      areaForm.value.objectives = [""];
+      objectiveForm.value.idArea = null;
+      objectiveForm.value.name = "";
+      objectiveForm.value.criterions = [""];
     };
 
     return {
-      promptArea,
-      areaForm,
-      address: ref(null),
+      promptObjective,
+      objectiveForm,
+
       reset,
       addInputObjetives() {
-        console.log(areaForm.value.objectives.length);
-        areaForm.value.objectives.length++;
+        objectiveForm.value.criterions.length++;
       },
       removeInputObjetives() {
-        console.log(areaForm.value.objectives.length);
-        if (areaForm.value.objectives.length > 1) {
-          areaForm.value.objectives.length--;
+        if (objectiveForm.value.criterions.length > 1) {
+          objectiveForm.value.criterions.length--;
         }
       },
 
-      onSubmitArea: async () => {
-        if (editFormArea.value == true) {
-          console.log("Editar");
-          const { ok, message } = await editArea(areaForm.value);
-          if (!ok)
-            $q.notify({
-              message,
-              color: "negative",
-            });
-          if (ok) {
-            $q.notify({
-              message,
-              color: "positive",
-            });
-          }
-        } else {
-          const { ok, message } = await createArea(areaForm.value);
+      onSubmitObjective: async () => {
+        const { ok, message } = await createObjective(objectiveForm.value);
 
-          if (!ok)
-            $q.notify({
-              message,
-              color: "negative",
-            });
-          if (ok) {
-            $q.notify({
-              message: "Area Creada",
-              color: "positive",
-            });
-          }
-          console.log("Crear");
+        if (!ok)
+          $q.notify({
+            message,
+            color: "negative",
+          });
+        if (ok) {
+          $q.notify({
+            message: "Area Creada",
+            color: "positive",
+          });
         }
-        editFormArea.value = false;
+        console.log("Crear");
+
         reset();
       },
     };

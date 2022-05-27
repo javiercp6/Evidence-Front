@@ -1,5 +1,7 @@
 <template>
   <q-page padding class="row items-center bg-blue-grey-10">
+    <FormArea />
+    <FormDeleteArea />
     <div class="row self-start justify-center q-ma-sm">
       <q-btn
         color="primary"
@@ -8,7 +10,6 @@
         rounded
         @click="promptArea = true"
       />
-      <FormArea />
     </div>
     <div
       class="fit row wrap justify-evenly items-start content-start q-ma-md container-objectives"
@@ -33,13 +34,13 @@
             <q-btn color="blue-grey-1" round flat icon="more_vert">
               <q-menu auto-close>
                 <q-list>
-                  <q-item clickable v-ripple>
+                  <q-item clickable v-ripple @click="editAreaPrompt(area)">
                     <q-item-section avatar
                       ><q-icon color="orange-4" name="edit"
                     /></q-item-section>
                     <q-item-section>Editar</q-item-section>
                   </q-item>
-                  <q-item clickable v-ripple>
+                  <q-item clickable v-ripple @click="deleteAreaPromt(area)">
                     <q-item-section avatar
                       ><q-icon color="red-5" name="delete"
                     /></q-item-section>
@@ -74,26 +75,23 @@
 
         <q-card-section class="q-pt-none">
           <div class="text-subtitle1 text-blue-grey-1">Objetivos</div>
-          <div class="text-caption text-grey ellipsis">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur,
-            rerum blanditiis voluptates voluptatum ut beatae tempora libero
-            officia. Vitae accusantium voluptas iure eveniet commodi laboriosam
-            similique quasi alias nam ducimus. Nisi vitae reiciendis deleniti
-            ducimus aut impedit accusantium, modi iste optio accusamus, eius
-          </div>
-          <div class="text-caption text-grey ellipsis">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur,
-            rerum blanditiis voluptates voluptatum ut beatae tempora libero
-            officia. Vitae accusantium voluptas iure eveniet commodi laboriosam
-            similique quasi alias nam ducimus. Nisi vitae reiciendis deleniti
-            ducimus aut impedit accusantium, modi iste optio accusamus, eius
+          <div
+            v-for="objective in area.objectives"
+            :key="objective"
+            class="text-caption text-grey ellipsis"
+          >
+            {{ objective }}
           </div>
         </q-card-section>
 
         <q-separator />
 
         <q-card-actions align="right">
-          <q-btn flat color="primary"> Ver mas </q-btn>
+          <router-link
+            :to="{ name: 'areaitems', params: { idArea: `${area._id}` } }"
+          >
+            <q-btn flat color="primary"> Ver mas </q-btn>
+          </router-link>
         </q-card-actions>
       </q-card>
     </div>
@@ -109,15 +107,46 @@ export default defineComponent({
 
   components: {
     FormArea: defineAsyncComponent(() => import("../Componentes/FormArea.vue")),
+    FormDeleteArea: defineAsyncComponent(() =>
+      import("../Componentes/FormDeleteArea.vue")
+    ),
   },
 
   setup() {
+    const { getArea, deleteArea, areas } = useArea();
     const promptArea = ref(false);
+    const promptDeleteArea = ref(false);
+    const editFormArea = ref(false);
+    const areaForm = ref({
+      id: "",
+      name: "",
+      objectives: [""],
+    });
     provide("promptArea", promptArea);
-    const { getArea, areas } = useArea();
+    provide("promptDeleteArea", promptDeleteArea);
+    provide("editFormArea", editFormArea);
+    provide("areaForm", areaForm);
 
     getArea();
-    return { value: 30, areas, promptArea };
+    return {
+      value: 30,
+      areas,
+      promptArea,
+      promptDeleteArea,
+      areaForm,
+      editAreaPrompt(areaitems) {
+        areaForm.value.id = areaitems._id;
+        areaForm.value.name = areaitems.name;
+        areaForm.value.objectives = areaitems.objectives;
+        promptArea.value = true;
+        editFormArea.value = true;
+        console.log(areaForm);
+      },
+      deleteAreaPromt(areaitems) {
+        areaForm.value.id = areaitems._id;
+        promptDeleteArea.value = true;
+      },
+    };
   },
 });
 </script>

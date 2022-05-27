@@ -8,9 +8,13 @@ export default {
       component: () => import("../views/ResultsAreaIndex.vue"),
     },
     {
-      path: "resultsareaitems",
-      name: "resultsareaitems",
+      path: ":idArea",
+      name: "areaitems",
       component: () => import("../views/ResultsAreaItems.vue"),
+      props: (route) => {
+        const { idArea } = route.params;
+        return { idArea };
+      },
     },
   ],
 };
