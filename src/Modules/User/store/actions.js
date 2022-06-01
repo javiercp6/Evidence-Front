@@ -1,42 +1,14 @@
-
 import { api } from "boot/axios";
-
+import { useRouter, useRoute } from "vue-router";
 // export const myAction = async ({ commit }) => {
 
 // }
 
-export const createUser = async ({ commit }, user) => {
-  const { name, email, password } = user;
-
+export const getIndicators = async ({ commit }) => {
   try {
-    const { data } = await authApi.post(":signUp", {
-      email,
-      password,
-      returnSecureToken: true,
-    });
-    const { idToken, refreshToken } = data;
-
-    await authApi.post(":update", { displayName: name, idToken, refreshToken });
-
-    delete user.password;
-    commit("loginUser", { user, idToken, refreshToken });
-
-    return { ok: true };
-  } catch (error) {
-    return { ok: false, message: error.response.data.error.message };
-  }
-};
-
-export const signInUser = async ({ commit }, user) => {
-
-  try {
-    const { data } = await api.post("/login", user);
-
-    //const { displayName, idToken, refreshToken } = data;
-
-    //user.name = displayName;
-
-    commit("loginUser", data );
+    const { data } = await api.get("/indicators");
+    console.log(data);
+    commit("getIndicators", data.indicator);
 
     return { ok: true };
   } catch (error) {
@@ -44,32 +16,53 @@ export const signInUser = async ({ commit }, user) => {
   }
 };
 
-export const checkAuthentication = async ({ commit }) => {
-  const idToken = localStorage.getItem("idToken");
+export const getIndicatorById = async ({ commit }, idIndicator) => {
+  try {
+    const { data } = await api.get(`/indicators/${idIndicator}`);
+    //const dataFile = await api.get(`/evidences/file/${idIndicator}`);
+    /* const router = useRouter();
+    router.push(data); */
+    commit("getIndicatorById", data);
 
-  if (!idToken) {
-    commit("logout");
-    return { ok: false, message: "No hay token" };
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
   }
+};
 
-  commit("loginUser", idToken );
-  return { ok: true }
-  //Comprobar si el usuario está
-  // try {
-  //   const { data } = await authApi.post(":lookup", { idToken });
-  //   // console.log(data)
-  //   const { displayName, email } = data.users[0];
-  //
-  //   const user = {
-  //     name: displayName,
-  //     email,
-  //   };
-  //
-  //   commit("loginUser", { user, idToken, refreshToken });
-  //
-  //   return { ok: true };
-  // } catch (error) {
-  //   commit("logout");
-  //   return { ok: false, message: error.response.data.error.message };
-  // }
+export const createevidence = async ({ commit }, evidence) => {
+  console.log("tttt");
+  try {
+    const { data } = await api.post(
+      `/evidences/${evidence.idIndicator}`,
+      evidence
+    );
+
+    const file = new FormData();
+    file.append("file", evidence.files[0]);
+    console.log(file);
+    const datafile = await api.put(`/evidences/upload/${data._id}`, file);
+    console.log({ datafile }, "FormData");
+    console.log({ data }, "dATA");
+
+    commit("createevidence", datafile.data);
+
+    return { ok: true };
+  } catch (error) {
+    console.log("erroe");
+    return { ok: false /* , message: error.response.data.msg */ };
+  }
+};
+
+export const getFileById = async ({ commit }, idEvidencia) => {
+  try {
+    const { data } = await api.get(`/evidences/file/${idEvidencia}`);
+    console.log(data);
+    const evd = { idEvidencia, file: data };
+    commit("getFileById", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
 };

@@ -78,12 +78,30 @@
             />
           </div> -->
         </div>
-        <div class="container-item-objectives q-pa-xs q-ma-xs">
-          <div class="col text-blue-grey-1 objectives q-ma-sm">
+        <div class="q-ma-sm">
+          <div
+            class="col text-blue-grey-1 q-ma-sm"
+            @mouseover="showEditObj = true"
+            @mouseleave="showEditObj = false"
+          >
             <!-- <q-icon color="green" name="check_circle" size="xs" />
         <q-icon color="red" name="cancel" size="xs" /> -->
             <q-icon name="circle" size="xs" />
             {{ objective.name }}
+            <q-icon
+              v-show="showEditObj"
+              class="q-px-xs cursor-pointer"
+              name="edit"
+              size="xs"
+              color="orange-4"
+            />
+            <q-icon
+              v-show="showEditObj"
+              class="q-px-xs cursor-pointer"
+              name="delete"
+              size="xs"
+              color="red-5"
+            />
           </div>
         </div>
         <div class="row inline q-pt-sm">
@@ -101,13 +119,41 @@
         <div
           v-for="criterion in objective.criterions"
           :key="criterion._id"
-          class="q-ma-SM"
+          class="q-ma-sm"
         >
-          <div class="col text-blue-grey-1 text-edit q-ma-sm">
+          <div
+            class="col text-blue-grey-1 q-ma-sm"
+            @mouseover="showEditCrit = true"
+            @mouseleave="showEditCrit = false"
+          >
             <!-- <q-icon color="green" name="check_circle" size="xs" />
         <q-icon color="red" name="cancel" size="xs" /> -->
             <q-icon name="circle" size="xs" />
             {{ criterion.name }}
+
+            <q-icon
+              v-show="showEditCrit"
+              class="q-px-xs cursor-pointer"
+              name="edit"
+              size="xs"
+              color="orange-4"
+            />
+            <q-icon
+              v-show="showEditCrit"
+              class="q-px-xs cursor-pointer"
+              name="delete"
+              size="xs"
+              color="red-5"
+            />
+
+            <!-- <q-btn
+              round
+              flat
+              icon="edit"
+              color="orange-4"
+              size="sm"
+              @click="addInputObjetives()"
+            /> -->
 
             <!-- <div>
             <ul>
@@ -208,6 +254,8 @@ export default defineComponent({
     const { getAreaById, area } = useArea();
     const route = useRoute();
     const prompt = ref(false);
+    const showEditObj = ref(false);
+    const showEditCrit = ref(false);
     const promptObjective = ref(false);
     const promptDeleteObjective = ref(false);
     const idArea = ref(route.params.idArea);
@@ -234,6 +282,8 @@ export default defineComponent({
     return {
       value: 80,
       prompt,
+      showEditObj,
+      showEditCrit,
       area,
       onCreateCriterion(idObjective) {
         criterionForm.value.idObjective = idObjective;
@@ -271,7 +321,4 @@ export default defineComponent({
 
 ul
   margin: 5px 0px
-
-.text-edit
-  cursor: pointer
 </style>

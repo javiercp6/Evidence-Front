@@ -4,11 +4,9 @@
       class="q-ma-md container-objectives"
       style="background-color: rgba(255, 255, 255, 0.1)"
     >
-      <div class="text-h5 q-pa-md text-blue-grey-1">Objetivos</div>
+      <div class="text-h5 q-pa-md text-blue-grey-1">Objetivo</div>
       <div class="col text-blue-grey-1 objectives q-ma-sm">
-        Participar en al menos dos espacios de diálogo y debate (1 en el
-        edificio docente y 1 en la residencia estudiantil) con los estudiantes,
-        demostrando su formación integral y preparación política-ideológica
+        {{ indicator.name }}
       </div>
       <div class="row inline q-pt-sm">
         <div class="text-h5 q-pa-md text-blue-grey-1 d-block">Evidencias</div>
@@ -23,24 +21,22 @@
         </div>
       </div>
       <div
-        v-for="n in 3"
-        :key="n"
+        v-for="evidence in indicator.evidences"
+        :key="evidence._id"
         class="row q-ma-sm container-item-objectives"
       >
         <div
           class="text-blue-grey-1 q-pa-sm row items-center justify-center text-center"
         >
-          <div class="">
+          <q-item tag="a" target="_blank" :href="dir + evidence._id">
             <q-icon name="attach_file" size="md" />
             <div class="text-caption">1 archivo</div>
-          </div>
+          </q-item>
         </div>
         <div class="col text-blue-grey-1 objectives q-ma-sm">
-          Participar en al menos dos espacios de diálogo y debate (1 en el
-          edificio docente y 1 en la residencia estudiantil) con los
-          estudiantes, demostrando su formación integral y preparación
-          política-ideológica
+          {{ evidence.description }}
         </div>
+
         <div>
           <div class="col-auto">
             <q-btn color="blue-grey-1" round flat icon="more_vert">
@@ -71,7 +67,8 @@
 
 <script>
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
-import useAuth from "src/Modules/auth/composables/useAuth";
+import useUser from "src/Modules/User/composables/useUser";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   name: "IndexPage",
@@ -84,11 +81,29 @@ export default defineComponent({
 
   setup() {
     console.log("Index page");
+    const { getIndicatorById, getFileById, indicator, file } = useUser();
+    const route = useRoute();
+    const idIndicator = ref(route.params.idIndicator);
     const prompt = ref(false);
+    const dir = ref("http://localhost:8080/api/evidences/file/");
+    const evidence = ref({
+      idIndicator: idIndicator.value,
+      description: "",
+      files: null,
+    });
     provide("prompt", prompt);
+    provide("evidence", evidence);
+    getIndicatorById(idIndicator.value);
+
     return {
-      value: 80,
       prompt,
+      indicator,
+      file,
+      dir,
+      onFile: (idEvidence) => {
+        getFileById(idEvidence);
+        console.log("onfile");
+      },
     };
   },
 });
@@ -110,6 +125,6 @@ export default defineComponent({
 
 .container-item-objectives
   border-radius:10px
-  cursor: pointer
+
   background-color: rgba(255, 255, 255, 0.1)
 </style>

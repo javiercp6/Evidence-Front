@@ -62,7 +62,7 @@
     >
       <q-scroll-area class="fit q-pa-sm">
         <q-list padding>
-          <q-item clickable v-ripple class="item-link">
+          <q-item clickable v-ripple to="/" class="item-link">
             <q-item-section avatar>
               <q-icon name="home" />
             </q-item-section>
@@ -75,25 +75,34 @@
               <q-icon name="crop_square" />
             </q-item-section>
 
-            <q-item-section class="text-blue-grey-1">Areas </q-item-section>
+            <q-item-section>Areas </q-item-section>
           </q-item>
+
+          <q-item clickable v-ripple to="/user/plan" class="item-link">
+            <q-item-section avatar>
+              <q-icon name="format_list_bulleted" />
+            </q-item-section>
+
+            <q-item-section> Objetivos </q-item-section>
+          </q-item>
+
+          <q-separator dark />
 
           <q-item clickable v-ripple class="item-link">
             <q-item-section avatar>
-              <q-icon name="send" />
+              <q-icon name="help" />
             </q-item-section>
 
-            <q-item-section> Send </q-item-section>
+            <q-item-section class="text-blue-grey-1"> Ayuda </q-item-section>
           </q-item>
-
-          <q-separator />
-
           <q-item clickable v-ripple class="item-link">
             <q-item-section avatar>
-              <q-icon color="blue-grey-1" name="drafts" />
+              <q-icon name="info" />
             </q-item-section>
 
-            <q-item-section class="text-blue-grey-1"> Drafts </q-item-section>
+            <q-item-section class="text-blue-grey-1">
+              Acerca de
+            </q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>

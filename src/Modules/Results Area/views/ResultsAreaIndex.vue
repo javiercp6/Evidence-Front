@@ -15,7 +15,7 @@
       class="fit row wrap justify-evenly items-start content-start q-ma-md container-objectives"
     >
       <q-card class="my-card q-mx-sm" v-for="area in areas" :key="area._id">
-        <q-card-section>
+        <q-card-section style="min-height: 142px">
           <div class="row justify-end" style="height: 30px">
             <div class="doc-card-title text-blue-grey-2 column justify-center">
               <q-circular-progress
@@ -73,7 +73,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
+        <q-card-section class="q-pt-none" style="min-height: 124px">
           <div class="text-subtitle1 text-blue-grey-1">Objetivos</div>
           <div
             v-for="objective in area.objectives"

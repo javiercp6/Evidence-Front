@@ -4,8 +4,9 @@
       <div class="text-h5 q-pa-md text-blue-grey-1">Plan</div>
 
       <div
-        v-for="n in 16"
-        :key="n"
+        v-for="indicator in indicators"
+        :key="indicator._id"
+        @click="toPlanItem(indicator._id)"
         class="row q-ma-sm container-item-objectives"
       >
         <div class="text-blue-grey-1 column q-ml-sm justify-center">
@@ -21,13 +22,11 @@
           >
             {{ value }}%
           </q-circular-progress> -->
+
           <q-icon size="sm" name="radio_button_unchecked" />
         </div>
         <div class="col text-blue-grey-1 objectives q-ma-sm">
-          Participar en al menos dos espacios de diálogo y debate (1 en el
-          edificio docente y 1 en la residencia estudiantil) con los
-          estudiantes, demostrando su formación integral y preparación
-          política-ideológica
+          {{ indicator.name }}
         </div>
       </div>
     </div>
@@ -36,15 +35,28 @@
 
 <script>
 import { defineComponent, defineAsyncComponent } from "vue";
-import useAuth from "src/Modules/auth/composables/useAuth";
+import useUser from "src/Modules/User/composables/useUser";
+import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
-  name: "IndexPage",
+  name: "AnnualResultPlan",
 
   setup() {
-    console.log("Index page");
+    const { getIndicators, indicators } = useUser();
+
+    const router = useRouter();
+
+    getIndicators();
+
     return {
       value: 80,
+      indicators,
+      toPlanItem(idIndicator) {
+        router.push({
+          name: "planitem",
+          params: { idIndicator: `${idIndicator}` },
+        });
+      },
     };
   },
 });

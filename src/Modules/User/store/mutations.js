@@ -3,32 +3,23 @@ import jwt_decode from "jwt-decode";
 
 // }
 
+export const getIndicators = (state, indicators) => {
+  state.indicators = indicators;
+};
 
-export const loginUser = ( state, idToken ) => {
+export const getIndicatorById = (state, indicator) => {
+  state.indicator = indicator;
+};
 
-    if ( idToken ) {
-        localStorage.setItem( 'idToken', idToken )
-        state.idToken = idToken
-    }
+export const createevidence = (state, evidence) => {
+  state.indicator.evidences.push(evidence);
+};
 
-    const decoded = jwt_decode(idToken);
-
-    console.log(decoded)
-    const { role , name, uid} = decoded
-    state.user   = name
-    state.role   = role
-    state.uid    = uid
-    state.status = 'authenticated'
-}
-
-
-export const logout = (state) => {
-
-    state.user = null
-    state.idToken = null
-    state.role = null
-    state.uid = null
-    state.status = 'not-authenticated'
-
-    localStorage.removeItem('idToken')
-}
+export const getFileById = (state, file) => {
+  /* const idx = state.indicator.evidences
+    .map((e) => e._id)
+    .indexOf(file.idEvidencia);
+  state.areas[idx] = area;
+  state.indicator.evidences[idx].file = file.file; */
+  state.file = file;
+};

@@ -13,3 +13,7 @@ export const area = (state) => {
   return { ...area }; */
   return state.area;
 };
+
+export const file = (state) => {
+  return state.file;
+};

@@ -1,16 +1,15 @@
-
 // export const myGetter = ( state ) => {
 //  return state
 // }
 
+export const indicators = (state) => {
+  return state.indicators;
+};
 
-export const currentState = ( state ) => {
-    return state.status
-}
+export const indicator = (state) => {
+  return state.indicator;
+};
 
-export const username = ( state ) => {
-    return state.user || ''
-}
-
-
-
+export const file = (state) => {
+  return state.file;
+};

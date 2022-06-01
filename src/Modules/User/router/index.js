@@ -13,7 +13,7 @@ export default {
       component: () => import("../views/AnnualResultPlan.vue"),
     },
     {
-      path: "planitem",
+      path: ":idIndicator",
       name: "planitem",
       component: () => import("../views/AnnualResultPlanItems.vue"),
     },
