@@ -81,7 +81,7 @@ export default defineComponent({
 
   setup() {
     console.log("Index page");
-    const { getIndicatorById, getFileById, indicator, file } = useUser();
+    const { getIndicatorById, indicator, file } = useUser();
     const route = useRoute();
     const idIndicator = ref(route.params.idIndicator);
     const prompt = ref(false);
@@ -100,10 +100,6 @@ export default defineComponent({
       indicator,
       file,
       dir,
-      onFile: (idEvidence) => {
-        getFileById(idEvidence);
-        console.log("onfile");
-      },
     };
   },
 });

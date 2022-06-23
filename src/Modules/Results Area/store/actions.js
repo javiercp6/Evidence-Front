@@ -1,5 +1,4 @@
 import { api } from "boot/axios";
-
 // export const myAction = async ({ commit }) => {
 
 // }
@@ -43,10 +42,10 @@ export const createArea = async ({ commit }, area) => {
 export const editArea = async ({ commit }, area) => {
   const { id, name, objectives } = area;
 
-  const areaToSave = { _id: id, name, objectives };
+  const areaToSave = { _id: id, ...area };
   try {
+    console.log(objectives.value);
     const { data } = await api.put(`/areas/${id}`, areaToSave);
-
     commit("editArea", areaToSave);
     return { ok: true, message: data.msg };
   } catch (error) {
@@ -110,5 +109,62 @@ export const deleteObjective = async ({ commit }, idObjective) => {
   } catch (error) {
     console.log("xxx");
     return { ok: false, message: error.response.data.error.message };
+  }
+};
+
+export const getIndicatorsModel = async ({ commit }) => {
+  try {
+    const { data } = await api.get("/indicators/category");
+    console.log(data);
+    commit("getIndicatorsModel", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};
+
+export const estabilishIndicator = async ({ commit }, indicatorsModelTo) => {
+  const { idsIndicator, idUser } = indicatorsModelTo;
+  const inds = { indicators: null };
+  inds.indicators = idsIndicator;
+  console.log(inds);
+  try {
+    const { data } = await api.post(`/indicators/${idUser}`, inds);
+    console.log(data);
+    //commit("indicator/getIndicatorsByUser", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};
+
+export const createIndicator = async ({ commit }, indicator) => {
+  delete indicator.id;
+  try {
+    const { data } = await api.post(
+      `/indicators/criterion/${indicator.idCriterion}`,
+      indicator
+    );
+    console.log(data);
+    console.log("Indicado r creatdo");
+    commit("createIndicator", data);
+    return { ok: true };
+  } catch (error) {
+    console.log("mmmm");
+    return { ok: false, message: error.response.data.error.message };
+  }
+};
+
+export const getUsers = async ({ commit }) => {
+  try {
+    const { data } = await api.get("/users");
+    console.log(data);
+    commit("getUsers", data.users);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
   }
 };

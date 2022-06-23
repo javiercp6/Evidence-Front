@@ -14,6 +14,10 @@ export const area = (state) => {
   return state.area;
 };
 
-export const file = (state) => {
-  return state.file;
+export const indicatorsModel = (state) => {
+  return state.indicatorsModel;
+};
+
+export const users = (state) => {
+  return state.users;
 };

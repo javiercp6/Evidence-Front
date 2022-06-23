@@ -4,11 +4,11 @@ import { useRouter, useRoute } from "vue-router";
 
 // }
 
-export const getIndicators = async ({ commit }) => {
+export const getIndicatorsByUser = async ({ commit }, idUser) => {
   try {
-    const { data } = await api.get("/indicators");
+    const { data } = await api.get(`/indicators/user/${idUser}`);
     console.log(data);
-    commit("getIndicators", data.indicator);
+    commit("getIndicatorsByUser", data);
 
     return { ok: true };
   } catch (error) {
@@ -51,18 +51,5 @@ export const createevidence = async ({ commit }, evidence) => {
   } catch (error) {
     console.log("erroe");
     return { ok: false /* , message: error.response.data.msg */ };
-  }
-};
-
-export const getFileById = async ({ commit }, idEvidencia) => {
-  try {
-    const { data } = await api.get(`/evidences/file/${idEvidencia}`);
-    console.log(data);
-    const evd = { idEvidencia, file: data };
-    commit("getFileById", data);
-
-    return { ok: true };
-  } catch (error) {
-    return { ok: false, message: error.response.data.msg };
   }
 };

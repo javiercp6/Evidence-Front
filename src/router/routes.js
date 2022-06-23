@@ -2,6 +2,8 @@ import authRouter from "../Modules/auth/router";
 import isAuthenticatedGuard from "src/Modules/auth/router/auth-guard";
 import userRouter from "../Modules/User/router";
 import resultsareaRouter from "../Modules/Results Area/router";
+import indicatorBossRouter from "../Modules/Results Area/router/indicator";
+import usersRouter from "../Modules/Results Area/router/users";
 
 const routes = [
   {
@@ -21,6 +23,14 @@ const routes = [
   {
     path: "/area",
     ...resultsareaRouter,
+  },
+  {
+    path: "/indicadores",
+    ...indicatorBossRouter,
+  },
+  {
+    path: "/usuarios",
+    ...usersRouter,
   },
 
   // Always leave this as last one,

@@ -7,8 +7,9 @@
       <FormCriterion />
       <FormObjective />
       <FormDeleteObjective />
+      <FormIndicator />
       <div class="row">
-        <div class="text-h4 q-pa-md text-blue-grey-1">{{ area.name }}</div>
+        <div class="text-h5 text-blue-grey-1">{{ area.name }}</div>
         <q-space />
         <div class="col-auto">
           <q-btn color="blue-grey-1" round flat icon="more_vert">
@@ -128,25 +129,82 @@
           >
             <!-- <q-icon color="green" name="check_circle" size="xs" />
         <q-icon color="red" name="cancel" size="xs" /> -->
-            <q-icon name="circle" size="xs" />
-            {{ criterion.name }}
+            <!-- <q-icon name="circle" size="xs" /> -->
+            <q-expansion-item
+              expand-icon-toggle
+              expand-separator
+              dark
+              dense
+              style="
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+              "
+              class="q-py-xs"
+            >
+              <template v-slot:header>
+                <q-item-section>
+                  <div>
+                    <q-icon name="circle" size="xs" />
+                    {{ criterion.name }}
 
-            <q-icon
-              v-show="showEditCrit"
-              class="q-px-xs cursor-pointer"
-              name="edit"
-              size="xs"
-              color="orange-4"
-            />
-            <q-icon
-              v-show="showEditCrit"
-              class="q-px-xs cursor-pointer"
-              name="delete"
-              size="xs"
-              color="red-5"
-            />
+                    <q-icon
+                      v-show="showEditCrit"
+                      class="q-px-xs cursor-pointer"
+                      name="edit"
+                      size="xs"
+                      color="orange-4"
+                    />
+                    <q-icon
+                      v-show="showEditCrit"
+                      class="q-px-xs cursor-pointer"
+                      name="delete"
+                      size="xs"
+                      color="red-5"
+                    /></div
+                ></q-item-section>
+              </template>
+              <div>
+                <div class="q-pa-xs q-px-lg">
+                  <div class="row">
+                    <div class="text-h6 text-blue-grey-1 d-block">
+                      Indicadores
+                    </div>
+                    <div
+                      v-if="!criterion.indicator"
+                      class="column q-ml-sm justify-center"
+                    >
+                      <q-btn
+                        round
+                        icon="add"
+                        color="primary"
+                        size="xs"
+                        @click="onpromptIndicator(criterion._id)"
+                      />
+                    </div>
+                  </div>
+                  <div v-if="criterion.indicator">
+                    <q-icon name="circle" size="xs" />
+                    {{ criterion.indicator.name }}
 
-            <!-- <q-btn
+                    <q-icon
+                      v-show="showEditCrit"
+                      class="q-px-xs cursor-pointer"
+                      name="edit"
+                      size="xs"
+                      color="orange-4"
+                    />
+                    <q-icon
+                      v-show="showEditCrit"
+                      class="q-px-xs cursor-pointer"
+                      name="delete"
+                      size="xs"
+                      color="red-5"
+                    />
+                  </div>
+                  <div v-else>No existen Indicadores</div>
+                </div>
+              </div>
+              <!-- <q-btn
               round
               flat
               icon="edit"
@@ -155,7 +213,7 @@
               @click="addInputObjetives()"
             /> -->
 
-            <!-- <div>
+              <!-- <div>
             <ul>
               <li>
                 Los profesores de cada brigada participan en la elaboración y
@@ -174,6 +232,7 @@
               </li>
             </ul>
           </div> -->
+            </q-expansion-item>
           </div>
         </div>
       </div>
@@ -242,6 +301,9 @@ export default defineComponent({
     FormDeleteObjective: defineAsyncComponent(() =>
       import("../Componentes/FormDeleteObjective.vue")
     ),
+    FormIndicator: defineAsyncComponent(() =>
+      import("../Componentes/FormIndicator.vue")
+    ),
   },
 
   props: {
@@ -258,6 +320,8 @@ export default defineComponent({
     const showEditCrit = ref(false);
     const promptObjective = ref(false);
     const promptDeleteObjective = ref(false);
+    const promptIndicator = ref(false);
+    const editIndicator = ref(false);
     const idArea = ref(route.params.idArea);
     const objectiveForm = ref({
       id: "",
@@ -269,19 +333,29 @@ export default defineComponent({
       idObjective: null,
       name: "",
     });
+    const indicatorForm = ref({
+      id: null,
+      name: "",
+      category: "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO",
+      idCriterion: "",
+    });
     const editFormCriterion = ref(false);
     provide("prompt", prompt);
     provide("criterionForm", criterionForm);
     provide("editFormCriterion", editFormCriterion);
     provide("objectiveForm", objectiveForm);
+    provide("indicatorForm", indicatorForm);
     provide("promptObjective", promptObjective);
     provide("promptDeleteObjective", promptDeleteObjective);
+    provide("promptIndicator", promptIndicator);
+    provide("editIndicator", editIndicator);
 
     getAreaById(idArea.value);
 
     return {
-      value: 80,
       prompt,
+      promptIndicator,
+      editIndicator,
       showEditObj,
       showEditCrit,
       area,
@@ -290,6 +364,11 @@ export default defineComponent({
       },
       aa() {
         promptObjective.value = true;
+      },
+      onpromptIndicator(idCriterion) {
+        console.log("frfr");
+        indicatorForm.value.idCriterion = idCriterion;
+        promptIndicator.value = true;
       },
       deleteObjectivePromt(objective) {
         console.log("tttt");

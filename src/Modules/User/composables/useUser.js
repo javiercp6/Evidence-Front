@@ -4,8 +4,8 @@ import { useStore } from "vuex";
 const useUser = () => {
   const store = useStore();
 
-  const getIndicators = async () => {
-    const resp = await store.dispatch("indicator/getIndicators");
+  const getIndicatorsByUser = async (idUser) => {
+    const resp = await store.dispatch("indicator/getIndicatorsByUser", idUser);
     return resp;
   };
   const getIndicatorById = async (idIndicator) => {
@@ -29,20 +29,12 @@ const useUser = () => {
     return resp;
   };
 
-  const getFileById = async (idEvidence) => {
-    const resp = await store.dispatch("indicator/getFileById", idEvidence);
-    return resp;
-  };
-
   return {
-    getIndicators,
+    getIndicatorsByUser,
     getIndicatorById,
     createevidence,
-    getFileById,
     indicators: computed(() => store.getters["indicator/indicators"]),
     indicator: computed(() => store.getters["indicator/indicator"]),
-    file: computed(() => store.getters["indicator/file"]),
-    //fil: computed(() => store.state.file),
   };
 };
 

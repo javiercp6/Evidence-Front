@@ -8,8 +8,8 @@ export default {
       component: () => import("../views/AnnualResultPlan.vue"),
     }, */
     {
-      path: "plan",
-      name: "planvv",
+      path: ":idUser",
+      name: "pl",
       component: () => import("../views/AnnualResultPlan.vue"),
     },
     {

@@ -1,0 +1,165 @@
+<template>
+  <q-dialog v-model="promptIndicator" persistent>
+    <q-card
+      class="bg-blue-grey-10 card-evidencia"
+      :style="$q.screen.gt.sm ? 'min-width: 850px' : 'min-width: 100%'"
+    >
+      <q-form @submit.prevent="onSubmitIndicator">
+        <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
+          <div class="text-h6 text-blue-grey-1">Nuevo Indicador</div>
+        </q-card-section>
+
+        <q-card-section
+          class="q-pt-none"
+          style="background-color: rgba(255, 255, 255, 0.1)"
+        >
+          <!-- <q-input
+          dense
+          v-model="address"
+          autofocus
+          @keyup.enter="prompt = false"
+        /> -->
+          <q-input
+            outlined
+            autofocus
+            dense
+            class="q-pa-xs"
+            type="textarea"
+            rows="3"
+            input-style=" color: #ffffffa3 "
+            placeholder="Criterio de medida"
+            v-model="indicatorForm.name"
+          />
+          <div class="column q-py-xs">
+            <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Categoría</div>
+            <q-radio
+              class="q-pa-xs text-blue-grey-1"
+              dense
+              v-model="indicatorForm.category"
+              val="TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO"
+              label="TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO"
+              dark
+            />
+            <q-radio
+              class="q-pa-xs text-blue-grey-1"
+              dense
+              v-model="indicatorForm.category"
+              val="TRABAJO POLÍTICO-IDEOLÓGICO"
+              label="TRABAJO POLÍTICO-IDEOLÓGICO"
+              dark
+            />
+            <q-radio
+              class="q-pa-xs text-blue-grey-1"
+              dense
+              v-model="indicatorForm.category"
+              val="TRABAJO METODOLÓGICO"
+              label="TRABAJO METODOLÓGICO"
+              dark
+            />
+            <q-radio
+              class="q-pa-xs text-blue-grey-1"
+              dense
+              v-model="indicatorForm.category"
+              val="RABAJO DE INVESTIGACIÓN E INNOVACIÓN"
+              label="RABAJO DE INVESTIGACIÓN E INNOVACIÓN"
+              dark
+            />
+          </div>
+        </q-card-section>
+
+        <q-card-actions
+          align="right"
+          class="text-primary q-pa-md"
+          style="background-color: rgba(255, 255, 255, 0.1)"
+        >
+          <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
+          <q-btn
+            color="primary"
+            rounded
+            label="Aceptar"
+            v-close-popup
+            type="submit"
+          />
+        </q-card-actions>
+      </q-form>
+    </q-card>
+  </q-dialog>
+</template>
+
+<script>
+import { defineComponent, inject, ref } from "vue";
+import { useQuasar } from "quasar";
+//import useAuth from "../composables/useAuth";
+import useArea from "../composables/useArea";
+export default defineComponent({
+  name: "FormIndicator",
+  setup() {
+    const { createIndicator } = useArea();
+    const $q = useQuasar();
+    const promptIndicator = inject("promptIndicator");
+    const indicatorForm = inject("indicatorForm");
+    const editIndicator = inject("editIndicator");
+
+    const reset = () => {
+      indicatorForm.value.id = null;
+      indicatorForm.value.name = "";
+      indicatorForm.value.category =
+        "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO";
+    };
+
+    return {
+      promptIndicator,
+      indicatorForm,
+      editIndicator,
+      createIndicator,
+      reset,
+
+      onSubmitIndicator: async () => {
+        if (editIndicator.value) {
+          console.log("Editar");
+          /*const { ok, message } = await editArea(areaForm.value);
+          if (!ok)
+            $q.notify({
+              message,
+              color: "negative",
+            });
+          if (ok) {
+            $q.notify({
+              message,
+              color: "positive",
+            });
+          } */
+        } else {
+          const { ok, message } = await createIndicator(indicatorForm.value);
+
+          /*  if (!ok)
+            $q.notify({
+              message,
+              color: "negative",
+            });
+          if (ok) {
+            $q.notify({
+              message: "Area Creada",
+              color: "positive",
+            });
+          } */
+          console.log("Crear");
+        }
+
+        reset();
+      },
+    };
+  },
+});
+</script>
+
+<style lang="sass" scoped>
+.card-evidencia
+  border-radius: 10px
+
+.q-field__control
+  background: yellow !important
+
+.input-textarea
+  color: #ffffffa3
+</style>

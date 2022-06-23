@@ -41,6 +41,36 @@ const useArea = () => {
     return resp;
   };
 
+  const getIndicatorsModel = async () => {
+    const resp = await store.dispatch("area/getIndicatorsModel");
+    return resp;
+  };
+
+  const removeIndicatorModel = (idIndicator) => {
+    store.commit("area/removeIndicatorModel", idIndicator);
+  };
+
+  const estabilishIndicator = async (indicatorsModel, idUser) => {
+    const idsIndicator = [];
+    indicatorsModel.forEach((indicator) => {
+      for (let i = 0; i < indicator.indicators.length; i++) {
+        idsIndicator.push({ _id: indicator.indicators[i]._id });
+      }
+    });
+    const indicatorsModelTo = { idsIndicator, idUser };
+    console.log(indicatorsModelTo);
+    const resp = await store.dispatch(
+      "area/estabilishIndicator",
+      indicatorsModelTo
+    );
+    return resp;
+  };
+
+  const createIndicator = async (indicator) => {
+    const resp = await store.dispatch("area/createIndicator", indicator);
+    return resp;
+  };
+
   return {
     getArea,
     getAreaById,
@@ -50,8 +80,13 @@ const useArea = () => {
     createCriterion,
     createObjective,
     deleteObjective,
+    getIndicatorsModel,
+    estabilishIndicator,
+    removeIndicatorModel,
+    createIndicator,
     areas: computed(() => store.getters["area/areas"]),
     area: computed(() => store.getters["area/area"]),
+    indicatorsModel: computed(() => store.getters["area/indicatorsModel"]),
   };
 };
 

@@ -5,7 +5,7 @@
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         <q-toolbar-title>Logo</q-toolbar-title>
         <div class="q-gutter-sm row items-center no-wrap">
-          <q-btn
+          <!-- <q-btn
             round
             dense
             flat
@@ -34,7 +34,7 @@
             v-if="$q.screen.gt.sm"
           >
             <q-tooltip>Messages</q-tooltip>
-          </q-btn>
+          </q-btn> -->
           <q-btn round dense flat color="grey-8" icon="notifications">
             <q-badge color="red" text-color="white" floating> 2 </q-badge>
             <q-tooltip>Notifications</q-tooltip>
@@ -70,15 +70,40 @@
             <q-item-section> Inicio </q-item-section>
           </q-item>
 
-          <q-item active clickable v-ripple to="/area" class="item-link">
+          <q-item clickable v-ripple to="/area" class="item-link">
             <q-item-section avatar>
               <q-icon name="crop_square" />
             </q-item-section>
 
             <q-item-section>Areas </q-item-section>
           </q-item>
+          <q-item clickable v-ripple to="/indicadores" class="item-link">
+            <q-item-section avatar>
+              <q-icon name="crop_square" />
+            </q-item-section>
 
-          <q-item clickable v-ripple to="/user/plan" class="item-link">
+            <q-item-section>Plan General </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple to="/usuarios" class="item-link">
+            <q-item-section avatar>
+              <q-icon name="crop_square" />
+            </q-item-section>
+
+            <q-item-section>Trabajadores </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+            :to="{
+              name: 'pl',
+              params: {
+                idUser: '62b307811003d5bdec0398ea',
+              },
+            }"
+            @click="admin = false"
+            class="item-link"
+          >
             <q-item-section avatar>
               <q-icon name="format_list_bulleted" />
             </q-item-section>
@@ -110,13 +135,14 @@
 
     <q-page-container>
       <router-view />
-      <div class="bg-secondary q-pa-sm">
+      <div class="bg-black q-pa-sm">
         <div class="text-center q-pb-sm">
-          <div class="text-subtitle1">Síguenos</div>
+          <div class="text-subtitle1 text-blue-grey-1">Síguenos</div>
           <div class="q-gutter-md" style="font-size: 2em"></div>
         </div>
-        <div class="text-center">
-          © 2022 Ministerio Proclaim Cuba. Todos los derechos reservados
+        <div class="text-center text-blue-grey-1">
+          © 2022 Sistema de gestión para las evidencias de los objetivos del
+          año. Facultad 4. UCI
         </div>
       </div>
     </q-page-container>
@@ -124,14 +150,29 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, provide } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
   name: "LayoutPrueba",
   setup() {
+    const router = useRouter();
+    const admin = ref(true);
+    provide("admin", admin);
     return {
+      admin,
       drawer: ref(false),
       miniState: ref(true),
+      toPlanUser() {
+        router.push({
+          name: "pl",
+          params: {
+            idUser: "62924208051465c90d1ee500",
+            admin: true,
+            nameUser: "Javier Ceballo Perez",
+          },
+        });
+      },
     };
   },
 };

@@ -40,3 +40,29 @@ export const deleteObjective = (state, idObjective) => {
     (o) => o._id !== idObjective
   );
 };
+
+export const getIndicatorsModel = (state, indicators) => {
+  state.indicatorsModel = indicators;
+};
+export const createIndicator = (state, data) => {
+  const indicator = { name: data.name, _id: data._id };
+  state.area.objectives.forEach((element) => {
+    element.criterions.forEach((e) => {
+      if (e._id === data.criterion._id) {
+        e.indicator = indicator;
+      }
+    });
+  });
+};
+
+export const getUsers = (state, users) => {
+  state.users = users;
+};
+
+export const removeIndicatorModel = (state, idIndicator) => {
+  state.indicatorsModel.forEach((element) => {
+    element.indicators = element.indicators.filter(
+      (indicator) => indicator._id !== idIndicator
+    );
+  });
+};

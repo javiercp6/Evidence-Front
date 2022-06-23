@@ -10,6 +10,4 @@ export const indicator = (state) => {
   return state.indicator;
 };
 
-export const file = (state) => {
-  return state.file;
-};
+
