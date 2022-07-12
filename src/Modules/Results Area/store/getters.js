@@ -18,6 +18,19 @@ export const indicatorsModel = (state) => {
   return state.indicatorsModel;
 };
 
-export const users = (state) => {
+/* export const users = (state, term) => {
+  console.log(term);
+  console.log("www");
   return state.users;
-};
+  //return state.users;
+}; */
+
+/* export const getEntriesByTerm =
+  (state) =>
+  (term = "") => {
+    if (term.length === 0) return state.entries;
+
+    return state.entries.filter((entry) =>
+      entry.text.toLowerCase().includes(term.toLocaleLowerCase())
+    );
+  }; */

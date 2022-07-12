@@ -9,8 +9,8 @@ export default {
     },
     {
       path: ":idUser",
-      name: "planUser",
-      component: () => import("../../User/views/AnnualResultPlan.vue"),
+      name: "userItems",
+      component: () => import("../views/userItems.vue"),
     },
   ],
 };

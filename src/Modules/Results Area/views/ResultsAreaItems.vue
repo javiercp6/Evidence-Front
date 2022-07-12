@@ -144,7 +144,7 @@
               <template v-slot:header>
                 <q-item-section>
                   <div>
-                    <q-icon name="circle" size="xs" />
+                    <!-- <q-icon :name="criterion.status === ''  circle" size="xs" /> -->
                     {{ criterion.name }}
 
                     <q-icon

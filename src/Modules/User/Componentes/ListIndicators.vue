@@ -1,36 +1,41 @@
 <template>
-  <q-page class="flex flex-center bg-blue-grey-10">
-    <div class="q-ma-md container-objectives">
-      <div class="row">
-        <div class="text-h5 q-pa-md text-blue-grey-1">
-          Plan Individual
-          <!-- {{ idUser }} {{ admin }}  -->
+  <div class="q-pa-sm">
+    <q-expansion-item
+      v-for="i in indicators"
+      :key="i.category"
+      expand-icon-toggle
+      dark
+      dense
+      style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px"
+      :label="i.category"
+      class="q-ma-sm"
+    >
+      <div
+        v-for="indicator in i.indicators"
+        :key="indicator._id"
+        class="row q-ma-sm container-item-objectives"
+        @click="toPlanItem(indicator._id)"
+      >
+        <div class="col text-blue-grey-1 q-ma-sm">
+          <q-icon
+            size="sm"
+            :name="indicator.status ? 'check_circle' : 'radio_button_unchecked'"
+            :color="indicator.status ? 'green' : ''"
+          />
+          {{ indicator.name }}
         </div>
       </div>
-      <ListIndicators />
-    </div>
-  </q-page>
+    </q-expansion-item>
+  </div>
 </template>
 
 <script>
-import {
-  defineComponent,
-  defineAsyncComponent,
-  ref,
-  provide,
-  inject,
-} from "vue";
+import { defineComponent, ref, provide, inject } from "vue";
 import useUser from "src/Modules/User/composables/useUser";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
-  name: "AnnualResultPlan",
-
-  components: {
-    ListIndicators: defineAsyncComponent(() =>
-      import("../../User/Componentes/ListIndicators.vue")
-    ),
-  },
+  name: "ListIndicators",
 
   setup() {
     const { getIndicatorsByUser, indicators } = useUser();
@@ -40,18 +45,13 @@ export default defineComponent({
     const idUser = ref(route.params.idUser);
     //const admin = ref(route.params.admin);
     const nameUser = ref(route.params.nameUser);
-    const promptEstablishIndicator = ref(false);
-    provide("promptEstablishIndicator", promptEstablishIndicator);
-    const admin = inject("admin");
 
     getIndicatorsByUser(idUser.value);
 
     return {
       indicators,
       idUser,
-      admin,
       nameUser,
-      promptEstablishIndicator,
       toPlanItem(idIndicator) {
         router.push({
           name: "planitem",

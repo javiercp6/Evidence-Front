@@ -2,7 +2,7 @@ export default () => ({
   areas: [],
   area: [],
   indicatorsModel: [],
-  users: [],
+  /* users: [], */
   /* user: null,
     idToken: null,
     role: null,

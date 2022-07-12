@@ -30,11 +30,13 @@ import { createStore } from "vuex";
 import auth from "../modules/auth/store";
 import area from "../modules/Results Area/store";
 import indicator from "../modules/User/store";
+import users from "../modules/Users/store";
 
 const store = createStore({
   modules: {
     auth,
     area,
+    users,
     indicator,
   },
 });

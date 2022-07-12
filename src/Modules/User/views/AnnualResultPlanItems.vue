@@ -60,8 +60,8 @@
           </div>
         </div>
       </div>
-      <AddEvidence />
     </div>
+    <AddEvidence />
   </q-page>
 </template>
 

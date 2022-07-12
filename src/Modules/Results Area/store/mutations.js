@@ -55,9 +55,9 @@ export const createIndicator = (state, data) => {
   });
 };
 
-export const getUsers = (state, users) => {
+/* export const getUsers = (state, users) => {
   state.users = users;
-};
+}; */
 
 export const removeIndicatorModel = (state, idIndicator) => {
   state.indicatorsModel.forEach((element) => {
@@ -65,4 +65,14 @@ export const removeIndicatorModel = (state, idIndicator) => {
       (indicator) => indicator._id !== idIndicator
     );
   });
+};
+
+export const getUsersByString = (state, term) => {
+  console.log(term);
+  if (term.length === 0) state.users;
+  else
+    state.users = state.users.filter((entry) =>
+      entry.name.toLowerCase().includes(term.toLocaleLowerCase())
+    );
+  //state.users = users;
 };

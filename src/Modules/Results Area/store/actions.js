@@ -157,7 +157,7 @@ export const createIndicator = async ({ commit }, indicator) => {
   }
 };
 
-export const getUsers = async ({ commit }) => {
+/* export const getUsers = async ({ commit }) => {
   try {
     const { data } = await api.get("/users");
     console.log(data);
@@ -167,4 +167,4 @@ export const getUsers = async ({ commit }) => {
   } catch (error) {
     return { ok: false, message: error.response.data.msg };
   }
-};
+}; */

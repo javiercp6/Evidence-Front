@@ -3,8 +3,19 @@
     <div class="q-ma-md container-objectives">
       <div class="row">
         <div class="text-h5 q-pa-md text-blue-grey-1">
-          Plan Individual
+          Plan Individualll
           <!-- {{ idUser }} {{ admin }}  -->
+        </div>
+        <FormEstablishIndicator />
+        <q-space />
+        <div class="row items-center q-pr-sm">
+          <q-btn
+            color="primary"
+            label="Establecer Plan"
+            rounded
+            @click="promptEstablishIndicator = true"
+          >
+          </q-btn>
         </div>
       </div>
       <ListIndicators />
@@ -24,9 +35,12 @@ import useUser from "src/Modules/User/composables/useUser";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
-  name: "AnnualResultPlan",
+  name: "UserItems",
 
   components: {
+    FormEstablishIndicator: defineAsyncComponent(() =>
+      import("../Componentes/FormEstablishIndicator.vue")
+    ),
     ListIndicators: defineAsyncComponent(() =>
       import("../../User/Componentes/ListIndicators.vue")
     ),
@@ -39,18 +53,15 @@ export default defineComponent({
     const route = useRoute();
     const idUser = ref(route.params.idUser);
     //const admin = ref(route.params.admin);
-    const nameUser = ref(route.params.nameUser);
+    //const nameUser = ref(route.params.nameUser);
     const promptEstablishIndicator = ref(false);
     provide("promptEstablishIndicator", promptEstablishIndicator);
-    const admin = inject("admin");
 
     getIndicatorsByUser(idUser.value);
 
     return {
       indicators,
       idUser,
-      admin,
-      nameUser,
       promptEstablishIndicator,
       toPlanItem(idIndicator) {
         router.push({

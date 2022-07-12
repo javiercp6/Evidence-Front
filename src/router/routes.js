@@ -3,7 +3,7 @@ import isAuthenticatedGuard from "src/Modules/auth/router/auth-guard";
 import userRouter from "../Modules/User/router";
 import resultsareaRouter from "../Modules/Results Area/router";
 import indicatorBossRouter from "../Modules/Results Area/router/indicator";
-import usersRouter from "../Modules/Results Area/router/users";
+import usersRouter from "../Modules/Users/router";
 
 const routes = [
   {

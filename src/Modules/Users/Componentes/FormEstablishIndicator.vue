@@ -79,7 +79,7 @@
 import { defineComponent, inject, ref } from "vue";
 import { useQuasar } from "quasar";
 //import useAuth from "../composables/useAuth";
-import useArea from "../composables/useArea";
+import useArea from "../../Results Area/composables/useArea";
 import { useRouter, useRoute } from "vue-router";
 export default defineComponent({
   name: "FormArea",
