@@ -144,7 +144,14 @@
               <template v-slot:header>
                 <q-item-section>
                   <div>
-                    <!-- <q-icon :name="criterion.status === ''  circle" size="xs" /> -->
+                    <!-- <q-icon
+                      :name="
+                        criterion.status === 'Cumplido'
+                          ? 'done'
+                          : 'cancel'
+                      "
+                      size="xs"
+                    /> -->
                     {{ criterion.name }}
 
                     <q-icon
@@ -283,7 +290,13 @@
 </template>
 
 <script>
-import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
+import {
+  defineComponent,
+  defineAsyncComponent,
+  provide,
+  ref,
+  computed,
+} from "vue";
 import useAuth from "src/Modules/auth/composables/useAuth";
 import useArea from "../composables/useArea";
 import { useRouter, useRoute } from "vue-router";
@@ -349,6 +362,17 @@ export default defineComponent({
     provide("promptDeleteObjective", promptDeleteObjective);
     provide("promptIndicator", promptIndicator);
     provide("editIndicator", editIndicator);
+
+    /* const compliance = (status) =>
+      computed(() => {
+        if (status === "Cumplido") {
+          return "done";
+        } else if (status === "Sobrecumplido") {
+          return "done_all";
+        } else {
+          return "circle";
+        }
+      }); */
 
     getAreaById(idArea.value);
 

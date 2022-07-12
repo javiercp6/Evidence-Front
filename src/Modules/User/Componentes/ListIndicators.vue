@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-sm">
     <q-expansion-item
-      v-for="i in indicators"
+      v-for="i in indicators.indicators"
       :key="i.category"
       expand-icon-toggle
       dark
@@ -17,11 +17,11 @@
         @click="toPlanItem(indicator._id)"
       >
         <div class="col text-blue-grey-1 q-ma-sm">
-          <q-icon
+          <!-- <q-icon
             size="sm"
-            :name="indicator.status ? 'check_circle' : 'radio_button_unchecked'"
+            :name="{indicator.status === 'Cumplido' ? 'check_circle' || indicator.status === 'Cumplido' ? '' : 'radio_button_unchecked'}"
             :color="indicator.status ? 'green' : ''"
-          />
+          /> -->
           {{ indicator.name }}
         </div>
       </div>

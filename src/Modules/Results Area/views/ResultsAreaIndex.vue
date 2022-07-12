@@ -20,7 +20,7 @@
             <div class="doc-card-title text-blue-grey-2 column justify-center">
               <q-circular-progress
                 font-size="12px"
-                :value="value"
+                :value="area.percentage"
                 size="20px"
                 :thickness="0.22"
                 color="teal"
@@ -28,7 +28,7 @@
                 class="q-ma-sm"
               >
               </q-circular-progress>
-              {{ value }}%
+              {{ area.percentage }}%
             </div>
             <q-space />
             <q-btn color="blue-grey-1" round flat icon="more_vert">
