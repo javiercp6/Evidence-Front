@@ -144,14 +144,16 @@
               <template v-slot:header>
                 <q-item-section>
                   <div>
-                    <!-- <q-icon
-                      :name="
-                        criterion.status === 'Cumplido'
-                          ? 'done'
-                          : 'cancel'
-                      "
-                      size="xs"
-                    /> -->
+                    <div style="display: inline">
+                      <q-icon
+                        :name="nameIconStatus(criterion.status)"
+                        :color="colorIconStatus(criterion.status)"
+                        size="xs"
+                      />
+                      <q-tooltip anchor="top left">{{
+                        criterion.status
+                      }}</q-tooltip>
+                    </div>
                     {{ criterion.name }}
 
                     <q-icon
@@ -386,8 +388,23 @@ export default defineComponent({
       onCreateCriterion(idObjective) {
         criterionForm.value.idObjective = idObjective;
       },
-      aa() {
-        promptObjective.value = true;
+      nameIconStatus(status) {
+        if (status === "Cumplido") {
+          return "done";
+        } else if (status === "Sobre Cumplido") {
+          return "done_all";
+        } else {
+          return "circle";
+        }
+      },
+      colorIconStatus(status) {
+        if (status === "Cumplido") {
+          return "green";
+        } else if (status === "Sobre Cumplido") {
+          return "blue";
+        } else {
+          return "";
+        }
       },
       onpromptIndicator(idCriterion) {
         console.log("frfr");
