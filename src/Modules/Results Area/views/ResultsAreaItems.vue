@@ -2,7 +2,7 @@
   <q-page class="flex flex-center bg-blue-grey-10">
     <div
       class="q-ma-md container-objectives"
-      style="background-color: rgba(255, 255, 255, 0.1)"
+      style="background-color: rgba(255, 255, 255, 0.06)"
     >
       <FormCriterion />
       <FormObjective />
@@ -136,40 +136,42 @@
               dark
               dense
               style="
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: rgba(255, 255, 255, 0.06);
                 border-radius: 10px;
               "
               class="q-py-xs"
             >
               <template v-slot:header>
                 <q-item-section>
-                  <div>
-                    <div style="display: inline">
+                  <div class="row">
+                    <div class="q-pr-sm">
                       <q-icon
                         :name="nameIconStatus(criterion.status)"
                         :color="colorIconStatus(criterion.status)"
-                        size="xs"
+                        size="sm"
                       />
                       <q-tooltip anchor="top left">{{
                         criterion.status
                       }}</q-tooltip>
                     </div>
-                    {{ criterion.name }}
+                    <div class="col">
+                      {{ criterion.name }}
 
-                    <q-icon
-                      v-show="showEditCrit"
-                      class="q-px-xs cursor-pointer"
-                      name="edit"
-                      size="xs"
-                      color="orange-4"
-                    />
-                    <q-icon
-                      v-show="showEditCrit"
-                      class="q-px-xs cursor-pointer"
-                      name="delete"
-                      size="xs"
-                      color="red-5"
-                    /></div
+                      <q-icon
+                        v-show="showEditCrit"
+                        class="q-px-xs cursor-pointer"
+                        name="edit"
+                        size="xs"
+                        color="orange-4"
+                      />
+                      <q-icon
+                        v-show="showEditCrit"
+                        class="q-px-xs cursor-pointer"
+                        name="delete"
+                        size="xs"
+                        color="red-5"
+                      />
+                    </div></div
                 ></q-item-section>
               </template>
               <div>
@@ -192,7 +194,7 @@
                     </div>
                   </div>
                   <div v-if="criterion.indicator">
-                    <q-icon name="circle" size="xs" />
+                    <q-icon name="circle" size="xs" color="primary" />
                     {{ criterion.indicator.name }}
 
                     <q-icon
@@ -390,9 +392,9 @@ export default defineComponent({
       },
       nameIconStatus(status) {
         if (status === "Cumplido") {
-          return "done";
+          return "check_circle";
         } else if (status === "Sobre Cumplido") {
-          return "done_all";
+          return "verified";
         } else {
           return "circle";
         }
@@ -437,7 +439,7 @@ export default defineComponent({
 
 .container-item-objectives
   border-radius:10px
-  background-color: rgba(255, 255, 255, 0.1)
+  background-color: rgba(255, 255, 255, 0.06)
 
 ul
   margin: 5px 0px

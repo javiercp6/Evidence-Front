@@ -1,17 +1,18 @@
 <template>
   <q-page class="flex flex-center bg-blue-grey-10">
     <div class="q-ma-md container-objectives">
-      <div class="row">
-        <div class="text-h5 q-pa-md text-blue-grey-1">
+      <div class="row justify-end">
+        <div class="text-h6 q-pa-md text-blue-grey-1">
           Plan Individualll
           <!-- {{ idUser }} {{ admin }}  -->
         </div>
-        <FormEstablishIndicator />
+
         <q-space />
-        <div class="row items-center q-pr-sm">
+        <div class="row items-center q-pr-sm" v-if="$q.screen.gt.xs">
           <q-btn
             color="primary"
             label="Establecer Plan"
+            size="sm"
             rounded
             @click="promptEstablishIndicator = true"
           >
@@ -19,7 +20,21 @@
         </div>
       </div>
       <ListIndicators />
+      <FormEstablishIndicator />
     </div>
+    <q-page-sticky
+      position="bottom-right"
+      v-if="!$q.screen.gt.xs"
+      :offset="[18, 18]"
+    >
+      <q-btn
+        round
+        size="md"
+        icon="add"
+        color="primary"
+        @click="promptEstablishIndicator = true"
+      />
+    </q-page-sticky>
   </q-page>
 </template>
 

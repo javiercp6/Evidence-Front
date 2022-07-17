@@ -1,6 +1,10 @@
 <template>
   <div class="q-pa-sm">
+    <div v-if="!indicators.has" class="flex flex-center">
+      <h6 class="text-blue-grey-1">No existe un plan asignado</h6>
+    </div>
     <q-expansion-item
+      v-else
       v-for="i in indicators.indicators"
       :key="i.category"
       expand-icon-toggle
@@ -17,11 +21,11 @@
         @click="toPlanItem(indicator._id)"
       >
         <div class="col text-blue-grey-1 q-ma-sm">
-          <!-- <q-icon
+          <q-icon
             size="sm"
-            :name="{indicator.status === 'Cumplido' ? 'check_circle' || indicator.status === 'Cumplido' ? '' : 'radio_button_unchecked'}"
+            :name="indicator.status ? 'check_circle' : 'circle'"
             :color="indicator.status ? 'green' : ''"
-          /> -->
+          />
           {{ indicator.name }}
         </div>
       </div>
