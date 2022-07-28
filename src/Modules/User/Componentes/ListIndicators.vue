@@ -7,7 +7,6 @@
       v-else
       v-for="i in indicators.indicators"
       :key="i.category"
-      expand-icon-toggle
       dark
       dense
       style="background-color: rgba(255, 255, 255, 0.1); border-radius: 10px"

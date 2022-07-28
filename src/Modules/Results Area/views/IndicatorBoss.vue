@@ -52,7 +52,6 @@
         <q-expansion-item
           v-for="i in indicatorsModel"
           :key="i.category"
-          expand-icon-toggle
           dark
           dense
           style="
