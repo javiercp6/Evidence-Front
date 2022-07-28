@@ -13,15 +13,17 @@
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
 
 export default defineComponent({
-  name: "IndexPage",
+  name: "UserIndicator",
 
   components: {
     EvidenceItems: defineAsyncComponent(() =>
-      import("../Componentes/EvidenceItems.vue")
+      import("../../User/Componentes/EvidenceItems.vue")
     ),
   },
 
-  setup() {},
+  setup() {
+    console.log("User Indicator");
+  },
 });
 </script>
 <style lang="sass" scoped>

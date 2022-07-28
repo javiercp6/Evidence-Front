@@ -34,43 +34,54 @@
 </template>
 
 <script>
-import { defineComponent, ref, provide, inject } from "vue";
+import { defineComponent, ref } from "vue";
 import useUser from "src/Modules/User/composables/useUser";
+import useAuth from "src/Modules/auth/composables/useAuth";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   name: "ListIndicators",
+  props: {
+    user: Boolean,
+  },
 
-  setup() {
+  setup(props) {
     const { getIndicatorsByUser, indicators } = useUser();
+    const { uid } = useAuth();
 
     const router = useRouter();
     const route = useRoute();
     const idUser = ref(route.params.idUser);
-    //const admin = ref(route.params.admin);
-    const nameUser = ref(route.params.nameUser);
 
-    getIndicatorsByUser(idUser.value);
+    if (props.user) {
+      getIndicatorsByUser(uid.value);
+      console.log("se manda");
+    } else {
+      getIndicatorsByUser(idUser.value);
+      console.log("no se manda");
+    }
 
     return {
       indicators,
-      idUser,
-      nameUser,
+
       toPlanItem(idIndicator) {
-        router.push({
-          name: "planitem",
-          params: { idIndicator: `${idIndicator}` },
-        });
+        if (props.user) {
+          router.push({
+            name: "planitem",
+            params: { idIndicator: `${idIndicator}` },
+          });
+        } else {
+          router.push({
+            name: "userIndicator",
+            params: { idIndicator: `${idIndicator}` },
+          });
+        }
       },
     };
   },
 });
 </script>
 <style lang="sass" scoped>
-.container-objectives
-  width: 100%
-  min-height: calc(100vh - (50px + 48px))
-  border-radius:10px
 
 
 .container-item-objectives

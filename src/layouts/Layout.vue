@@ -92,18 +92,7 @@
             <q-item-section>Trabajadores </q-item-section>
           </q-item>
 
-          <q-item
-            clickable
-            v-ripple
-            :to="{
-              name: 'pl',
-              params: {
-                idUser: '62b307811003d5bdec0398ea',
-              },
-            }"
-            @click="admin = false"
-            class="item-link"
-          >
+          <q-item clickable v-ripple to="/user" class="item-link">
             <q-item-section avatar>
               <q-icon name="format_list_bulleted" />
             </q-item-section>
@@ -150,17 +139,15 @@
 </template>
 
 <script>
-import { ref, provide } from "vue";
+import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 export default {
   name: "LayoutPrueba",
   setup() {
     const router = useRouter();
-    const admin = ref(true);
-    provide("admin", admin);
+
     return {
-      admin,
       drawer: ref(false),
       miniState: ref(true),
       toPlanUser() {

@@ -12,5 +12,10 @@ export default {
       name: "userItems",
       component: () => import("../views/userItems.vue"),
     },
+    {
+      path: "indicator" + ":idIndicator",
+      name: "userIndicator",
+      component: () => import("../views/userIndicator.vue"),
+    },
   ],
 };

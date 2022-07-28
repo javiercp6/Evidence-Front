@@ -3,7 +3,7 @@
     <div class="q-ma-md container-objectives">
       <div class="row justify-end">
         <div class="text-h6 q-pa-md text-blue-grey-1">
-          Plan Individualll
+          Plan Individual
           <!-- {{ idUser }} {{ admin }}  -->
         </div>
 
@@ -62,21 +62,13 @@ export default defineComponent({
   },
 
   setup() {
-    const { getIndicatorsByUser, indicators } = useUser();
-
     const router = useRouter();
-    const route = useRoute();
-    const idUser = ref(route.params.idUser);
     //const admin = ref(route.params.admin);
     //const nameUser = ref(route.params.nameUser);
     const promptEstablishIndicator = ref(false);
     provide("promptEstablishIndicator", promptEstablishIndicator);
 
-    getIndicatorsByUser(idUser.value);
-
     return {
-      indicators,
-      idUser,
       promptEstablishIndicator,
       toPlanItem(idIndicator) {
         router.push({

@@ -74,6 +74,7 @@ export default defineComponent({
     const $q = useQuasar();
     const prompt = inject("prompt");
     const evidence = inject("evidence");
+
     const reset = () => {
       evidence.value.description = "";
       evidence.value.files = "";

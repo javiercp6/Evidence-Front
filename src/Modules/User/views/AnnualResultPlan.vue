@@ -7,21 +7,15 @@
           <!-- {{ idUser }} {{ admin }}  -->
         </div>
       </div>
-      <ListIndicators />
+      <ListIndicators uid />
     </div>
   </q-page>
 </template>
 
 <script>
-import {
-  defineComponent,
-  defineAsyncComponent,
-  ref,
-  provide,
-  inject,
-} from "vue";
-import useUser from "src/Modules/User/composables/useUser";
-import { useRouter, useRoute } from "vue-router";
+import { defineComponent, defineAsyncComponent } from "vue";
+
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "AnnualResultPlan",
@@ -33,25 +27,9 @@ export default defineComponent({
   },
 
   setup() {
-    const { getIndicatorsByUser, indicators } = useUser();
-
     const router = useRouter();
-    const route = useRoute();
-    const idUser = ref(route.params.idUser);
-    //const admin = ref(route.params.admin);
-    const nameUser = ref(route.params.nameUser);
-    const promptEstablishIndicator = ref(false);
-    provide("promptEstablishIndicator", promptEstablishIndicator);
-    const admin = inject("admin");
-
-    getIndicatorsByUser(idUser.value);
 
     return {
-      indicators,
-      idUser,
-      admin,
-      nameUser,
-      promptEstablishIndicator,
       toPlanItem(idIndicator) {
         router.push({
           name: "planitem",

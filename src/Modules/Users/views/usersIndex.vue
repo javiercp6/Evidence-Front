@@ -288,7 +288,7 @@ export default defineComponent({
   setup() {
     //const { indicators } = useUser();
     const { getUsers, getUsersByString, users } = useUsers();
-    const admin = inject("admin");
+
     const router = useRouter();
     const promptUser = ref(false);
     const userForm = ref({
