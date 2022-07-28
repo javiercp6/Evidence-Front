@@ -27,7 +27,8 @@
     >
       <q-item tag="a" target="_blank" :href="dir + evidence._id">
         <q-icon name="attach_file" size="md" />
-        <div class="text-caption">1 archivo</div>
+        <div v-if="evidence.file" class="text-caption">1 archivo</div>
+        <div v-else class="text-caption">0 archivo</div>
       </q-item>
     </div>
     <div class="col text-blue-grey-1 objectives q-ma-sm">
