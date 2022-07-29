@@ -51,7 +51,7 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const idUser = ref(route.params.idUser);
-
+    console.log(props.user);
     if (props.user) {
       getIndicatorsByUser(uid.value);
       console.log("se manda");

@@ -1,5 +1,5 @@
 <template>
-  <q-page padding class="row items-center bg-blue-grey-10">
+  <q-page padding class="row items-center bg-blue-grey-9">
     <FormArea />
     <FormDeleteArea />
     <div class="row self-start justify-center q-ma-sm">

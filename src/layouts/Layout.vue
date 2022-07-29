@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
-    <q-header elevated class="bg-black">
+    <q-header elevated class="bg-blue-grey-10">
       <q-toolbar>
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         <q-toolbar-title>Logo</q-toolbar-title>
@@ -39,10 +39,13 @@
             <q-badge color="red" text-color="white" floating> 2 </q-badge>
             <q-tooltip>Notifications</q-tooltip>
           </q-btn>
-          <q-btn round flat>
-            <q-avatar size="26px"> </q-avatar>
-            <q-tooltip>Account</q-tooltip>
-          </q-btn>
+          <div class="flex bi-align-bottom">
+            <div class="text-h6">Javier ceballo perez</div>
+            <q-btn round flat>
+              <q-avatar size="26px"> </q-avatar>
+              <q-tooltip>Account</q-tooltip>
+            </q-btn>
+          </div>
         </div>
       </q-toolbar>
     </q-header>
@@ -124,7 +127,7 @@
 
     <q-page-container>
       <router-view />
-      <div class="bg-black q-pa-sm">
+      <div class="bg-blue-grey-10 q-pa-sm">
         <div class="text-center q-pb-sm">
           <div class="text-subtitle1 text-blue-grey-1">Síguenos</div>
           <div class="q-gutter-md" style="font-size: 2em"></div>

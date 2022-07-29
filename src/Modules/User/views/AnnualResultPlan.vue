@@ -7,7 +7,7 @@
           <!-- {{ idUser }} {{ admin }}  -->
         </div>
       </div>
-      <ListIndicators uid />
+      <ListIndicators :user="true" />
     </div>
   </q-page>
 </template>
