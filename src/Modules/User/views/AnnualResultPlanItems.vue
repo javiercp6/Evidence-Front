@@ -4,7 +4,7 @@
       class="q-ma-md container-objectives"
       style="background-color: rgba(255, 255, 255, 0.1)"
     >
-      <EvidenceItems />
+      <EvidenceItems :user="true" />
     </div>
   </q-page>
 </template>

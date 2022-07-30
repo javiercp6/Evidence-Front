@@ -35,16 +35,57 @@
           >
             <q-tooltip>Messages</q-tooltip>
           </q-btn> -->
-          <q-btn round dense flat color="grey-8" icon="notifications">
+          <q-btn
+            v-if="authStatus === 'authenticated'"
+            round
+            dense
+            flat
+            color="grey-8"
+            icon="notifications"
+          >
             <q-badge color="red" text-color="white" floating> 2 </q-badge>
             <q-tooltip>Notifications</q-tooltip>
           </q-btn>
-          <div class="flex bi-align-bottom">
-            <div class="text-h6">Javier ceballo perez</div>
+          <div
+            v-if="authStatus === 'authenticated'"
+            class="row items-center q-px-xs"
+          >
+            <div class="q-px-xs">{{ username }}</div>
             <q-btn round flat>
-              <q-avatar size="26px"> </q-avatar>
-              <q-tooltip>Account</q-tooltip>
+              <q-icon size="40px" name="account_circle" />
+              <!-- <q-avatar size="26px"> </q-avatar> -->
+              <q-tooltip>Usuario</q-tooltip>
+              <q-menu dark class="bg-blue-grey-9">
+                <q-list style="width: 250px">
+                  <q-item>
+                    <q-item-section avatar>
+                      <q-icon name="person" />
+                    </q-item-section>
+
+                    <q-item-section>{{ username }}</q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable @click="onLogout()" v-close-popup>
+                    <q-item-section avatar>
+                      <q-icon name="logout" />
+                    </q-item-section>
+
+                    <q-item-section>Salir</q-item-section>
+                  </q-item>
+                  <q-separator />
+                </q-list>
+              </q-menu>
             </q-btn>
+          </div>
+          <div v-if="authStatus === 'not-authenticated'">
+            <q-btn
+              outline
+              rounded
+              color="primary"
+              icon="loging"
+              label="Entrar"
+              @click="toLogin()"
+            />
           </div>
         </div>
       </q-toolbar>
@@ -144,15 +185,19 @@
 <script>
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import useAuth from "src/Modules/auth/composables/useAuth";
 
 export default {
   name: "LayoutPrueba",
   setup() {
     const router = useRouter();
+    const { username, authStatus, logout } = useAuth();
 
     return {
       drawer: ref(false),
       miniState: ref(true),
+      username,
+      authStatus,
       toPlanUser() {
         router.push({
           name: "pl",
@@ -163,6 +208,13 @@ export default {
           },
         });
       },
+      toLogin: () => {
+        router.push({ name: "login" });
+      },
+      onLogout: () => {
+        router.push({ name: "login" });
+        logout();
+      },
     };
   },
 };
@@ -171,6 +223,7 @@ export default {
 .item-link
  border-radius: 10px
  height: 10px
+
 
 
 

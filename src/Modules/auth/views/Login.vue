@@ -101,11 +101,19 @@ export default {
         const { ok, message } = await loginUser(userForm.value);
         loading.value = false;
 
-        if (!ok)
+        if (ok) {
+          router.push("/");
+          $q.notify({
+            message: "Usuario autenticado con éxito",
+            color: "positive",
+          });
+        } else {
           $q.notify({
             message,
             color: "negative",
           });
+        }
+
         //else router.push({ name: "..." });
       },
     };
