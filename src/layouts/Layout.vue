@@ -114,29 +114,53 @@
             <q-item-section> Inicio </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/area" class="item-link">
+          <q-item
+            v-if="role === 'ROLE_ADMIN'"
+            clickable
+            v-ripple
+            to="/area"
+            class="item-link"
+          >
             <q-item-section avatar>
               <q-icon name="crop_square" />
             </q-item-section>
 
             <q-item-section>Areas </q-item-section>
           </q-item>
-          <q-item clickable v-ripple to="/indicadores" class="item-link">
+          <q-item
+            v-if="role === 'ROLE_ADMIN'"
+            clickable
+            v-ripple
+            to="/indicadores"
+            class="item-link"
+          >
             <q-item-section avatar>
-              <q-icon name="crop_square" />
+              <q-icon name="assignment" />
             </q-item-section>
 
             <q-item-section>Plan General </q-item-section>
           </q-item>
-          <q-item clickable v-ripple to="/usuarios" class="item-link">
+          <q-item
+            v-if="role === 'ROLE_ADMIN'"
+            clickable
+            v-ripple
+            to="/usuarios"
+            class="item-link"
+          >
             <q-item-section avatar>
-              <q-icon name="crop_square" />
+              <q-icon name="people" />
             </q-item-section>
 
             <q-item-section>Trabajadores </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/user" class="item-link">
+          <q-item
+            v-if="role === 'ROLE_USER'"
+            clickable
+            v-ripple
+            to="/user"
+            class="item-link"
+          >
             <q-item-section avatar>
               <q-icon name="format_list_bulleted" />
             </q-item-section>
@@ -191,13 +215,14 @@ export default {
   name: "LayoutPrueba",
   setup() {
     const router = useRouter();
-    const { username, authStatus, logout } = useAuth();
+    const { username, authStatus, role, logout } = useAuth();
 
     return {
       drawer: ref(false),
       miniState: ref(true),
       username,
       authStatus,
+      role,
       toPlanUser() {
         router.push({
           name: "pl",

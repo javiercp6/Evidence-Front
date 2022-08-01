@@ -8,8 +8,8 @@ import usersRouter from "../Modules/Users/router";
 const routes = [
   {
     path: "/",
-    component: () => import("layouts/Layout.vue"),
-    beforeEnter: [isAuthenticatedGuard],
+    component: () => import("layouts/LayoutIndexPage.vue"),
+    /* beforeEnter: [isAuthenticatedGuard], */
     children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
   },
   {

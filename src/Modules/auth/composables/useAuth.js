@@ -33,6 +33,7 @@ const useAuth = () => {
     authStatus: computed(() => store.getters["auth/currentState"]),
     username: computed(() => store.getters["auth/username"]),
     uid: computed(() => store.getters["auth/uid"]),
+    role: computed(() => store.getters["auth/role"]),
   };
 };
 

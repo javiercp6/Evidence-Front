@@ -24,6 +24,11 @@
             dense
             class="q-pa-xs"
             input-style=" color: #ffffffa3 "
+            mask="NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              /* (val) => hex.test(val) || 'Prueba', */
+            ]"
             placeholder="Nombre"
             v-model="areaForm.name"
           />
@@ -92,6 +97,7 @@ export default defineComponent({
   setup() {
     const { createArea, editArea } = useArea();
     const $q = useQuasar();
+    const hex = /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/;
     const promptArea = inject("promptArea");
     const areaForm = inject("areaForm");
     const editFormArea = inject("editFormArea");
@@ -104,6 +110,7 @@ export default defineComponent({
     return {
       promptArea,
       areaForm,
+      hex,
       address: ref(null),
       reset,
       addInputObjetives() {

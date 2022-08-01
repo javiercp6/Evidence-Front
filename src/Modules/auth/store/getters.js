@@ -13,3 +13,7 @@ export const username = (state) => {
 export const uid = (state) => {
   return state.uid || "";
 };
+
+export const role = (state) => {
+  return state.role || "";
+};
