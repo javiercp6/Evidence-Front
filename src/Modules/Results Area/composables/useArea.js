@@ -31,13 +31,28 @@ const useArea = () => {
     return resp;
   };
 
+  const editCriterion = async (criterion) => {
+    const resp = await store.dispatch("area/editCriterion", criterion);
+    return resp;
+  };
+
+  const deleteCriterion = async (criterion) => {
+    const resp = await store.dispatch("area/deleteCriterion", criterion);
+    return resp;
+  };
+
   const createObjective = async (objective) => {
     const resp = await store.dispatch("area/createObjective", objective);
     return resp;
   };
 
-  const deleteObjective = async (idObjective) => {
-    const resp = await store.dispatch("area/deleteObjective", idObjective);
+  const editObjective = async (objective) => {
+    const resp = await store.dispatch("area/editObjective", objective);
+    return resp;
+  };
+
+  const deleteObjective = async (objective) => {
+    const resp = await store.dispatch("area/deleteObjective", objective);
     return resp;
   };
 
@@ -71,6 +86,16 @@ const useArea = () => {
     return resp;
   };
 
+  const editIndicator = async (indicator) => {
+    const resp = await store.dispatch("area/editIndicator", indicator);
+    return resp;
+  };
+
+  const deleteIndicator = async (indicator) => {
+    const resp = await store.dispatch("area/deleteIndicator", indicator);
+    return resp;
+  };
+
   return {
     getArea,
     getAreaById,
@@ -78,12 +103,17 @@ const useArea = () => {
     editArea,
     deleteArea,
     createCriterion,
+    editCriterion,
+    deleteCriterion,
     createObjective,
+    editObjective,
     deleteObjective,
     getIndicatorsModel,
     estabilishIndicator,
     removeIndicatorModel,
     createIndicator,
+    editIndicator,
+    deleteIndicator,
     areas: computed(() => store.getters["area/areas"]),
     area: computed(() => store.getters["area/area"]),
     indicatorsModel: computed(() => store.getters["area/indicatorsModel"]),

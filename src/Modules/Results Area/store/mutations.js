@@ -31,8 +31,39 @@ export const createCriterion = (state, criterion) => {
   state.area.objectives[idx].criterions.push(criterion);
 };
 
+export const editCriterion = (state, criterion) => {
+  state.area.objectives.forEach((element) => {
+    element.criterions.forEach((e) => {
+      if (e._id === criterion.id) {
+        e.name = criterion.name;
+        e.todo = criterion.todo;
+      }
+    });
+  });
+};
+
+export const deleteCriterion = (state, idCriterion) => {
+  state.area.objectives.forEach((element) => {
+    element.criterions = element.criterions.filter(
+      (c) => c._id !== idCriterion
+    );
+    /* element.criterions.forEach((e) => {
+      if (e._id === idCriterion) {
+        e.name = criterion.name;
+        e.todo = criterion.todo;
+      }
+    }); */
+  });
+};
+
 export const createObjective = (state, objective) => {
   state.area.objectives.push(objective);
+};
+
+export const editObjective = (state, objective) => {
+  const idx = state.area.objectives.map((o) => o._id).indexOf(objective.id);
+  state.area.objectives[idx].name = objective.name;
+  console.log(objective);
 };
 
 export const deleteObjective = (state, idObjective) => {
@@ -50,6 +81,29 @@ export const createIndicator = (state, data) => {
     element.criterions.forEach((e) => {
       if (e._id === data.criterion._id) {
         e.indicator = indicator;
+      }
+    });
+  });
+};
+
+export const editIndicator = (state, indicator) => {
+  state.area.objectives.forEach((element) => {
+    element.criterions.forEach((e) => {
+      if (e.indicator) {
+        if (e.indicator._id === indicator.id) {
+          e.indicator.name = indicator.name;
+          e.indicator.category = indicator.category;
+        }
+      }
+    });
+  });
+};
+
+export const deleteIndicator = (state, idIndicator) => {
+  state.area.objectives.forEach((element) => {
+    element.criterions.forEach((e) => {
+      if (e.indicator && e.indicator._id === idIndicator.id) {
+        delete e.indicator;
       }
     });
   });

@@ -8,6 +8,9 @@
       <FormObjective />
       <FormDeleteObjective />
       <FormIndicator />
+      <FormEditObjective />
+      <FormDeleteCriterion />
+      <FormDeleteIndicator />
       <div class="row">
         <div class="text-h5 text-blue-grey-1">{{ area.name }}</div>
         <q-space />
@@ -15,7 +18,7 @@
           <q-btn color="blue-grey-1" round flat icon="more_vert">
             <q-menu auto-close>
               <q-list>
-                <q-item clickable v-ripple @click="aa">
+                <q-item clickable v-ripple @click="onCreateObjective()">
                   <q-item-section avatar
                     ><q-icon color="orange-4" name="add"
                   /></q-item-section>
@@ -63,7 +66,7 @@
                     <q-item-section avatar
                       ><q-icon color="red-5" name="delete"
                     /></q-item-section>
-                    <q-item-section>Eliminar</q-item-section>
+                    <q-item-section>Eliminar Objetivo</q-item-section>
                   </q-item>
                 </q-list>
               </q-menu>
@@ -95,6 +98,7 @@
               name="edit"
               size="xs"
               color="orange-4"
+              @click="onEditObjective(objective)"
             />
             <q-icon
               v-show="showEditObj"
@@ -102,6 +106,7 @@
               name="delete"
               size="xs"
               color="red-5"
+              @click="deleteObjectivePromt(objective)"
             />
           </div>
         </div>
@@ -116,6 +121,12 @@
               @click="prompt = true"
             />
           </div> -->
+        </div>
+        <div
+          v-if="objective.criterions.length === 0"
+          class="text-white q-pa-md"
+        >
+          No existen Criterios de medida
         </div>
         <div
           v-for="criterion in objective.criterions"
@@ -163,6 +174,7 @@
                         name="edit"
                         size="xs"
                         color="orange-4"
+                        @click="onEditCriterion(objective._id, criterion)"
                       />
                       <q-icon
                         v-show="showEditCrit"
@@ -170,6 +182,7 @@
                         name="delete"
                         size="xs"
                         color="red-5"
+                        @click="onDeleteCriterion(objective._id, criterion._id)"
                       />
                     </div></div
                 ></q-item-section>
@@ -177,9 +190,7 @@
               <div>
                 <div class="q-pa-xs q-px-lg">
                   <div class="row">
-                    <div class="text-h6 text-blue-grey-1 d-block">
-                      Indicadores
-                    </div>
+                    <div class="text-h6 text-white d-block">Indicadores</div>
                     <div
                       v-if="!criterion.indicator"
                       class="column q-ml-sm justify-center"
@@ -203,6 +214,7 @@
                       name="edit"
                       size="xs"
                       color="orange-4"
+                      @click="onEditIndicator(criterion.indicator)"
                     />
                     <q-icon
                       v-show="showEditCrit"
@@ -210,6 +222,7 @@
                       name="delete"
                       size="xs"
                       color="red-5"
+                      @click="onDeleteIndicator(criterion.indicator._id)"
                     />
                   </div>
                   <div v-else>No existen Indicadores</div>
@@ -315,11 +328,20 @@ export default defineComponent({
     FormObjective: defineAsyncComponent(() =>
       import("../Componentes/FormObjective.vue")
     ),
+    FormEditObjective: defineAsyncComponent(() =>
+      import("../Componentes/FormEditObjective.vue")
+    ),
     FormDeleteObjective: defineAsyncComponent(() =>
       import("../Componentes/FormDeleteObjective.vue")
     ),
     FormIndicator: defineAsyncComponent(() =>
       import("../Componentes/FormIndicator.vue")
+    ),
+    FormDeleteCriterion: defineAsyncComponent(() =>
+      import("../Componentes/FormDeleteCriterion.vue")
+    ),
+    FormDeleteIndicator: defineAsyncComponent(() =>
+      import("../Componentes/FormDeleteIndicator.vue")
     ),
   },
 
@@ -336,19 +358,26 @@ export default defineComponent({
     const showEditObj = ref(false);
     const showEditCrit = ref(false);
     const promptObjective = ref(false);
+    const promptEditObjective = ref(false);
     const promptDeleteObjective = ref(false);
+    const promptCriterion = ref(false);
+    const promptDeleteCriterion = ref(false);
     const promptIndicator = ref(false);
-    const editIndicator = ref(false);
+    const editFormIndicator = ref(false);
+    const promptDeleteIndicator = ref(false);
+    const editFormCriterion = ref(false);
     const idArea = ref(route.params.idArea);
     const objectiveForm = ref({
       id: "",
       idArea,
       name: "",
-      criterions: [""],
+      criterions: [null],
     });
     const criterionForm = ref({
+      id: null,
       idObjective: null,
       name: "",
+      todo: null,
     });
     const indicatorForm = ref({
       id: null,
@@ -356,39 +385,45 @@ export default defineComponent({
       category: "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO",
       idCriterion: "",
     });
-    const editFormCriterion = ref(false);
     provide("prompt", prompt);
     provide("criterionForm", criterionForm);
     provide("editFormCriterion", editFormCriterion);
     provide("objectiveForm", objectiveForm);
     provide("indicatorForm", indicatorForm);
     provide("promptObjective", promptObjective);
+    provide("promptEditObjective", promptEditObjective);
     provide("promptDeleteObjective", promptDeleteObjective);
+    provide("promptCriterion", promptCriterion);
+    provide("promptDeleteCriterion", promptDeleteCriterion);
     provide("promptIndicator", promptIndicator);
-    provide("editIndicator", editIndicator);
-
-    /* const compliance = (status) =>
-      computed(() => {
-        if (status === "Cumplido") {
-          return "done";
-        } else if (status === "Sobrecumplido") {
-          return "done_all";
-        } else {
-          return "circle";
-        }
-      }); */
+    provide("promptDeleteIndicator", promptDeleteIndicator);
+    provide("editFormIndicator", editFormIndicator);
 
     getAreaById(idArea.value);
 
     return {
       prompt,
       promptIndicator,
-      editIndicator,
       showEditObj,
       showEditCrit,
       area,
       onCreateCriterion(idObjective) {
         criterionForm.value.idObjective = idObjective;
+        promptCriterion.value = true;
+      },
+      onEditCriterion(idObjective, criterion) {
+        criterionForm.value.idObjective = idObjective;
+        criterionForm.value.id = criterion._id;
+        criterionForm.value.name = criterion.name;
+        criterionForm.value.todo = criterion.todo;
+        editFormCriterion.value = true;
+        promptCriterion.value = true;
+        console.log(criterionForm);
+      },
+      onDeleteCriterion(idObjective, idCriterion) {
+        criterionForm.value.idObjective = idObjective;
+        criterionForm.value.id = idCriterion;
+        promptDeleteCriterion.value = true;
       },
       nameIconStatus(status) {
         if (status === "Cumplido") {
@@ -413,10 +448,37 @@ export default defineComponent({
         indicatorForm.value.idCriterion = idCriterion;
         promptIndicator.value = true;
       },
+
+      onEditIndicator(indicator) {
+        console.log("frfr");
+        indicatorForm.value.id = indicator._id;
+        indicatorForm.value.name = indicator.name;
+        indicatorForm.value.category = indicator.category;
+        editFormIndicator.value = true;
+        promptIndicator.value = true;
+      },
+
+      onDeleteIndicator(idIndicator) {
+        console.log("frfr");
+        indicatorForm.value.id = idIndicator;
+        promptDeleteIndicator.value = true;
+      },
+
       deleteObjectivePromt(objective) {
         console.log("tttt");
         objectiveForm.value.id = objective._id;
+        objectiveForm.value.idArea = area.value._id;
         promptDeleteObjective.value = true;
+      },
+      onCreateObjective() {
+        promptObjective.value = true;
+        objectiveForm.value.idArea = area.value._id;
+      },
+      onEditObjective(objective) {
+        promptEditObjective.value = true;
+        objectiveForm.value.id = objective._id;
+        objectiveForm.value.name = objective.name;
+        console.log(objectiveForm.value);
       },
     };
   },

@@ -66,6 +66,7 @@ export const deleteArea = async ({ commit }, idArea) => {
 };
 
 export const createCriterion = async ({ commit }, criterion) => {
+  delete criterion.id;
   try {
     const { data } = await api.post(
       `/criterions/${criterion.idObjective}`,
@@ -75,6 +76,40 @@ export const createCriterion = async ({ commit }, criterion) => {
 
     commit("createCriterion", data);
     return { ok: true };
+  } catch (error) {
+    console.log("xxx");
+    return { ok: false, message: error.response.data.error.message };
+  }
+};
+
+export const editCriterion = async ({ commit }, criterion) => {
+  const criterionTo = { id: null, name: null, todo: null };
+  criterionTo.id = criterion.id;
+  criterionTo.name = criterion.name;
+  criterionTo.todo = criterion.todo;
+  try {
+    const { data } = await api.put(`/criterions/${criterion.id}`, criterion);
+    console.log(data);
+    commit("editCriterion", criterionTo);
+    return { ok: true, message: data.msg };
+  } catch (error) {
+    console.log("xxx");
+    return { ok: false, message: error.response.data.error.message };
+  }
+};
+
+export const deleteCriterion = async ({ commit }, criterion) => {
+  const idCriterion = criterion.id;
+  //idCriterion = criterion.id;
+  try {
+    const { data } = await api.delete(
+      `/criterions/${criterion.id}/objective/${criterion.idObjective}`
+    );
+    data.idObjective = criterion.idObjective;
+    console.log(data);
+    //TODO: Hacer el commit
+    commit("deleteCriterion", idCriterion);
+    return { ok: true, message: data.msg };
   } catch (error) {
     console.log("xxx");
     return { ok: false, message: error.response.data.error.message };
@@ -99,12 +134,32 @@ export const createObjective = async ({ commit }, objective) => {
   }
 };
 
-export const deleteObjective = async ({ commit }, idObjective) => {
+export const editObjective = async ({ commit }, objective) => {
+  delete objective.idArea;
+  delete objective.criterions;
+  const objAct = new Object();
+  objAct.id = objective.id;
+  objAct.name = objective.name;
   try {
-    const { data } = await api.delete(`/objectives/${idObjective}`);
+    const { data } = await api.put(`/objectives/${objective.id}`, objective);
     console.log(data);
 
-    commit("deleteObjective", idObjective);
+    commit("editObjective", objAct);
+    return { ok: true, message: data.msg };
+  } catch (error) {
+    console.log("xxx");
+    return { ok: false, message: error.response.data.error.message };
+  }
+};
+
+export const deleteObjective = async ({ commit }, objective) => {
+  try {
+    const { data } = await api.delete(
+      `/objectives/${objective.id}/area/${objective.idArea}`
+    );
+    console.log(data);
+
+    commit("deleteObjective", objective.id);
     return { ok: true };
   } catch (error) {
     console.log("xxx");
@@ -151,6 +206,38 @@ export const createIndicator = async ({ commit }, indicator) => {
     console.log("Indicado r creatdo");
     commit("createIndicator", data);
     return { ok: true };
+  } catch (error) {
+    console.log("mmmm");
+    return { ok: false, message: error.response.data.error.message };
+  }
+};
+
+export const editIndicator = async ({ commit }, indicator) => {
+  const indicatorTo = { id: null, name: null, category: null };
+  indicatorTo.id = indicator.id;
+  indicatorTo.name = indicator.name;
+  indicatorTo.category = indicator.category;
+  delete indicator.idCriterion;
+
+  //TODO: No se edita la categoria , no se x q
+
+  try {
+    const { data } = await api.put(`/indicators/${indicator.id}`, indicator);
+    console.log(data);
+    commit("editIndicator", indicatorTo);
+    return { ok: true, message: data.msg };
+  } catch (error) {
+    console.log("mmmm");
+    return { ok: false, message: error.response.data.error.message };
+  }
+};
+
+export const deleteIndicator = async ({ commit }, indicator) => {
+  try {
+    const { data } = await api.delete(`/indicators/${indicator.id}`);
+    console.log(data, "dtata");
+    commit("deleteIndicator", data);
+    return { ok: true, message: data.msg };
   } catch (error) {
     console.log("mmmm");
     return { ok: false, message: error.response.data.error.message };

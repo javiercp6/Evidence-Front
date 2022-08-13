@@ -88,9 +88,10 @@
 
         <q-card-actions align="right">
           <router-link
+            style="text-decoration: none"
             :to="{ name: 'areaitems', params: { idArea: `${area._id}` } }"
           >
-            <q-btn flat color="primary"> Ver mas </q-btn>
+            <q-btn flat rounded size="md" color="primary"> Ver mas </q-btn>
           </router-link>
         </q-card-actions>
       </q-card>

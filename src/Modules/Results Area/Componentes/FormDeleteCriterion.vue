@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="promptDeleteObjective" persistent>
+  <q-dialog v-model="promptDeleteCriterion" persistent>
     <q-card class="bg-blue-grey-10 card-evidencia" style="min-width: 350px">
       <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
       </q-card-section>
@@ -9,7 +9,7 @@
         style="background-color: rgba(255, 255, 255, 0.1)"
       >
         <div class="text-subtitle1 text-center text-blue-grey-1 q-pa-xs">
-          ¿Está seguro que desea eliminar este objetivo?
+          ¿Está seguro que desea eliminar este criterio de medida?
         </div>
       </q-card-section>
 
@@ -24,7 +24,7 @@
           rounded
           label="Eliminar"
           v-close-popup
-          @click="onDeleteObjective"
+          @click="onDeleteCriterion()"
         />
       </q-card-actions>
     </q-card>
@@ -40,21 +40,21 @@ import { useQuasar } from "quasar";
 export default defineComponent({
   name: "FormDeleteObjective",
   setup() {
-    const { deleteObjective } = useArea();
+    const { deleteCriterion } = useArea();
     const $q = useQuasar();
-    const promptDeleteObjective = inject("promptDeleteObjective");
-    const objectiveForm = inject("objectiveForm");
+    const promptDeleteCriterion = inject("promptDeleteCriterion");
+    const criterionForm = inject("criterionForm");
     const reset = () => {
-      objectiveForm.value.id = null;
-      objectiveForm.value.idArea = null;
+      criterionForm.value.id = null;
+      criterionForm.value.idObjective = null;
     };
 
     return {
-      promptDeleteObjective,
+      promptDeleteCriterion,
       reset,
-      onDeleteObjective: async () => {
+      onDeleteCriterion: async () => {
         console.log("delete obj");
-        const { ok, message } = await deleteObjective(objectiveForm.value);
+        const { ok, message } = await deleteCriterion(criterionForm.value);
         if (!ok)
           $q.notify({
             message,

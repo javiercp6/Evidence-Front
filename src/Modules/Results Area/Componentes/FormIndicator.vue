@@ -94,11 +94,11 @@ import useArea from "../composables/useArea";
 export default defineComponent({
   name: "FormIndicator",
   setup() {
-    const { createIndicator } = useArea();
+    const { editIndicator, createIndicator } = useArea();
     const $q = useQuasar();
     const promptIndicator = inject("promptIndicator");
     const indicatorForm = inject("indicatorForm");
-    const editIndicator = inject("editIndicator");
+    const editFormIndicator = inject("editFormIndicator");
 
     const reset = () => {
       indicatorForm.value.id = null;
@@ -106,18 +106,17 @@ export default defineComponent({
       indicatorForm.value.category =
         "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO";
     };
-
+    editFormIndicator.value = false;
     return {
       promptIndicator,
       indicatorForm,
-      editIndicator,
-      createIndicator,
+      editFormIndicator,
       reset,
 
       onSubmitIndicator: async () => {
-        if (editIndicator.value) {
+        if (editFormIndicator.value) {
           console.log("Editar");
-          /*const { ok, message } = await editArea(areaForm.value);
+          const { ok, message } = await editIndicator(indicatorForm.value);
           if (!ok)
             $q.notify({
               message,
@@ -128,7 +127,7 @@ export default defineComponent({
               message,
               color: "positive",
             });
-          } */
+          }
         } else {
           const { ok, message } = await createIndicator(indicatorForm.value);
 
