@@ -64,6 +64,14 @@
               label="RABAJO DE INVESTIGACIÓN E INNOVACIÓN"
               dark
             />
+            <q-radio
+              class="q-pa-xs text-blue-grey-1"
+              dense
+              v-model="indicatorForm.category"
+              val="SUPERACIÓN"
+              label="SUPERACIÓN"
+              dark
+            />
           </div>
         </q-card-section>
 
@@ -124,24 +132,24 @@ export default defineComponent({
             });
           if (ok) {
             $q.notify({
-              message,
+              message: "Indicador Modificado",
               color: "positive",
             });
           }
         } else {
           const { ok, message } = await createIndicator(indicatorForm.value);
 
-          /*  if (!ok)
+          if (!ok)
             $q.notify({
               message,
               color: "negative",
             });
           if (ok) {
             $q.notify({
-              message: "Area Creada",
+              message: "Indicador Creado",
               color: "positive",
             });
-          } */
+          }
           console.log("Crear");
         }
 

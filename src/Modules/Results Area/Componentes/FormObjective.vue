@@ -120,7 +120,7 @@ export default defineComponent({
           });
         if (ok) {
           $q.notify({
-            message: "Area Creada",
+            message: "Objetivo Estratégico Creado",
             color: "positive",
           });
         }

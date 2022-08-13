@@ -81,7 +81,7 @@ export default defineComponent({
           });
         if (ok) {
           $q.notify({
-            message,
+            message: "Objetivo Estratégico Modificado",
             color: "positive",
           });
         }

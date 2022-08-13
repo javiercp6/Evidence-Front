@@ -97,7 +97,7 @@ export default defineComponent({
             });
           if (ok) {
             $q.notify({
-              message,
+              message: "Criterio de Medidada  Modificado",
               color: "positive",
             });
           }
@@ -112,7 +112,7 @@ export default defineComponent({
             });
           if (ok) {
             $q.notify({
-              message: "Area Creada",
+              message: "Criterio de Medidada  Creado",
               color: "positive",
             });
           }

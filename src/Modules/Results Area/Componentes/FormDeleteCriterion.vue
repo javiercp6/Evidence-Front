@@ -62,7 +62,7 @@ export default defineComponent({
           });
         if (ok) {
           $q.notify({
-            message: "Area Eliminada",
+            message: "Criterio de Medida Eliminado",
             color: "positive",
           });
         }
