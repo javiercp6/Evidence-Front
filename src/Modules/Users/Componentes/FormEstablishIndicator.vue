@@ -5,31 +5,26 @@
       :style="$q.screen.gt.sm ? 'min-width: 850px' : 'min-width: 100%'"
     >
       <q-form @submit.prevent="onSubmitEstabilishIndicator">
-        <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
-          <div class="text-h6 text-blue-grey-1">
-            Establecer Plan {{ idUser }}
-          </div>
-        </q-card-section>
+        <q-card style="background-color: rgba(255, 255, 255, 0.1)">
+          <q-card-section>
+            <div class="text-h6 text-blue-grey-1">Establecer Plan</div>
+          </q-card-section>
 
-        <q-card-section
-          class="q-pt-none"
-          style="background-color: rgba(255, 255, 255, 0.1)"
-        >
-          <div class="q-pa-sm">
-            <q-expansion-item
-              v-for="i in indicatorsModel"
-              :key="i.category"
-              expand-icon-toggle
-              dark
-              dense
-              style="
-                background-color: rgba(255, 255, 255, 0.1);
-                border-radius: 10px;
-              "
-              :label="i.category"
-              class="q-ma-sm"
-            >
-              <div
+          <q-card-section class="q-pt-none">
+            <div class="">
+              <q-expansion-item
+                v-for="i in indicatorsModel"
+                :key="i.category"
+                dark
+                dense
+                style="
+                  background-color: rgba(255, 255, 255, 0.1);
+                  border-radius: 10px;
+                "
+                :label="i.category"
+                class="q-ma-sm"
+              >
+                <!-- <div
                 v-for="indicator in i.indicators"
                 :key="indicator._id"
                 class="row q-ma-sm container-item-objectives"
@@ -45,31 +40,42 @@
                     @click="removeIndicatorModel(indicator._id)"
                   />
                 </div>
-              </div>
-            </q-expansion-item>
-          </div>
-        </q-card-section>
+              </div> -->
+                <div
+                  v-for="indicator in i.indicators"
+                  :key="indicator._id"
+                  class="q-px-sm"
+                >
+                  <q-checkbox
+                    class="q-pa-xs text-white"
+                    dark
+                    dense
+                    v-model="indicatorSelected"
+                    :val="indicator._id"
+                    :label="indicator.name"
+                  />
+                </div>
+              </q-expansion-item>
+            </div>
+          </q-card-section>
 
-        <q-card-actions
-          align="right"
-          class="text-primary q-pa-md"
-          style="background-color: rgba(255, 255, 255, 0.1)"
-        >
-          <q-btn
-            flat
-            rounded
-            label="Cancelar"
-            v-close-popup
-            @click="getIndicatorsModel()"
-          />
-          <q-btn
-            color="primary"
-            rounded
-            label="Guardar"
-            v-close-popup
-            type="submit"
-          />
-        </q-card-actions>
+          <q-card-actions align="right" class="text-primary q-pa-md">
+            <q-btn
+              flat
+              rounded
+              label="Cancelar"
+              v-close-popup
+              @click="getIndicatorsModel()"
+            />
+            <q-btn
+              color="primary"
+              rounded
+              label="Guardar"
+              v-close-popup
+              type="submit"
+            />
+          </q-card-actions>
+        </q-card>
       </q-form>
     </q-card>
   </q-dialog>
@@ -80,32 +86,33 @@ import { defineComponent, inject, ref } from "vue";
 import { useQuasar } from "quasar";
 //import useAuth from "../composables/useAuth";
 import useArea from "../../Results Area/composables/useArea";
+import useUser from "src/Modules/User/composables/useUser";
 import { useRouter, useRoute } from "vue-router";
 export default defineComponent({
   name: "FormArea",
   setup() {
-    const {
-      getIndicatorsModel,
-      removeIndicatorModel,
-      estabilishIndicator,
-      indicatorsModel,
-    } = useArea();
+    const { getIndicatorsModel, removeIndicatorModel, indicatorsModel } =
+      useArea();
+    const { estabilishIndicator } = useUser();
     const $q = useQuasar();
     const route = useRoute();
     const idUser = ref(route.params.idUser);
     const promptEstablishIndicator = inject("promptEstablishIndicator");
+    const indicatorSelected = ref([]);
 
     getIndicatorsModel();
     return {
       indicatorsModel,
       idUser,
       promptEstablishIndicator,
+      indicatorSelected,
       onSubmitEstabilishIndicator: async () => {
         console.log("Editar");
         const { ok, message } = await estabilishIndicator(
-          indicatorsModel.value,
+          indicatorSelected.value,
           idUser.value
         );
+        console.log(indicatorSelected.value);
         if (!ok)
           $q.notify({
             message,
@@ -113,10 +120,11 @@ export default defineComponent({
           });
         if (ok) {
           $q.notify({
-            message,
+            message: "Plan Establecido",
             color: "positive",
           });
         }
+        indicatorSelected.value = [];
       },
       removeIndicatorModel,
       getIndicatorsModel,

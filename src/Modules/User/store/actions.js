@@ -54,3 +54,19 @@ export const createevidence = async ({ commit }, evidence) => {
     return { ok: false /* , message: error.response.data.msg */ };
   }
 };
+
+export const estabilishIndicator = async ({ commit }, indicatorsModelTo) => {
+  const { idsIndicator, idUser } = indicatorsModelTo;
+  const inds = { indicators: null };
+  inds.indicators = idsIndicator;
+  console.log(inds);
+  try {
+    const { data } = await api.post(`/indicators/${idUser}`, inds);
+    console.log(data);
+    commit("estabilishIndicator", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};

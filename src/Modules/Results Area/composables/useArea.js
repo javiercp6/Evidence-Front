@@ -65,22 +65,6 @@ const useArea = () => {
     store.commit("area/removeIndicatorModel", idIndicator);
   };
 
-  const estabilishIndicator = async (indicatorsModel, idUser) => {
-    const idsIndicator = [];
-    indicatorsModel.forEach((indicator) => {
-      for (let i = 0; i < indicator.indicators.length; i++) {
-        idsIndicator.push({ _id: indicator.indicators[i]._id });
-      }
-    });
-    const indicatorsModelTo = { idsIndicator, idUser };
-    console.log(indicatorsModelTo);
-    const resp = await store.dispatch(
-      "area/estabilishIndicator",
-      indicatorsModelTo
-    );
-    return resp;
-  };
-
   const createIndicator = async (indicator) => {
     const resp = await store.dispatch("area/createIndicator", indicator);
     return resp;
@@ -109,7 +93,6 @@ const useArea = () => {
     editObjective,
     deleteObjective,
     getIndicatorsModel,
-    estabilishIndicator,
     removeIndicatorModel,
     createIndicator,
     editIndicator,

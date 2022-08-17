@@ -29,10 +29,25 @@ const useUser = () => {
     return resp;
   };
 
+  const estabilishIndicator = async (indicatorsModel, idUser) => {
+    const idsIndicator = [];
+    //const objAux = {"_id": "62a803df7ac0a54e052bbaa9"}
+    indicatorsModel.forEach((indicator) => {
+      idsIndicator.push({ _id: indicator });
+    });
+    const indicatorsModelTo = { idsIndicator, idUser };
+    const resp = await store.dispatch(
+      "indicator/estabilishIndicator",
+      indicatorsModelTo
+    );
+    return resp;
+  };
+
   return {
     getIndicatorsByUser,
     getIndicatorById,
     createevidence,
+    estabilishIndicator,
     indicators: computed(() => store.getters["indicator/indicators"]),
     indicator: computed(() => store.getters["indicator/indicator"]),
   };
