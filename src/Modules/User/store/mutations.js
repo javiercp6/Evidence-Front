@@ -11,8 +11,25 @@ export const getIndicatorById = (state, indicator) => {
   state.indicator = indicator;
 };
 
+export const denyIndicator = (state) => {
+  state.indicator.status = false;
+};
+
 export const createevidence = (state, evidence) => {
   state.indicator.evidences.push(evidence);
+};
+
+export const deleteevidence = (state, evidence) => {
+  state.indicator.evidences = state.indicator.evidences.filter(
+    (e) => e._id !== evidence.id
+  );
+};
+
+export const editevidence = (state, evidence) => {
+  //state.indicator.evidences.push(evidence);
+  console.log(evidence);
+  const idx = state.indicator.evidences.map((e) => e._id).indexOf(evidence._id);
+  state.indicator.evidences[idx] = evidence;
 };
 
 export const estabilishIndicator = (state, indicatorsData) => {

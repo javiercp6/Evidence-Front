@@ -30,7 +30,21 @@ export const getIndicatorById = async ({ commit }, idIndicator) => {
   }
 };
 
+export const denyIndicator = async ({ commit }, idIndicator) => {
+  try {
+    const { data } = await api.put(`/indicators/${idIndicator}`, {
+      status: false,
+    });
+    commit("denyIndicator");
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};
+
 export const createevidence = async ({ commit }, evidence) => {
+  delete evidence.id;
   try {
     const { data } = await api.post(
       `/evidences/${evidence.idIndicator}`,
@@ -48,6 +62,42 @@ export const createevidence = async ({ commit }, evidence) => {
       commit("createevidence", data);
     }
 
+    return { ok: true };
+  } catch (error) {
+    console.log("erroe");
+    return { ok: false /* , message: error.response.data.msg */ };
+  }
+};
+
+export const editevidence = async ({ commit }, evidence) => {
+  try {
+    const { data } = await api.put(`/evidences/${evidence.id}`, evidence);
+
+    if (evidence.files) {
+      const file = new FormData();
+      file.append("file", evidence.files[0]);
+
+      const datafile = await api.put(`/evidences/upload/${data._id}`, file);
+
+      commit("editevidence", datafile.data);
+    } else {
+      commit("editevidence", data);
+    }
+
+    return { ok: true };
+  } catch (error) {
+    console.log("erroe");
+    return { ok: false /* , message: error.response.data.msg */ };
+  }
+};
+
+export const deleteevidence = async ({ commit }, evidence) => {
+  try {
+    const { data } = await api.delete(
+      `/evidences/${evidence.id}/indicator/${evidence.idIndicator}`
+    );
+    console.log(data);
+    commit("deleteevidence", data);
     return { ok: true };
   } catch (error) {
     console.log("erroe");

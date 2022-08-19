@@ -70,14 +70,17 @@ import { useQuasar } from "quasar";
 export default defineComponent({
   name: "FormEvidencia",
   setup() {
-    const { createevidence } = useUser();
+    const { createevidence, editevidence } = useUser();
     const $q = useQuasar();
     const prompt = inject("prompt");
     const evidence = inject("evidence");
+    const editEvidence = inject("editEvidence");
 
     const reset = () => {
+      evidence.value.id = null;
       evidence.value.description = "";
-      evidence.value.files = "";
+      evidence.value.files = null;
+      editEvidence.value = false;
     };
 
     return {
@@ -86,21 +89,35 @@ export default defineComponent({
       reset,
 
       onSubmitEvidence: async () => {
-        console.log("crearrr");
         //const evidenceTo = Object.assign(evidence.value, { file: files.value });
-
-        console.log(evidence.value);
-        const { ok, message } = await createevidence(evidence.value);
-        if (!ok)
-          $q.notify({
-            message,
-            color: "negative",
-          });
-        if (ok) {
-          $q.notify({
-            message,
-            color: "positive",
-          });
+        if (editEvidence.value) {
+          console.log("edit");
+          const { ok, message } = await editevidence(evidence.value);
+          if (!ok)
+            $q.notify({
+              message,
+              color: "negative",
+            });
+          if (ok) {
+            $q.notify({
+              message: "Evidencia Editada",
+              color: "positive",
+            });
+          }
+        } else {
+          console.log("crearrr");
+          const { ok, message } = await createevidence(evidence.value);
+          if (!ok)
+            $q.notify({
+              message,
+              color: "negative",
+            });
+          if (ok) {
+            $q.notify({
+              message: "Evidencia Creada",
+              color: "positive",
+            });
+          }
         }
         reset();
       },

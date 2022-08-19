@@ -17,6 +17,7 @@
     "crypto": "^1.0.1",
     "jwt-decode": "^3.1.2",
     "jwt-js-decode": "^1.4.1",
+    "pdfmake": "^0.2.5",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",

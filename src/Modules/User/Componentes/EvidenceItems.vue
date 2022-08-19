@@ -1,5 +1,18 @@
 <template>
-  <div class="text-h5 q-pa-md text-blue-grey-1">Objetivo</div>
+  <div class="flex">
+    <div class="text-h5 q-pa-md text-blue-grey-1">Objetivo</div>
+    <q-space />
+    <div v-if="!user && indicator.status" class="q-pr-sm column justify-center">
+      <q-btn
+        color="negative"
+        rounded
+        icon="do_not_disturb"
+        size="sm"
+        label="Denegar"
+        @click="onDenyIndicator()"
+      />
+    </div>
+  </div>
   <div class="col text-blue-grey-1 objectives q-ma-sm">
     {{ indicator.name }}
   </div>
@@ -12,7 +25,7 @@
         icon="add"
         color="primary"
         size="sm"
-        @click="prompt = true"
+        @click="onCreateEvidence()"
       />
     </div>
   </div>
@@ -35,18 +48,18 @@
       {{ evidence.description }}
     </div>
 
-    <div>
+    <div v-if="user">
       <div class="col-auto">
         <q-btn color="blue-grey-1" round flat icon="more_vert">
           <q-menu auto-close>
             <q-list>
-              <q-item clickable v-ripple>
+              <q-item @click="onEditEvidence(evidence)" clickable v-ripple>
                 <q-item-section avatar
                   ><q-icon color="orange-4" name="edit"
                 /></q-item-section>
                 <q-item-section>Editar</q-item-section>
               </q-item>
-              <q-item clickable v-ripple>
+              <q-item @click="onDeleteEvidence(evidence)" clickable v-ripple>
                 <q-item-section avatar
                   ><q-icon color="red-5" name="delete"
                 /></q-item-section>
@@ -58,16 +71,18 @@
       </div>
     </div>
   </div>
-  <div v-if="indicator.evidences.length === 0" class="flex flex-center">
+  <div v-if="!indicator.evidences[0]" class="flex flex-center">
     <h6 class="text-blue-grey-1">No existen evidencias</h6>
   </div>
   <AddEvidence />
+  <FormDeleteEvidence />
 </template>
 
 <script>
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
 import useUser from "src/Modules/User/composables/useUser";
 import { useRoute } from "vue-router";
+import { useQuasar } from "quasar";
 
 export default defineComponent({
   name: "EvidenceItems",
@@ -76,6 +91,9 @@ export default defineComponent({
     AddEvidence: defineAsyncComponent(() =>
       import("../Componentes/AddEvidence.vue")
     ),
+    FormDeleteEvidence: defineAsyncComponent(() =>
+      import("../Componentes/FormDeleteEvidence.vue")
+    ),
   },
 
   props: {
@@ -83,26 +101,64 @@ export default defineComponent({
   },
 
   setup() {
-    const { getIndicatorById, indicator } = useUser();
+    const { denyIndicator, getIndicatorById, indicator } = useUser();
     const route = useRoute();
+    const $q = useQuasar();
     const idIndicator = ref(route.params.idIndicator);
     console.log(idIndicator);
     const prompt = ref(false);
+    const promptDeleteEvidence = ref(false);
+    const editEvidence = ref(false);
 
     const dir = ref("http://localhost:8080/api/evidences/file/");
     const evidence = ref({
+      id: null,
       idIndicator: idIndicator.value,
       description: "",
       files: null,
     });
     provide("prompt", prompt);
+    provide("promptDeleteEvidence", promptDeleteEvidence);
     provide("evidence", evidence);
+    provide("editEvidence", editEvidence);
     getIndicatorById(idIndicator.value);
 
     return {
       prompt,
       indicator,
       dir,
+      onDenyIndicator: async () => {
+        const { ok, message } = await denyIndicator(idIndicator.value);
+        if (!ok)
+          $q.notify({
+            message,
+            color: "negative",
+          });
+        if (ok) {
+          $q.notify({
+            message: "Indicador denegado",
+            color: "positive",
+          });
+        }
+      },
+      onCreateEvidence() {
+        evidence.value.id = null;
+        evidence.value.description = "";
+        evidence.value.files = null;
+        editEvidence.value = false;
+        prompt.value = true;
+      },
+
+      onEditEvidence(evidenceDate) {
+        evidence.value.id = evidenceDate._id;
+        evidence.value.description = evidenceDate.description;
+        editEvidence.value = true;
+        prompt.value = true;
+      },
+      onDeleteEvidence(evidenceDate) {
+        evidence.value.id = evidenceDate._id;
+        promptDeleteEvidence.value = true;
+      },
     };
   },
 });

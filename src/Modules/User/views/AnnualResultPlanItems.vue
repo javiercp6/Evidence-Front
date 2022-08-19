@@ -13,7 +13,7 @@
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
 
 export default defineComponent({
-  name: "IndexPage",
+  name: "AnnualResultItems",
 
   components: {
     EvidenceItems: defineAsyncComponent(() =>
