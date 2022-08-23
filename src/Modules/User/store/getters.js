@@ -10,4 +10,10 @@ export const indicator = (state) => {
   return state.indicator;
 };
 
+export const evaluation = (state) => {
+  return state.evaluation;
+};
 
+export const evaluationIndicators = (state) => {
+  return state.evaluation.indicators;
+};

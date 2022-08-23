@@ -1,6 +1,7 @@
 import authRouter from "../Modules/auth/router";
 import isAuthenticatedGuard from "src/Modules/auth/router/auth-guard";
 import userRouter from "../Modules/User/router";
+import evaluationUserRouter from "../Modules/User/router/evaluation";
 import resultsareaRouter from "../Modules/Results Area/router";
 import indicatorBossRouter from "../Modules/Results Area/router/indicator";
 import usersRouter from "../Modules/Users/router";
@@ -19,6 +20,10 @@ const routes = [
   {
     path: "/user",
     ...userRouter,
+  },
+  {
+    path: "/evaluacion",
+    ...evaluationUserRouter,
   },
   {
     path: "/area",

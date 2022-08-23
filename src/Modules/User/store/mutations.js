@@ -90,3 +90,15 @@ export const estabilishIndicator = (state, indicatorsData) => {
     }
   }
 };
+
+export const getEvaluationByUser = (state, evaluation) => {
+  state.evaluation = evaluation;
+};
+
+export const createIndicatorsPersonal = (state, indicator) => {
+  state.evaluation.indicators.forEach((ind) => {
+    if (ind.category === indicator.category) {
+      ind.indicators.push(indicator);
+    }
+  });
+};

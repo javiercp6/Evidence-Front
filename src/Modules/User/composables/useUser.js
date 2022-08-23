@@ -58,6 +58,20 @@ const useUser = () => {
     return resp;
   };
 
+  const getEvaluationByUser = async (idUser) => {
+    const resp = await store.dispatch("indicator/getEvaluationByUser", idUser);
+    return resp;
+  };
+
+  const createIndicatorsPersonal = async (indicatorPersonal, idUser) => {
+    const indicadorPersonalTo = { indicatorPersonal, idUser };
+    const resp = await store.dispatch(
+      "indicator/createIndicatorsPersonal",
+      indicadorPersonalTo
+    );
+    return resp;
+  };
+
   return {
     getIndicatorsByUser,
     getIndicatorById,
@@ -66,8 +80,14 @@ const useUser = () => {
     editevidence,
     deleteevidence,
     estabilishIndicator,
+    getEvaluationByUser,
+    createIndicatorsPersonal,
     indicators: computed(() => store.getters["indicator/indicators"]),
     indicator: computed(() => store.getters["indicator/indicator"]),
+    evaluation: computed(() => store.getters["indicator/evaluation"]),
+    evaluationIndicators: computed(
+      () => store.getters["indicator/evaluationIndicators"]
+    ),
   };
 };
 

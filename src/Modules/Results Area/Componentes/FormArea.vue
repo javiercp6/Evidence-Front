@@ -24,7 +24,6 @@
             dense
             class="q-pa-xs"
             input-style=" color: #ffffffa3 "
-            mask="NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
               /* (val) => hex.test(val) || 'Prueba', */

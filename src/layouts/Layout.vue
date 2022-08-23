@@ -168,6 +168,20 @@
             <q-item-section> Objetivos </q-item-section>
           </q-item>
 
+          <q-item
+            v-if="role === 'ROLE_USER'"
+            clickable
+            v-ripple
+            to="/evaluacion"
+            class="item-link"
+          >
+            <q-item-section avatar>
+              <q-icon name="format_list_bulleted" />
+            </q-item-section>
+
+            <q-item-section> Evaluación </q-item-section>
+          </q-item>
+
           <q-separator dark />
 
           <q-item clickable v-ripple class="item-link">

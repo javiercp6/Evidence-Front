@@ -120,3 +120,33 @@ export const estabilishIndicator = async ({ commit }, indicatorsModelTo) => {
     return { ok: false, message: error.response.data.msg };
   }
 };
+
+export const getEvaluationByUser = async ({ commit }, idUser) => {
+  try {
+    const { data } = await api.get(`/users/evaluation/${idUser}`);
+    console.log(data);
+    commit("getEvaluationByUser", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};
+
+export const createIndicatorsPersonal = async ({ commit }, indicator) => {
+  const { indicatorPersonal, idUser } = indicator;
+  delete indicatorPersonal.id;
+
+  try {
+    const { data } = await api.post(
+      `/indicators/personal/${idUser}`,
+      indicatorPersonal
+    );
+    console.log(data);
+    commit("createIndicatorsPersonal", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};
