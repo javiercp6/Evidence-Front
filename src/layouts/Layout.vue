@@ -176,7 +176,7 @@
             class="item-link"
           >
             <q-item-section avatar>
-              <q-icon name="format_list_bulleted" />
+              <q-icon name="fact_check" />
             </q-item-section>
 
             <q-item-section> Evaluación </q-item-section>

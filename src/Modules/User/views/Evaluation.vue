@@ -7,14 +7,26 @@
           <!-- {{ idUser }} {{ admin }}  -->
         </div>
         <q-space />
-        <div class="column justify-center q-px-md">
-          <q-btn
-            color="primary"
-            icon="add"
-            label="Añadir"
-            rounded
-            @click="onCreateIndicatorPersonal()"
-          />
+        <div class="row items-center q-px-md">
+          <div class="">
+            <q-btn
+              color="primary"
+              icon="add"
+              label="Añadir"
+              rounded
+              @click="onCreateIndicatorPersonal()"
+            />
+          </div>
+          <div class="q-pl-sm">
+            <q-btn
+              color="primary"
+              icon="picture_as_pdf"
+              label=" Exportar PDF"
+              rounded
+              outline
+              @click="generatePDFEvaluation()"
+            />
+          </div>
         </div>
       </div>
       <ListEvaluation :user="true" />
@@ -25,6 +37,7 @@
 
 <script>
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
+import usePDFEvaluation from "../composables/usePDFEvaluation";
 
 import { useRouter } from "vue-router";
 
@@ -42,6 +55,7 @@ export default defineComponent({
 
   setup() {
     const router = useRouter();
+    const { generatePDFEvaluation } = usePDFEvaluation();
     const promptIndicatorPersonal = ref(false);
     const indicatorPersonalForm = ref({
       id: null,
@@ -54,12 +68,7 @@ export default defineComponent({
     provide("editFormIndicatorPersonal", editFormIndicatorPersonal);
 
     return {
-      toPlanItem(idIndicator) {
-        router.push({
-          name: "planitem",
-          params: { idIndicator: `${idIndicator}` },
-        });
-      },
+      generatePDFEvaluation,
       onCreateIndicatorPersonal() {
         indicatorPersonalForm.value = {
           id: null,
