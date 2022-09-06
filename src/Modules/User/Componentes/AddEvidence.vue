@@ -13,12 +13,6 @@
           class="q-pt-none"
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
-          <!-- <q-input
-          dense
-          v-model="address"
-          autofocus
-          @keyup.enter="prompt = false"
-        /> -->
           <q-input
             outlined
             rounded

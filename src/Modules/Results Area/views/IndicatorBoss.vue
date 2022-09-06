@@ -1,14 +1,11 @@
 <template>
   <q-page class="flex flex-center bg-blue-grey-10">
-    <div
-      class="q-ma-md container-objectives"
-      style="background-color: rgba(255, 255, 255, 0.1)"
-    >
+    <div class="q-ma-md container-objectives">
       <div class="row">
         <div class="text-h5 q-pa-md text-blue-grey-1">
           Plan general de indicadores
         </div>
-        <q-space />
+        <!-- <q-space />
         <div class="col-auto">
           <q-btn color="blue-grey-1" round flat icon="more_vert">
             <q-menu auto-close>
@@ -28,26 +25,9 @@
               </q-list>
             </q-menu>
           </q-btn>
-        </div>
+        </div> -->
       </div>
 
-      <!-- <div
-        v-for="indicator in indicators"
-        :key="indicator._id"
-        @click="toPlanItem(indicator._id)"
-        class="row q-ma-sm container-item-objectives"
-      >
-        <div class="text-blue-grey-1 column q-ml-sm justify-center">
-          <q-icon
-            size="sm"
-            :name="indicator.status ? 'check_circle' : 'radio_button_unchecked'"
-            :color="indicator.status ? 'green' : ''"
-          />
-        </div>
-        <div class="col text-blue-grey-1 objectives q-ma-sm">
-          {{ indicator.name }}
-        </div>
-      </div> -->
       <div class="q-pa-sm">
         <q-expansion-item
           v-for="i in indicatorsModel"

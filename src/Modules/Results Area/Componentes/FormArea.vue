@@ -94,12 +94,12 @@ import useArea from "../composables/useArea";
 export default defineComponent({
   name: "FormArea",
   setup() {
-    const { createArea, editArea } = useArea();
+    const { createArea } = useArea();
     const $q = useQuasar();
     const hex = /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/;
     const promptArea = inject("promptArea");
     const areaForm = inject("areaForm");
-    const editFormArea = inject("editFormArea");
+
     const reset = () => {
       areaForm.value.id = null;
       areaForm.value.name = "";
@@ -110,7 +110,7 @@ export default defineComponent({
       promptArea,
       areaForm,
       hex,
-      address: ref(null),
+
       reset,
       addInputObjetives() {
         console.log(areaForm.value.objectives.length);
@@ -124,37 +124,20 @@ export default defineComponent({
       },
 
       onSubmitArea: async () => {
-        if (editFormArea.value == true) {
-          console.log("Editar");
-          const { ok, message } = await editArea(areaForm.value);
-          if (!ok)
-            $q.notify({
-              message,
-              color: "negative",
-            });
-          if (ok) {
-            $q.notify({
-              message,
-              color: "positive",
-            });
-          }
-        } else {
-          const { ok, message } = await createArea(areaForm.value);
+        const { ok, message } = await createArea(areaForm.value);
 
-          if (!ok)
-            $q.notify({
-              message,
-              color: "negative",
-            });
-          if (ok) {
-            $q.notify({
-              message: "Area Creada",
-              color: "positive",
-            });
-          }
-          console.log("Crear");
+        if (!ok)
+          $q.notify({
+            message,
+            color: "negative",
+          });
+        if (ok) {
+          $q.notify({
+            message: "Area Creada",
+            color: "positive",
+          });
         }
-        editFormArea.value = false;
+        console.log("Crear");
         reset();
       },
     };

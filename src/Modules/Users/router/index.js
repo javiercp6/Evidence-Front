@@ -17,5 +17,10 @@ export default {
       name: "userIndicator",
       component: () => import("../views/userIndicator.vue"),
     },
+    {
+      path: "evaluacion" + ":idUser",
+      name: "userEvaluation",
+      component: () => import("../views/userEvaluation.vue"),
+    },
   ],
 };

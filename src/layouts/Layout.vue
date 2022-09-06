@@ -191,15 +191,6 @@
 
             <q-item-section class="text-blue-grey-1"> Ayuda </q-item-section>
           </q-item>
-          <q-item clickable v-ripple class="item-link">
-            <q-item-section avatar>
-              <q-icon name="info" />
-            </q-item-section>
-
-            <q-item-section class="text-blue-grey-1">
-              Acerca de
-            </q-item-section>
-          </q-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>

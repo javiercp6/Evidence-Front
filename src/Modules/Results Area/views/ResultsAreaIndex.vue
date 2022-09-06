@@ -34,12 +34,6 @@
             <q-btn color="blue-grey-1" round flat icon="more_vert">
               <q-menu auto-close>
                 <q-list>
-                  <q-item clickable v-ripple @click="editAreaPrompt(area)">
-                    <q-item-section avatar
-                      ><q-icon color="orange-4" name="edit"
-                    /></q-item-section>
-                    <q-item-section>Editar</q-item-section>
-                  </q-item>
                   <q-item clickable v-ripple @click="deleteAreaPromt(area)">
                     <q-item-section avatar
                       ><q-icon color="red-5" name="delete"
@@ -117,7 +111,7 @@ export default defineComponent({
     const { getArea, deleteArea, areas } = useArea();
     const promptArea = ref(false);
     const promptDeleteArea = ref(false);
-    const editFormArea = ref(false);
+
     const areaForm = ref({
       id: "",
       name: "",
@@ -125,7 +119,7 @@ export default defineComponent({
     });
     provide("promptArea", promptArea);
     provide("promptDeleteArea", promptDeleteArea);
-    provide("editFormArea", editFormArea);
+
     provide("areaForm", areaForm);
 
     getArea();
@@ -135,14 +129,14 @@ export default defineComponent({
       promptArea,
       promptDeleteArea,
       areaForm,
-      editAreaPrompt(areaitems) {
+      /* editAreaPrompt(areaitems) {
         areaForm.value.id = areaitems._id;
         areaForm.value.name = areaitems.name;
         areaForm.value.objectives = areaitems.objectives;
         promptArea.value = true;
         editFormArea.value = true;
         console.log(areaForm);
-      },
+      }, */
       deleteAreaPromt(areaitems) {
         areaForm.value.id = areaitems._id;
         promptDeleteArea.value = true;

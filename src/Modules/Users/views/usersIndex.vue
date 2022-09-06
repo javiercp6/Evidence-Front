@@ -5,14 +5,11 @@
       <FormDeleteUser />
       <div :class="$q.screen.gt.xs ? 'q-px-md' : ''">
         <q-table
-          card-container-style=""
           rows-per-page-label="Registros por página"
-          :rows-per-page-options="[]"
-          virtual-scroll
-          style="height: 200px"
+          :rows-per-page-options="[6]"
+          style="height: 100%"
           dark
           grid
-          title="Treats"
           :rows="users"
           :columns="columns"
           row-key="name"
@@ -30,7 +27,11 @@
                 @click="promptUser = true"
               />
             </div>
-            <div class="full-width">
+            <q-space />
+            <div
+              :class="$q.screen.gt.xs ? '' : 'full-width'"
+              style="width: 350px"
+            >
               <q-input
                 dense
                 debounce="300"
@@ -136,6 +137,16 @@
                               <q-item
                                 clickable
                                 v-ripple
+                                @click="toEvaluationUser(props.row._id)"
+                              >
+                                <q-item-section avatar
+                                  ><q-icon color="grey" name="fact_check"
+                                /></q-item-section>
+                                <q-item-section>Evaluación</q-item-section>
+                              </q-item>
+                              <q-item
+                                clickable
+                                v-ripple
                                 @click="editUserPrompt(props.row)"
                               >
                                 <q-item-section avatar
@@ -187,6 +198,7 @@ import {
   provide,
   inject,
   ref,
+  computed,
 } from "vue";
 import useUsers from "../composables/useUsers";
 import { useRouter, useRoute } from "vue-router";
@@ -212,7 +224,7 @@ const columns = [
   { name: "carbs", label: "Carbs (g)", field: "carbs" },
 ];
 
-const rows = [
+const rrr = [
   {
     name: "Frozen Yogurt",
     calories: 159,
@@ -315,7 +327,6 @@ export default defineComponent({
       promptUser,
       filter: ref(""),
       columns,
-      rows,
 
       editUserPrompt(useritems) {
         userForm.value.id = useritems._id;
@@ -340,6 +351,14 @@ export default defineComponent({
         console.log(idUser);
         router.push({
           name: "userItems",
+          params: { idUser: `${idUser}` },
+        });
+      },
+
+      toEvaluationUser(idUser) {
+        console.log(idUser);
+        router.push({
+          name: "userEvaluation",
           params: { idUser: `${idUser}` },
         });
       },

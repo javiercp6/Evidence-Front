@@ -16,6 +16,8 @@ const useArea = () => {
     const resp = await store.dispatch("area/createArea", area);
     return resp;
   };
+
+  //Quitar editArea en store
   const editArea = async (area) => {
     const resp = await store.dispatch("area/editArea", area);
     return resp;
