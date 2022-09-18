@@ -9,6 +9,7 @@ export const getUsers = async ({ commit }) => {
     const { data } = await api.get("/users");
     console.log(data);
     commit("getUsers", data.users);
+    //commit("getUsers", data);
 
     return { ok: true };
   } catch (error) {
