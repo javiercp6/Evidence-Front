@@ -74,20 +74,20 @@
 
     <q-drawer v-model="leftDrawerOpen" bordered>
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+        <q-item-label header> </q-item-label>
         <q-item clickable @click="navigate('heroSection')">
           <q-item-section>
-            <q-item-label>Home</q-item-label>
+            <q-item-label>Inicio</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable @click="navigate('features')">
           <q-item-section>
-            <q-item-label>Features</q-item-label>
+            <q-item-label>Acciones</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable @click="navigate('about')">
           <q-item-section>
-            <q-item-label>About</q-item-label>
+            <q-item-label>Acerca de</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable v-if="authStatus === 'not-authenticated'" to="/auth">

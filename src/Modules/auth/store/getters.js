@@ -17,3 +17,7 @@ export const uid = (state) => {
 export const role = (state) => {
   return state.role || "";
 };
+
+export const token = (state) => {
+  return state.idToken || "";
+};
