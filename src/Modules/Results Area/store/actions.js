@@ -40,13 +40,13 @@ export const createArea = async ({ commit }, area) => {
 };
 
 export const editArea = async ({ commit }, area) => {
-  const { id, name, objectives } = area;
+  //const { id, name, objectives } = area;
 
-  const areaToSave = { _id: id, ...area };
+  const areaToSave = { _id: area.id, name: area.name };
   try {
-    console.log(objectives.value);
-    const { data } = await api.put(`/areas/${id}`, areaToSave);
-    commit("editArea", areaToSave);
+    const { data } = await api.put(`/areas/${area.id}`, areaToSave);
+    console.log(data);
+    commit("editArea", data);
     return { ok: true, message: data.msg };
   } catch (error) {
     return { ok: false, message: error.response.data.error.message };

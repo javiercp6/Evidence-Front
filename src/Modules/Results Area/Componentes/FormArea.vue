@@ -31,7 +31,7 @@
             placeholder="Nombre"
             v-model="areaForm.name"
           />
-          <div class="row">
+          <div v-show="!editFormArea" class="row">
             <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Objetivos</div>
             <div class="row q-ml-sm justify-center items-center">
               <div>
@@ -54,6 +54,7 @@
             </div>
           </div>
           <q-input
+            v-show="!editFormArea"
             v-for="(objective, index) in areaForm.objectives"
             :key="index"
             outlined
@@ -94,20 +95,23 @@ import useArea from "../composables/useArea";
 export default defineComponent({
   name: "FormArea",
   setup() {
-    const { createArea } = useArea();
+    const { createArea, editArea } = useArea();
     const $q = useQuasar();
     const hex = /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/;
     const promptArea = inject("promptArea");
     const areaForm = inject("areaForm");
+    const editFormArea = inject("editFormArea");
 
     const reset = () => {
       areaForm.value.id = null;
       areaForm.value.name = "";
       areaForm.value.objectives = [""];
+      editFormArea.value = false;
     };
 
     return {
       promptArea,
+      editFormArea,
       areaForm,
       hex,
 
@@ -124,20 +128,37 @@ export default defineComponent({
       },
 
       onSubmitArea: async () => {
-        const { ok, message } = await createArea(areaForm.value);
+        if (editFormArea.value) {
+          const { ok, message } = await editArea(areaForm.value);
 
-        if (!ok)
-          $q.notify({
-            message,
-            color: "negative",
-          });
-        if (ok) {
-          $q.notify({
-            message: "Area Creada",
-            color: "positive",
-          });
+          if (!ok)
+            $q.notify({
+              message,
+              color: "negative",
+            });
+          if (ok) {
+            $q.notify({
+              message: "Área Modificada",
+              color: "positive",
+            });
+          }
+          console.log("editar");
+        } else {
+          const { ok, message } = await createArea(areaForm.value);
+
+          if (!ok)
+            $q.notify({
+              message,
+              color: "negative",
+            });
+          if (ok) {
+            $q.notify({
+              message: "Área Creada",
+              color: "positive",
+            });
+          }
+          console.log("Crear");
         }
-        console.log("Crear");
         reset();
       },
     };

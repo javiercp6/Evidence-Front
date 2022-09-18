@@ -19,6 +19,7 @@
     "jwt-js-decode": "^1.4.1",
     "pdfmake": "^0.2.5",
     "quasar": "^2.6.0",
+    "socket.io-client": "^4.5.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.1"

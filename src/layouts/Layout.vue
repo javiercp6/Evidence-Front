@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
     <q-header elevated class="bg-blue-grey-10">
-      <q-toolbar>
+      <q-toolbar style="background-color: rgba(255, 255, 255, 0.05)">
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         <q-toolbar-title>Logo</q-toolbar-title>
         <div class="q-gutter-sm row items-center no-wrap">
@@ -35,17 +35,8 @@
           >
             <q-tooltip>Messages</q-tooltip>
           </q-btn> -->
-          <q-btn
-            v-if="authStatus === 'authenticated'"
-            round
-            dense
-            flat
-            color="grey-8"
-            icon="notifications"
-          >
-            <q-badge color="red" text-color="white" floating> 2 </q-badge>
-            <q-tooltip>Notifications</q-tooltip>
-          </q-btn>
+
+          <Notifications v-if="authStatus === 'authenticated'" />
           <div
             v-if="authStatus === 'authenticated'"
             class="row items-center q-px-xs"
@@ -104,7 +95,10 @@
       dark
       class="bg-blue-grey-10 drawer-layaut"
     >
-      <q-scroll-area class="fit q-pa-sm">
+      <q-scroll-area
+        class="fit q-pa-sm"
+        style="background-color: rgba(255, 255, 255, 0.05)"
+      >
         <q-list padding>
           <q-item clickable v-ripple to="/" class="item-link">
             <q-item-section avatar>
@@ -197,14 +191,19 @@
 
     <q-page-container>
       <router-view />
-      <div class="bg-blue-grey-10 q-pa-sm">
-        <div class="text-center q-pb-sm">
-          <div class="text-subtitle1 text-blue-grey-1">Síguenos</div>
-          <div class="q-gutter-md" style="font-size: 2em"></div>
-        </div>
-        <div class="text-center text-blue-grey-1">
-          © 2022 Sistema de gestión para las evidencias de los objetivos del
-          año. Facultad 4. UCI
+      <div class="bg-blue-grey-10">
+        <div
+          class="q-pa-sm"
+          style="background-color: rgba(255, 255, 255, 0.05)"
+        >
+          <div class="text-center q-pb-sm">
+            <div class="text-subtitle1 text-blue-grey-1">Síguenos</div>
+            <div class="q-gutter-md" style="font-size: 2em"></div>
+          </div>
+          <div class="text-center text-blue-grey-1">
+            © 2022 Sistema de gestión para las evidencias de los objetivos del
+            año. Facultad 4. UCI
+          </div>
         </div>
       </div>
     </q-page-container>
@@ -215,9 +214,14 @@
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import useAuth from "src/Modules/auth/composables/useAuth";
+import Notifications from "../components/Notifications.vue";
 
 export default {
   name: "LayoutPrueba",
+
+  components: {
+    Notifications,
+  },
   setup() {
     const router = useRouter();
     const { username, authStatus, role, logout } = useAuth();

@@ -17,7 +17,7 @@ export const createArea = (state, areas) => {
 export const editArea = (state, area) => {
   console.log(area);
   const idx = state.areas.map((a) => a._id).indexOf(area._id);
-  state.areas[idx] = area;
+  state.areas[idx].name = area.name;
 };
 
 export const deleteArea = (state, idArea) => {

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center bg-blue-grey-9">
+  <q-page class="flex flex-center bg-blue-grey-10">
     <div
       class="q-ma-md container-objectives"
       style="background-color: rgba(255, 255, 255, 0.06)"
