@@ -200,6 +200,8 @@ const start = () => {
     router.push("/user");
   } else if (role.value === "ROLE_ADMIN") {
     router.push("/area");
+  } else if (role.value === "ROLE_CHIEF") {
+    router.push("/area");
   } else {
     router.push("/auth");
   }

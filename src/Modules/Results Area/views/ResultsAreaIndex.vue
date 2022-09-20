@@ -91,7 +91,7 @@
             style="text-decoration: none"
             :to="{ name: 'areaitems', params: { idArea: `${area._id}` } }"
           >
-            <q-btn flat rounded size="md" color="primary"> Ver mas </q-btn>
+            <q-btn flat rounded size="md" color="primary"> Ver más </q-btn>
           </router-link>
         </q-card-actions>
       </q-card>
