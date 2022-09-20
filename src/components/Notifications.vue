@@ -46,11 +46,13 @@ import { api } from "boot/axios";
 import { useQuasar } from "quasar";
 import { io } from "socket.io-client";
 import useAuth from "src/Modules/auth/composables/useAuth";
+import useUser from "src/Modules/User/composables/useUser";
 
 export default defineComponent({
   name: "NotificationsSocket",
   setup() {
     const { uid } = useAuth();
+    const { getIndicatorsByUser } = useUser();
     const $q = useQuasar();
     const cantNotifications = ref(null);
     const notifications = ref([]);
@@ -71,6 +73,8 @@ export default defineComponent({
         position: "top-right",
         timeout: 1000,
       });
+      getIndicatorsByUser(uid.value);
+
       console.log(cantNotifications.value, "Connected to socket.io");
     });
 
