@@ -1,6 +1,6 @@
 import authRouter from "../Modules/auth/router";
 import isAuthenticatedGuard from "src/Modules/auth/router/auth-guard";
-import isAdminGuard from "src/Modules/auth/router/admin-guard";
+import isAdminChiefGuard from "src/Modules/auth/router/admin-chief-guard";
 import isUserGuard from "src/Modules/auth/router/user-guard";
 import userRouter from "../Modules/User/router";
 import evaluationUserRouter from "../Modules/User/router/evaluation";
@@ -31,17 +31,17 @@ const routes = [
   },
   {
     path: "/area",
-    beforeEnter: [isAuthenticatedGuard, isAdminGuard],
+    beforeEnter: [isAuthenticatedGuard, isAdminChiefGuard],
     ...resultsareaRouter,
   },
   {
     path: "/indicadores",
-    beforeEnter: [isAuthenticatedGuard, isAdminGuard],
+    beforeEnter: [isAuthenticatedGuard, isAdminChiefGuard],
     ...indicatorBossRouter,
   },
   {
     path: "/usuarios",
-    beforeEnter: [isAuthenticatedGuard, isAdminGuard],
+    beforeEnter: [isAuthenticatedGuard, isAdminChiefGuard],
     ...usersRouter,
   },
 

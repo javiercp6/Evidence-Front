@@ -101,6 +101,7 @@
 
 <script>
 import { defineComponent, defineAsyncComponent, ref, provide } from "vue";
+import { useQuasar } from "quasar";
 import useArea from "../composables/useArea";
 
 export default defineComponent({
@@ -115,6 +116,7 @@ export default defineComponent({
 
   setup() {
     const { getArea, deleteArea, areas } = useArea();
+    const $q = useQuasar();
     const promptArea = ref(false);
     const promptDeleteArea = ref(false);
     const editFormArea = ref(false);
@@ -131,6 +133,7 @@ export default defineComponent({
     provide("areaForm", areaForm);
 
     getArea();
+
     return {
       value: 30,
       areas,
