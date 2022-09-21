@@ -109,7 +109,7 @@
           </q-item>
 
           <q-item
-            v-if="role === 'ROLE_ADMIN'"
+            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEF'"
             clickable
             v-ripple
             to="/area"
@@ -122,7 +122,7 @@
             <q-item-section>Areas </q-item-section>
           </q-item>
           <q-item
-            v-if="role === 'ROLE_ADMIN'"
+            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEF'"
             clickable
             v-ripple
             to="/indicadores"
@@ -135,7 +135,7 @@
             <q-item-section>Plan General </q-item-section>
           </q-item>
           <q-item
-            v-if="role === 'ROLE_ADMIN'"
+            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEF'"
             clickable
             v-ripple
             to="/usuarios"
