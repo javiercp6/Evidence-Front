@@ -122,7 +122,7 @@
             <q-item-section>Areas </q-item-section>
           </q-item>
           <q-item
-            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEF'"
+            v-if="role === 'ROLE_CHIEF'"
             clickable
             v-ripple
             to="/indicadores"

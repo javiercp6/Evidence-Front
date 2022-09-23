@@ -17,9 +17,13 @@
         v-for="indicator in i.indicators"
         :key="indicator._id"
         class="row q-ma-sm container-item-objectives"
-        @click="toPlanItem(indicator._id)"
       >
-        <div class="col text-blue-grey-1 q-ma-sm">
+        <div
+          @click="toPlanItem(indicator._id)"
+          class="col text-blue-grey-1 q-ma-sm"
+          @mouseover="showEditObj = true"
+          @mouseleave="showEditObj = false"
+        >
           <q-icon
             size="sm"
             :name="indicator.status ? 'check_circle' : 'circle'"
@@ -27,13 +31,25 @@
           />
           {{ indicator.name }}
         </div>
+        <q-space />
+        <div class="column q-ml-sm justify-center">
+          <q-icon
+            class="q-px-xs cursor-pointer"
+            name="highlight_off"
+            size="sm"
+            color="red"
+            @click="onDeleteIndicatorFromUser(indicator._id)"
+          />
+          <q-tooltip>Eliminar Indicador</q-tooltip>
+        </div>
       </div>
     </q-expansion-item>
+    <FormDeleteIndicator />
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, defineAsyncComponent, ref, provide } from "vue";
 import useUser from "src/Modules/User/composables/useUser";
 import useAuth from "src/Modules/auth/composables/useAuth";
 import { useRouter, useRoute } from "vue-router";
@@ -44,13 +60,22 @@ export default defineComponent({
     user: Boolean,
   },
 
+  components: {
+    FormDeleteIndicator: defineAsyncComponent(() =>
+      import("../Componentes/FormDeleteIndicator.vue")
+    ),
+  },
+
   setup(props) {
-    const { getIndicatorsByUser, indicators } = useUser();
+    const { getIndicatorsByUser, deleteIndicatorFromUser, indicators } =
+      useUser();
     const { uid } = useAuth();
 
     const router = useRouter();
     const route = useRoute();
     const idUser = ref(route.params.idUser);
+    const promptDeleteIndicator = ref(false);
+    const idIndicator = ref(null);
     console.log(props.user);
     if (props.user) {
       getIndicatorsByUser(uid.value);
@@ -59,6 +84,10 @@ export default defineComponent({
       getIndicatorsByUser(idUser.value);
       console.log("no se manda");
     }
+
+    provide("promptDeleteIndicator", promptDeleteIndicator);
+    provide("idIndicator", idIndicator);
+    provide("idUser", idUser);
 
     return {
       indicators,
@@ -75,6 +104,10 @@ export default defineComponent({
             params: { idIndicator: `${idIndicator}` },
           });
         }
+      },
+      onDeleteIndicatorFromUser(idInd) {
+        promptDeleteIndicator.value = true;
+        idIndicator.value = idInd;
       },
     };
   },

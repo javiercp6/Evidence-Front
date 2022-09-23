@@ -91,6 +91,14 @@ export const estabilishIndicator = (state, indicatorsData) => {
   }
 };
 
+export const deleteIndicatorFromUser = (state, indicator) => {
+  state.indicators.indicators.forEach((element) => {
+    element.indicators = element.indicators.filter(
+      (i) => i._id !== indicator.id
+    );
+  });
+};
+
 export const getEvaluationByUser = (state, evaluation) => {
   state.evaluation = evaluation;
 };

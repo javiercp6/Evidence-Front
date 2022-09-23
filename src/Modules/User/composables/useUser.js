@@ -74,6 +74,17 @@ const useUser = () => {
     return resp;
   };
 
+  const deleteIndicatorFromUser = async (idIndicator, idUser) => {
+    $q.loading.show();
+    const objectTo = { idIndicator, idUser };
+    const resp = await store.dispatch(
+      "indicator/deleteIndicatorFromUser",
+      objectTo
+    );
+    $q.loading.hide();
+    return resp;
+  };
+
   const getEvaluationByUser = async (idUser) => {
     $q.loading.show();
     const resp = await store.dispatch("indicator/getEvaluationByUser", idUser);
@@ -100,6 +111,7 @@ const useUser = () => {
     editevidence,
     deleteevidence,
     estabilishIndicator,
+    deleteIndicatorFromUser,
     getEvaluationByUser,
     createIndicatorsPersonal,
     indicators: computed(() => store.getters["indicator/indicators"]),

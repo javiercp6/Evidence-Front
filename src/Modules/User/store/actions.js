@@ -121,6 +121,20 @@ export const estabilishIndicator = async ({ commit }, indicatorsModelTo) => {
   }
 };
 
+export const deleteIndicatorFromUser = async ({ commit }, indicator) => {
+  try {
+    const { data } = await api.delete(
+      `/indicators/${indicator.idIndicator}/user/${indicator.idUser}`
+    );
+
+    commit("deleteIndicatorFromUser", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};
+
 export const getEvaluationByUser = async ({ commit }, idUser) => {
   try {
     const { data } = await api.get(`/users/evaluation/${idUser}`);
