@@ -19,7 +19,7 @@
           <template v-slot:top>
             <div class="row self-start justify-center q-ma-sm">
               <q-btn
-                v-if="role === 'USER_ADMIN'"
+                v-if="role === 'ROLE_ADMIN'"
                 color="primary"
                 icon="add"
                 label="Crear USuario"
@@ -146,7 +146,7 @@
                                 <q-item-section>Evaluación</q-item-section>
                               </q-item>
                               <q-item
-                                v-if="role === 'USER_ADMIN'"
+                                v-if="role === 'ROLE_ADMIN'"
                                 clickable
                                 v-ripple
                                 @click="editUserPrompt(props.row)"
@@ -157,7 +157,7 @@
                                 <q-item-section>Editar</q-item-section>
                               </q-item>
                               <q-item
-                                v-if="role === 'USER_ADMIN'"
+                                v-if="role === 'ROLE_ADMIN'"
                                 clickable
                                 v-ripple
                                 @click="deleteUserPrompt(props.row)"

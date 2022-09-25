@@ -20,9 +20,15 @@
               <q-list>
                 <q-item clickable v-ripple @click="onCreateObjective()">
                   <q-item-section avatar
-                    ><q-icon color="orange-4" name="add"
+                    ><q-icon color="primary" name="add"
                   /></q-item-section>
                   <q-item-section>Añadir Objetivos</q-item-section>
+                </q-item>
+                <q-item clickable v-ripple @click="generatePDFEvaluationArea()">
+                  <q-item-section avatar
+                    ><q-icon color="primary" name="picture_as_pdf"
+                  /></q-item-section>
+                  <q-item-section>Exportar PDF</q-item-section>
                 </q-item>
                 <q-item clickable v-ripple>
                   <q-item-section avatar
@@ -314,12 +320,12 @@ import {
   ref,
   computed,
 } from "vue";
-import useAuth from "src/Modules/auth/composables/useAuth";
+import usePDFEvaluationArea from "../composables/usePDFEvaluationArea";
 import useArea from "../composables/useArea";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
-  name: "IndexPage",
+  name: "ResultAreaItems",
 
   components: {
     FormCriterion: defineAsyncComponent(() =>
@@ -353,6 +359,7 @@ export default defineComponent({
 
   setup() {
     const { getAreaById, area } = useArea();
+    const { generatePDFEvaluationArea } = usePDFEvaluationArea();
     const route = useRoute();
     const prompt = ref(false);
     const showEditObj = ref(false);
@@ -407,6 +414,7 @@ export default defineComponent({
       showEditObj,
       showEditCrit,
       area,
+      generatePDFEvaluationArea,
       onCreateCriterion(idObjective) {
         criterionForm.value.idObjective = idObjective;
         promptCriterion.value = true;
