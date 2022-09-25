@@ -9,55 +9,45 @@ const usePDFEvaluationArea = () => {
 
   const generatePDFEvaluationArea = () => {
     const area = computed(() => store.getters["area/area"]);
-    const indDocenteEducat = [];
-    const indPolitIdeol = [];
-    const indMetodologico = [];
-    const indInvestig = [];
-    const indSuperacion = [];
-    const indExtUniv = [];
+    const content = [{ text: "ARC:  " + area.value.name, style: "header" }];
 
-    console.log(area.value);
-
-    /*    evaluation.value.indicators.forEach((element) => {
-      if (
-        element.category === "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO"
-      ) {
-        element.indicators.forEach((indicator) => {
-          indDocenteEducat.push(indicator.name);
-        });
-      }
-      if (element.category === "TRABAJO POLÍTICO-IDEOLÓGICO") {
-        element.indicators.forEach((indicator) => {
-          indPolitIdeol.push(indicator.name);
-        });
-      }
-      if (element.category === "TRABAJO METODOLÓGICO") {
-        element.indicators.forEach((indicator) => {
-          indMetodologico.push(indicator.name);
-        });
-      }
-      if (element.category === "TRABAJO DE INVESTIGACIÓN E INNOVACIÓN") {
-        element.indicators.forEach((indicator) => {
-          indInvestig.push(indicator.name);
-        });
-      }
-      if (element.category === "SUPERACIÓN") {
-        element.indicators.forEach((indicator) => {
-          indSuperacion.push(indicator.name);
-        });
-      }
-      if (element.category === "EXTENSIÓN UNIVERSITARIA") {
-        element.indicators.forEach((indicator) => {
-          indExtUniv.push(indicator.name);
-        });
-      }
-    }); */
+    area.value.objectives.forEach((a, index) => {
+      let criterios = [];
+      content.push(
+        { text: "\n\nObjetivo" + " " + (index + 1), style: "subheader" },
+        { text: a.name },
+        { text: "\nCriterios de medida", style: "subheader" }
+      );
+      a.criterions.forEach((c) => {
+        criterios.push(c.name + " (" + c.status + ")");
+      });
+      content.push({
+        ul: criterios,
+      });
+      criterios = [];
+    });
 
     let docDefinition = {
-      content: [{ text: "ARC", text: area.value.name, style: "header" }],
+      content,
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+        },
+        subheader: {
+          fontSize: 15,
+          bold: true,
+        },
+        quote: {
+          italics: true,
+        },
+        small: {
+          fontSize: 8,
+        },
+      },
     };
 
-    pdfMake.createPdf(docDefinition).open() /* .download() */;
+    pdfMake.createPdf(docDefinition).download();
   };
 
   return {
