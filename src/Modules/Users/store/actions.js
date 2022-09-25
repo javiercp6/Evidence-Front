@@ -13,6 +13,7 @@ export const getUsers = async ({ commit }) => {
 
     return { ok: true };
   } catch (error) {
+    console.log(error, "Error");
     return { ok: false, message: error.response.data.msg };
   }
 };

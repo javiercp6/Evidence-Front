@@ -19,6 +19,7 @@
           <template v-slot:top>
             <div class="row self-start justify-center q-ma-sm">
               <q-btn
+                v-if="role === 'USER_ADMIN'"
                 color="primary"
                 icon="add"
                 label="Crear USuario"
@@ -145,6 +146,7 @@
                                 <q-item-section>Evaluación</q-item-section>
                               </q-item>
                               <q-item
+                                v-if="role === 'USER_ADMIN'"
                                 clickable
                                 v-ripple
                                 @click="editUserPrompt(props.row)"
@@ -155,6 +157,7 @@
                                 <q-item-section>Editar</q-item-section>
                               </q-item>
                               <q-item
+                                v-if="role === 'USER_ADMIN'"
                                 clickable
                                 v-ripple
                                 @click="deleteUserPrompt(props.row)"
@@ -201,6 +204,7 @@ import {
   computed,
 } from "vue";
 import useUsers from "../composables/useUsers";
+import useAuth from "src/Modules/auth/composables/useAuth";
 import { useRouter, useRoute } from "vue-router";
 
 const columns = [
@@ -300,6 +304,7 @@ export default defineComponent({
   setup() {
     //const { indicators } = useUser();
     const { getUsers, getUsersByString, users } = useUsers();
+    const { role } = useAuth();
 
     const router = useRouter();
     const promptUser = ref(false);
@@ -324,6 +329,7 @@ export default defineComponent({
 
     return {
       users,
+      role,
       promptUser,
       filter: ref(""),
       columns,
