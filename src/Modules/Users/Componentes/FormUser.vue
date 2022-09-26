@@ -4,15 +4,28 @@
       class="bg-blue-grey-10 card-evidencia"
       :style="$q.screen.gt.sm ? 'min-width: 850px' : 'min-width: 100%'"
     >
-      <q-form @submit.prevent="onSubmitUser">
-        <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
-          <div class="text-h6 text-blue-grey-1">Nuevo Usuario</div>
+      <q-form
+        @submit.prevent="onSubmitUser"
+        style="background-color: rgba(255, 255, 255, 0.1)"
+      >
+        <q-card-section class="flex q-mx-sm">
+          <div class="text-h6 text-blue-grey-1">
+            {{ editFormUser ? "Editar Usuario" : "Nuevo Usuario" }}
+          </div>
+          <q-space />
+
+          <q-btn
+            rounded
+            flat
+            color="primary"
+            icon="lock_reset"
+            label="Reiniciar Contraseña"
+            @click="resetPassword()"
+          />
+          <!--  <q-btn round outline color="primary" icon="lock_reset" /> -->
         </q-card-section>
 
-        <q-card-section
-          class="q-pt-none"
-          style="background-color: rgba(255, 255, 255, 0.1)"
-        >
+        <q-card-section class="q-pt-none">
           <!-- <q-input
           dense
           v-model="address"
@@ -20,6 +33,7 @@
           @keyup.enter="prompt = false"
         /> -->
           <q-input
+            autofocus
             outlined
             dense
             class="q-pa-xs"
@@ -69,11 +83,7 @@
           />
         </q-card-section>
 
-        <q-card-actions
-          align="right"
-          class="text-primary q-pa-md"
-          style="background-color: rgba(255, 255, 255, 0.1)"
-        >
+        <q-card-actions align="right" class="text-primary q-pa-md q-mx-sm">
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
           <q-btn
             color="primary"
@@ -115,6 +125,7 @@ export default defineComponent({
     return {
       promptUser,
       userForm,
+      editFormUser,
       reset,
 
       onSubmitUser: async () => {
@@ -128,7 +139,7 @@ export default defineComponent({
             });
           if (ok) {
             $q.notify({
-              message,
+              message: "Usuario editado ",
               color: "positive",
             });
           }
@@ -142,7 +153,7 @@ export default defineComponent({
             });
           if (ok) {
             $q.notify({
-              message: "Area Creada",
+              message: "Usuario Creado",
               color: "positive",
             });
           }
@@ -150,6 +161,23 @@ export default defineComponent({
         }
         editFormUser.value = false;
         reset();
+      },
+
+      resetPassword: async () => {
+        userForm.value.resetpassword = true;
+        const { ok, message } = await editUser(userForm.value);
+        if (!ok)
+          $q.notify({
+            message,
+            color: "negative",
+          });
+        if (ok) {
+          $q.notify({
+            message: "Contraseña reiniciada",
+            color: "positive",
+          });
+        }
+        userForm.value.resetpassword = false;
       },
     };
   },

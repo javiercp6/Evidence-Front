@@ -41,9 +41,12 @@ export const editUser = async ({ commit }, user) => {
     commit("editUser", data);
     return { ok: true };
   } catch (error) {
-    console.log("mmmm");
+    console.log("mmmm", error.response.data);
 
-    return { ok: false, message: error.response.data.error.message };
+    return {
+      ok: false,
+      message: error.response.data.errors[0].msg || "Error inesperado",
+    };
   }
 };
 
