@@ -71,3 +71,15 @@ export const checkAuthentication = async ({ commit }) => {
   //   return { ok: false, message: error.response.data.error.message };
   // }
 };
+
+export const changePassword = async ({ commit }, passwords) => {
+  try {
+    const { data } = await api.put("/users/change/password", passwords);
+    console.log(data);
+    //commit("loginUser", data);
+
+    return { ok: true, message: data.msg };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};

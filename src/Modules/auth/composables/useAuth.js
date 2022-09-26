@@ -24,11 +24,21 @@ const useAuth = () => {
     //store.commit('journal/clearEntries')
   };
 
+  const changePassword = async (passwords) => {
+    const pass = {
+      oldpassword: passwords.oldpassword,
+      newpassword: passwords.newpassword,
+    };
+    const resp = await store.dispatch("auth/changePassword", pass);
+    return resp;
+  };
+
   return {
     checkAuthStatus,
     createUser,
     loginUser,
     logout,
+    changePassword,
 
     authStatus: computed(() => store.getters["auth/currentState"]),
     username: computed(() => store.getters["auth/username"]),

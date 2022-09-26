@@ -1,6 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
     <q-header elevated class="bg-blue-grey-10">
+      <FormChangePassword />
       <q-toolbar style="background-color: rgba(255, 255, 255, 0.05)">
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
         <q-toolbar-title>Logo</q-toolbar-title>
@@ -54,6 +55,18 @@
                     </q-item-section>
 
                     <q-item-section>{{ username }}</q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item
+                    clickable
+                    @click="promptChangePassword = true"
+                    v-close-popup
+                  >
+                    <q-item-section avatar>
+                      <q-icon name="password" />
+                    </q-item-section>
+
+                    <q-item-section>Cambiar contraseña</q-item-section>
                   </q-item>
                   <q-separator />
                   <q-item clickable @click="onLogout()" v-close-popup>
@@ -211,7 +224,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { provide, ref, defineAsyncComponent } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import useAuth from "src/Modules/auth/composables/useAuth";
 import Notifications from "../components/Notifications.vue";
@@ -221,14 +234,21 @@ export default {
 
   components: {
     Notifications,
+    FormChangePassword: defineAsyncComponent(() =>
+      import("../components/FormChangePassword.vue")
+    ),
   },
   setup() {
     const router = useRouter();
-    const { username, authStatus, role, logout } = useAuth();
+    const { username, authStatus, role, logout, changePassword } = useAuth();
+    const promptChangePassword = ref(false);
+    provide("promptChangePassword", promptChangePassword);
 
     return {
       drawer: ref(false),
       miniState: ref(true),
+
+      promptChangePassword,
       username,
       authStatus,
       role,
