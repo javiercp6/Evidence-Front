@@ -13,9 +13,10 @@ export const loginUser = (state, idToken) => {
 
   const decoded = jwt_decode(idToken);
 
-  console.log(decoded);
-  const { role, name, uid } = decoded;
-  state.user = name;
+  console.log(decoded, "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+  const { role, name, uid, username } = decoded;
+  state.user = username;
+  state.name = name;
   state.role = role;
   state.uid = uid;
   state.status = "authenticated";
@@ -24,6 +25,7 @@ export const loginUser = (state, idToken) => {
 export const logout = (state) => {
   state.user = null;
   state.idToken = null;
+  state.name = null;
   state.role = null;
   state.uid = null;
   state.status = "not-authenticated";

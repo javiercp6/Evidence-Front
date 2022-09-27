@@ -9,6 +9,8 @@ const usePDFEvaluation = () => {
 
   const generatePDFEvaluation = () => {
     const evaluation = computed(() => store.getters["indicator/evaluation"]);
+    const name = computed(() => store.getters["auth/name"]);
+    const namePDF = "Evaluación Profesoral " + name.value + " 2022";
     const indDocenteEducat = [];
     const indPolitIdeol = [];
     const indMetodologico = [];
@@ -52,6 +54,15 @@ const usePDFEvaluation = () => {
     });
 
     let docDefinition = {
+      info: {
+        title:
+          "Evaluación profesoral de " +
+          evaluation.value.user.name +
+          " en el año 2022",
+        author: name.value,
+        creator: "SGEOA",
+        producer: "SGEOA",
+      },
       content: [
         {
           style: "tableExample",
@@ -242,14 +253,14 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  text: evaluation.value.indicators[2].value,
+                  text: "TRABAJO METODOLÓGICO",
                   italics: true,
                   fontSize: 10,
                   bold: true,
                   fillColor: "#CCCCCC",
                 },
                 {
-                  text: "Exelente",
+                  text: evaluation.value.indicators[2].value,
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -402,7 +413,7 @@ const usePDFEvaluation = () => {
       ],
     };
 
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).download(namePDF);
   };
 
   return {

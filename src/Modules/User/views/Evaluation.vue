@@ -17,7 +17,8 @@
               @click="onCreateIndicatorPersonal()"
             />
           </div>
-          <div class="q-pl-sm">
+
+          <!-- <div class="q-pl-sm">
             <q-btn
               color="primary"
               icon="picture_as_pdf"
@@ -26,7 +27,7 @@
               outline
               @click="generatePDFEvaluation()"
             />
-          </div>
+          </div> -->
         </div>
       </div>
       <ListEvaluation :user="true" />
@@ -37,7 +38,7 @@
 
 <script>
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
-import usePDFEvaluation from "../composables/usePDFEvaluation";
+//import usePDFEvaluation from "../composables/usePDFEvaluation";
 
 import { useRouter } from "vue-router";
 
@@ -55,7 +56,7 @@ export default defineComponent({
 
   setup() {
     const router = useRouter();
-    const { generatePDFEvaluation } = usePDFEvaluation();
+    //const { generatePDFEvaluation } = usePDFEvaluation();
     const promptIndicatorPersonal = ref(false);
     const indicatorPersonalForm = ref({
       id: null,
@@ -68,7 +69,7 @@ export default defineComponent({
     provide("editFormIndicatorPersonal", editFormIndicatorPersonal);
 
     return {
-      generatePDFEvaluation,
+      //generatePDFEvaluation,
       onCreateIndicatorPersonal() {
         indicatorPersonalForm.value = {
           id: null,

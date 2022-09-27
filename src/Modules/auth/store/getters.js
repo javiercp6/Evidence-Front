@@ -10,6 +10,10 @@ export const username = (state) => {
   return state.user || "";
 };
 
+export const name = (state) => {
+  return state.name || "";
+};
+
 export const uid = (state) => {
   return state.uid || "";
 };

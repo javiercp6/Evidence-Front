@@ -90,14 +90,17 @@
         </div>
         <div class="q-ma-sm">
           <div
-            class="col text-blue-grey-1 q-ma-sm"
+            class="col text-blue-grey-1 q-ma-sm flex-b"
             @mouseover="showEditObj = true"
             @mouseleave="showEditObj = false"
           >
             <!-- <q-icon color="green" name="check_circle" size="xs" />
         <q-icon color="red" name="cancel" size="xs" /> -->
-            <q-icon name="circle" size="xs" />
+
+            <!--  <q-icon name="circle" size="xs" /> -->
+
             {{ objective.name }}
+
             <q-icon
               v-show="showEditObj"
               class="q-px-xs cursor-pointer"
@@ -106,6 +109,7 @@
               color="orange-4"
               @click="onEditObjective(objective)"
             />
+
             <q-icon
               v-show="showEditObj"
               class="q-px-xs cursor-pointer"
@@ -196,7 +200,7 @@
               <div>
                 <div class="q-pa-xs q-px-lg">
                   <div class="row">
-                    <div class="text-h6 text-white d-block">Indicadores</div>
+                    <div class="text-h6 text-white d-block">Indicador</div>
                     <div
                       v-if="!criterion.indicator"
                       class="column q-ml-sm justify-center"
@@ -210,8 +214,8 @@
                       />
                     </div>
                   </div>
-                  <div v-if="criterion.indicator">
-                    <q-icon name="circle" size="xs" color="primary" />
+                  <div v-if="criterion.indicator" class="q-pl-xs">
+                    <!-- <q-icon name="circle" size="xs" color="primary" /> -->
                     {{ criterion.indicator.name }}
 
                     <q-icon
@@ -231,7 +235,7 @@
                       @click="onDeleteIndicator(criterion.indicator._id)"
                     />
                   </div>
-                  <div v-else>No existen Indicadores</div>
+                  <div v-else>No existe un indicador</div>
                 </div>
               </div>
               <!-- <q-btn
@@ -446,7 +450,7 @@ export default defineComponent({
         if (status === "Cumplido") {
           return "green";
         } else if (status === "Sobre Cumplido") {
-          return "blue";
+          return "primary";
         } else {
           return "";
         }

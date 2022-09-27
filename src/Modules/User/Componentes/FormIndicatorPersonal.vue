@@ -54,8 +54,8 @@
               class="q-pa-xs text-blue-grey-1"
               dense
               v-model="indicatorPersonalForm.category"
-              val="RABAJO DE INVESTIGACIÓN E INNOVACIÓN"
-              label="RABAJO DE INVESTIGACIÓN E INNOVACIÓN"
+              val="TRABAJO DE INVESTIGACIÓN E INNOVACIÓN"
+              label="TRABAJO DE INVESTIGACIÓN E INNOVACIÓN"
               dark
             />
             <q-radio

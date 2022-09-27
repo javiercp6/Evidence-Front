@@ -32,7 +32,7 @@
           {{ indicator.name }}
         </div>
         <q-space />
-        <div class="column q-ml-sm justify-center">
+        <div v-if="!user" class="column q-ml-sm justify-center">
           <q-icon
             class="q-px-xs cursor-pointer"
             name="highlight_off"

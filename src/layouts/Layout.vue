@@ -54,7 +54,7 @@
                       <q-icon name="person" />
                     </q-item-section>
 
-                    <q-item-section>{{ username }}</q-item-section>
+                    <q-item-section>{{ name }}</q-item-section>
                   </q-item>
                   <q-separator />
                   <q-item
@@ -240,7 +240,8 @@ export default {
   },
   setup() {
     const router = useRouter();
-    const { username, authStatus, role, logout, changePassword } = useAuth();
+    const { username, authStatus, role, name, logout, changePassword } =
+      useAuth();
     const promptChangePassword = ref(false);
     provide("promptChangePassword", promptChangePassword);
 
@@ -252,6 +253,7 @@ export default {
       username,
       authStatus,
       role,
+      name,
       toPlanUser() {
         router.push({
           name: "pl",

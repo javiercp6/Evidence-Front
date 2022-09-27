@@ -27,6 +27,7 @@
           </div>
           <div class="q-pl-sm">
             <q-btn
+              :disable="!evaluation.value"
               color="primary"
               icon="picture_as_pdf"
               label=" Exportar PDF"

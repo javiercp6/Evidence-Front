@@ -9,7 +9,9 @@ const usePDFEvaluationArea = () => {
 
   const generatePDFEvaluationArea = () => {
     const area = computed(() => store.getters["area/area"]);
+    const name = computed(() => store.getters["auth/name"]);
     const content = [{ text: "ARC:  " + area.value.name, style: "header" }];
+    const namePDF = "ARC " + area.value.name + " 2022";
 
     area.value.objectives.forEach((a, index) => {
       let criterios = [];
@@ -28,6 +30,15 @@ const usePDFEvaluationArea = () => {
     });
 
     let docDefinition = {
+      info: {
+        title:
+          "Cumplimiento de los objetivos del Área " +
+          area.value.name +
+          " en el año 2022",
+        author: name.value,
+        creator: "SGEOA",
+        producer: "SGEOA",
+      },
       content,
       styles: {
         header: {
@@ -47,7 +58,7 @@ const usePDFEvaluationArea = () => {
       },
     };
 
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).download(namePDF);
   };
 
   return {

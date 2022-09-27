@@ -44,6 +44,7 @@ const useAuth = () => {
     username: computed(() => store.getters["auth/username"]),
     uid: computed(() => store.getters["auth/uid"]),
     role: computed(() => store.getters["auth/role"]),
+    name: computed(() => store.getters["auth/name"]),
   };
 };
 
