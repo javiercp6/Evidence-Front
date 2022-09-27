@@ -31,7 +31,16 @@
               /* (val) => hex.test(val) || 'Prueba', */
             ]"
             placeholder="Contraseña actual"
-          />
+            :type="isPwd1 ? 'password' : 'text'"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd1 ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd1 = !isPwd1"
+              />
+            </template>
+          </q-input>
           <q-input
             v-model="passwords.newpassword"
             class="q-pa-sm"
@@ -119,6 +128,7 @@ export default defineComponent({
     return {
       promptChangePassword,
       isPwd: ref(true),
+      isPwd1: ref(true),
       passwords,
 
       reset,

@@ -2,7 +2,7 @@
   <q-dialog v-model="promptEvaluation" persistent>
     <q-card
       class="bg-blue-grey-10 card-evidencia"
-      :style="$q.screen.gt.sm ? 'min-width: 850px' : 'min-width: 100%'"
+      :style="$q.screen.gt.sm ? 'min-width: 650px' : 'min-width: 100%'"
     >
       <q-form
         @submit.prevent="onSubmitEvaluation"
@@ -28,14 +28,14 @@
                 dense
                 class="text-blue-grey-1 q-px-xs"
                 dark
-                color="red"
+                color="red-5"
                 v-model="evaluationForm[0]"
                 val="Mal"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
-                color="primary"
+                color="orange-4"
                 v-model="evaluationForm[0]"
                 dark
                 dense
@@ -46,7 +46,7 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 dense
-                color="primary"
+                color="green"
                 v-model="evaluationForm[0]"
                 val="Bien"
                 label="Bien"
@@ -77,14 +77,14 @@
                 dense
                 class="text-blue-grey-1 q-px-xs"
                 dark
-                color="primary"
+                color="red-5"
                 v-model="evaluationForm[1]"
                 val="Mal"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
-                color="primary"
+                color="orange-4"
                 v-model="evaluationForm[1]"
                 dark
                 dense
@@ -95,7 +95,7 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 dense
-                color="primary"
+                color="green"
                 v-model="evaluationForm[1]"
                 val="Bien"
                 label="Bien"
@@ -126,14 +126,14 @@
                 dense
                 class="text-blue-grey-1 q-px-xs"
                 dark
-                color="primary"
+                color="red-5"
                 v-model="evaluationForm[2]"
                 val="Mal"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
-                color="primary"
+                color="orange-4"
                 v-model="evaluationForm[2]"
                 dark
                 dense
@@ -144,7 +144,7 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 dense
-                color="primary"
+                color="green"
                 v-model="evaluationForm[2]"
                 val="Bien"
                 label="Bien"
@@ -175,14 +175,14 @@
                 dense
                 class="text-blue-grey-1 q-px-xs"
                 dark
-                color="primary"
+                color="red-5"
                 v-model="evaluationForm[3]"
                 val="Mal"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
-                color="primary"
+                color="orange-4"
                 v-model="evaluationForm[3]"
                 dark
                 dense
@@ -193,7 +193,7 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 dense
-                color="primary"
+                color="green"
                 v-model="evaluationForm[3]"
                 val="Bien"
                 label="Bien"
@@ -224,14 +224,14 @@
                 dense
                 class="text-blue-grey-1 q-px-xs"
                 dark
-                color="primary"
+                color="red-5"
                 v-model="evaluationForm[4]"
                 val="Mal"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
-                color="primary"
+                color="orange-4"
                 v-model="evaluationForm[4]"
                 dark
                 dense
@@ -242,7 +242,7 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 dense
-                color="primary"
+                color="green"
                 v-model="evaluationForm[4]"
                 val="Bien"
                 label="Bien"
@@ -273,14 +273,14 @@
                 dense
                 class="text-blue-grey-1 q-px-xs"
                 dark
-                color="primary"
+                color="red-5"
                 v-model="evaluationForm[5]"
                 val="Mal"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
-                color="primary"
+                color="orange-4"
                 v-model="evaluationForm[5]"
                 dark
                 dense
@@ -291,7 +291,7 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 dense
-                color="primary"
+                color="green"
                 v-model="evaluationForm[5]"
                 val="Bien"
                 label="Bien"
@@ -302,6 +302,55 @@
                 dense
                 color="primary"
                 v-model="evaluationForm[5]"
+                val="Exelente"
+                label="Exelente"
+              />
+            </div>
+          </div>
+          <div
+            style="
+              background-color: rgba(255, 255, 255, 0.07);
+              border-radius: 10px;
+            "
+            class="q-pa-xs q-my-md"
+          >
+            <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">
+              Evaluación Final
+            </div>
+            <div class="q-gutter-sm">
+              <q-radio
+                dense
+                class="text-blue-grey-1 q-px-xs"
+                dark
+                color="red-5"
+                v-model="evaluationForm[6]"
+                val="Mal"
+                label="Mal"
+              />
+              <q-radio
+                class="text-blue-grey-1 q-px-xs"
+                color="orange-4"
+                v-model="evaluationForm[6]"
+                dark
+                dense
+                val="Regular"
+                label="Regular"
+              />
+              <q-radio
+                class="text-blue-grey-1 q-px-xs"
+                dark
+                dense
+                color="green"
+                v-model="evaluationForm[6]"
+                val="Bien"
+                label="Bien"
+              />
+              <q-radio
+                class="text-blue-grey-1 q-px-xs"
+                dark
+                dense
+                color="primary"
+                v-model="evaluationForm[6]"
                 val="Exelente"
                 label="Exelente"
               />
@@ -326,12 +375,12 @@
 
 <script>
 import { defineComponent, inject, ref } from "vue";
-//import useUser from "src/Modules/User/composables/useUser";
+import useUser from "src/Modules/User/composables/useUser";
 import { useQuasar } from "quasar";
 export default defineComponent({
   name: "FormEvidencia",
   setup() {
-    //const { createevidence, editevidence } = useUser();
+    const { createEvaluationValue } = useUser();
     const $q = useQuasar();
     const promptEvaluation = inject("promptEvaluation");
 
@@ -340,50 +389,23 @@ export default defineComponent({
       evidence.value.description = "";
       evidence.value.files = null;
     }; */
+    const evaluationForm = ref([
+      "Exelente",
+      "Exelente",
+      "Exelente",
+      "Exelente",
+      "Exelente",
+      "Exelente",
+      "Exelente",
+    ]);
 
     return {
       prompt,
       promptEvaluation,
-      evaluationForm: ref([
-        "Exelente",
-        "Exelente",
-        "Exelente",
-        "Exelente",
-        "Exelente",
-        "Exelente",
-      ]),
+      evaluationForm,
 
-      onSubmitEvaluation: async () => {
-        if (editEvidence.value) {
-          console.log("edit");
-          const { ok, message } = await editevidence(evidence.value);
-          if (!ok)
-            $q.notify({
-              message,
-              color: "negative",
-            });
-          if (ok) {
-            $q.notify({
-              message: "Evidencia Editada",
-              color: "positive",
-            });
-          }
-        } else {
-          console.log("crearrr");
-          const { ok, message } = await createevidence(evidence.value);
-          if (!ok)
-            $q.notify({
-              message,
-              color: "negative",
-            });
-          if (ok) {
-            $q.notify({
-              message: "Evidencia Creada",
-              color: "positive",
-            });
-          }
-        }
-        //reset();
+      onSubmitEvaluation: () => {
+        createEvaluationValue(evaluationForm.value);
       },
     };
   },

@@ -110,3 +110,17 @@ export const createIndicatorsPersonal = (state, indicator) => {
     }
   });
 };
+
+export const createEvaluationValue = (state, evaluation) => {
+  state.evaluation.indicators.forEach((ind, index) => {
+    ind.value = evaluation[index];
+  });
+  state.evaluation.value = evaluation[6];
+};
+
+export const deleteEvaluationValue = (state) => {
+  state.evaluation.indicators.forEach((ind) => {
+    delete ind.value;
+  });
+  delete state.evaluation.value;
+};

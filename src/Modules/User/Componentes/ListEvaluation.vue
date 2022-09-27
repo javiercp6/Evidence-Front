@@ -9,6 +9,35 @@
       :label="i.category"
       class="q-ma-sm"
     >
+      <template v-slot:header>
+        <!--  <q-item-section avatar>
+          <q-avatar icon="bluetooth" color="primary" text-color="white" />
+        </q-item-section>
+ -->
+        <q-item-section>
+          <div class="flex">
+            <div class="q-pr-xs">
+              {{ i.category }}
+            </div>
+            <q-badge
+              v-show="i.value"
+              outline
+              :text-color="colorBadge(i.value)"
+              rounded
+              align="top"
+              >{{ i.value }}</q-badge
+            >
+          </div>
+        </q-item-section>
+
+        <!-- <q-item-section side>
+          <div class="row items-center">
+            <q-icon name="star" color="red" size="24px" />
+            <q-icon name="star" color="red" size="24px" />
+            <q-icon name="star" color="red" size="24px" />
+          </div>
+        </q-item-section> -->
+      </template>
       <div v-for="indicator in i.indicators" :key="indicator._id" class="row">
         <div class="col text-blue-grey-1 q-ma-sm">
           <q-icon size="sm" name="check_circle" color="green" />
@@ -49,6 +78,17 @@ export default defineComponent({
 
     return {
       evaluationIndicators,
+      colorBadge: (value) => {
+        if (value === "Mal") {
+          return "red-5";
+        } else if (value === "Regular") {
+          return "orange-4";
+        } else if (value === "Bien") {
+          return "green";
+        } else if (value === "Exelente") {
+          return "primary";
+        }
+      },
     };
   },
 });

@@ -103,6 +103,20 @@ const useUser = () => {
     return resp;
   };
 
+  const createEvaluationValue = (evaluation) => {
+    //const resp = store.dispatch("indicator/getEvaluationByUser", idUser);
+    store.commit("indicator/createEvaluationValue", evaluation);
+
+    /* return resp; */
+  };
+
+  const deleteEvaluationValue = () => {
+    //const resp = store.dispatch("indicator/getEvaluationByUser", idUser);
+    store.commit("indicator/deleteEvaluationValue");
+
+    /* return resp; */
+  };
+
   return {
     getIndicatorsByUser,
     getIndicatorById,
@@ -114,6 +128,8 @@ const useUser = () => {
     deleteIndicatorFromUser,
     getEvaluationByUser,
     createIndicatorsPersonal,
+    createEvaluationValue,
+    deleteEvaluationValue,
     indicators: computed(() => store.getters["indicator/indicators"]),
     indicator: computed(() => store.getters["indicator/indicator"]),
     evaluation: computed(() => store.getters["indicator/evaluation"]),

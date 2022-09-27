@@ -4,6 +4,14 @@
       <div class="row">
         <div class="text-h5 q-pa-md text-blue-grey-1">
           Evaluación del Profesor
+          <q-badge
+            v-show="evaluation.value"
+            outline
+            :text-color="colorBadge(evaluation.value)"
+            rounded
+            align="top"
+            >{{ evaluation.value }}</q-badge
+          >
           <!-- {{ idUser }} {{ admin }}  -->
         </div>
         <q-space />
@@ -24,7 +32,7 @@
               label=" Exportar PDF"
               rounded
               outline
-              @click="generatePDFEvaluation()"
+              @click="onGeneratePDFEvaluation()"
             />
           </div>
         </div>
@@ -38,7 +46,7 @@
 <script>
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
 import usePDFEvaluation from "../../User/composables/usePDFEvaluation";
-
+import useUser from "src/Modules/User/composables/useUser";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -55,6 +63,7 @@ export default defineComponent({
 
   setup() {
     const { generatePDFEvaluation } = usePDFEvaluation();
+    const { evaluation, deleteEvaluationValue } = useUser();
     const promptIndicatorPersonal = ref(false);
     const indicatorPersonalForm = ref({
       id: null,
@@ -73,9 +82,25 @@ export default defineComponent({
 
     return {
       generatePDFEvaluation,
+      evaluation,
       onAddEvaluation() {
         console.log("ggg");
         promptEvaluation.value = true;
+      },
+      colorBadge: (value) => {
+        if (value === "Mal") {
+          return "red-5";
+        } else if (value === "Regular") {
+          return "orange-4";
+        } else if (value === "Bien") {
+          return "green";
+        } else if (value === "Exelente") {
+          return "primary";
+        }
+      },
+      onGeneratePDFEvaluation: () => {
+        generatePDFEvaluation();
+        deleteEvaluationValue();
       },
     };
   },

@@ -15,6 +15,7 @@
           <q-space />
 
           <q-btn
+            v-if="editFormUser"
             rounded
             flat
             color="primary"
@@ -88,7 +89,7 @@
           <q-btn
             color="primary"
             rounded
-            label="Crear"
+            :label="editFormUser ? 'Editar' : 'Crear'"
             v-close-popup
             type="submit"
           />

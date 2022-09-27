@@ -169,7 +169,7 @@ const usePDFEvaluation = () => {
                   fillColor: "#CCCCCC",
                 },
                 {
-                  text: "Exelente",
+                  text: evaluation.value.indicators[0].value,
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -209,7 +209,7 @@ const usePDFEvaluation = () => {
                   fillColor: "#CCCCCC",
                 },
                 {
-                  text: "Exelente",
+                  text: evaluation.value.indicators[1].value,
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -242,7 +242,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  text: "TRABAJO METODOLÓGICO:",
+                  text: evaluation.value.indicators[2].value,
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -289,7 +289,7 @@ const usePDFEvaluation = () => {
                   fillColor: "#CCCCCC",
                 },
                 {
-                  text: "Exelente",
+                  text: evaluation.value.indicators[3].value,
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -329,7 +329,7 @@ const usePDFEvaluation = () => {
                   fillColor: "#CCCCCC",
                 },
                 {
-                  text: "Exelente",
+                  text: evaluation.value.indicators[4].value,
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -369,7 +369,7 @@ const usePDFEvaluation = () => {
                   fillColor: "#CCCCCC",
                 },
                 {
-                  text: "Exelente",
+                  text: evaluation.value.indicators[5].value,
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -395,7 +395,8 @@ const usePDFEvaluation = () => {
         },
 
         {
-          text: "Resultado de la Evaluación del curso: " + "Exelente",
+          text:
+            "Resultado de la Evaluación del curso: " + evaluation.value.value,
           margin: [0, 10, 0, 10],
         },
       ],
