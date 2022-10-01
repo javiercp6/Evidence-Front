@@ -29,17 +29,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="evaluationForm[0]"
-                val="Mal"
+                v-model="arregloNumero[0]"
+                :val=1
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="evaluationForm[0]"
+                v-model="arregloNumero[0]"
                 dark
                 dense
-                val="Regular"
+                :val=2
                 label="Regular"
               />
               <q-radio
@@ -47,8 +47,8 @@
                 dark
                 dense
                 color="green"
-                v-model="evaluationForm[0]"
-                val="Bien"
+                v-model="arregloNumero[0]"
+                :val=3
                 label="Bien"
               />
               <q-radio
@@ -56,8 +56,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="evaluationForm[0]"
-                val="Exelente"
+                v-model="arregloNumero[0]"
+                :val=4
                 label="Exelente"
               />
             </div>
@@ -78,17 +78,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="evaluationForm[1]"
-                val="Mal"
+                v-model="arregloNumero[1]"
+                :val=1
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="evaluationForm[1]"
+                v-model="arregloNumero[1]"
                 dark
                 dense
-                val="Regular"
+                :val=2
                 label="Regular"
               />
               <q-radio
@@ -96,8 +96,8 @@
                 dark
                 dense
                 color="green"
-                v-model="evaluationForm[1]"
-                val="Bien"
+                v-model="arregloNumero[1]"
+                :val=3
                 label="Bien"
               />
               <q-radio
@@ -105,8 +105,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="evaluationForm[1]"
-                val="Exelente"
+                v-model="arregloNumero[1]"
+                :val=4
                 label="Exelente"
               />
             </div>
@@ -127,17 +127,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="evaluationForm[2]"
-                val="Mal"
+                v-model="arregloNumero[2]"
+                :val=1
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="evaluationForm[2]"
+                v-model="arregloNumero[2]"
                 dark
                 dense
-                val="Regular"
+                :val=2
                 label="Regular"
               />
               <q-radio
@@ -145,8 +145,8 @@
                 dark
                 dense
                 color="green"
-                v-model="evaluationForm[2]"
-                val="Bien"
+                v-model="arregloNumero[2]"
+                :val=3
                 label="Bien"
               />
               <q-radio
@@ -154,8 +154,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="evaluationForm[2]"
-                val="Exelente"
+                v-model="arregloNumero[2]"
+                :val=4
                 label="Exelente"
               />
             </div>
@@ -176,17 +176,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="evaluationForm[3]"
-                val="Mal"
+                v-model="arregloNumero[3]"
+                :val=1
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="evaluationForm[3]"
+                v-model="arregloNumero[3]"
                 dark
                 dense
-                val="Regular"
+                :val=2
                 label="Regular"
               />
               <q-radio
@@ -194,8 +194,8 @@
                 dark
                 dense
                 color="green"
-                v-model="evaluationForm[3]"
-                val="Bien"
+                v-model="arregloNumero[3]"
+                :val=3
                 label="Bien"
               />
               <q-radio
@@ -203,8 +203,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="evaluationForm[3]"
-                val="Exelente"
+                v-model="arregloNumero[3]"
+                :val=4
                 label="Exelente"
               />
             </div>
@@ -225,17 +225,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="evaluationForm[4]"
-                val="Mal"
+                v-model="arregloNumero[4]"
+                :val=1
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="evaluationForm[4]"
+                v-model="arregloNumero[4]"
                 dark
                 dense
-                val="Regular"
+                :val=2
                 label="Regular"
               />
               <q-radio
@@ -243,8 +243,8 @@
                 dark
                 dense
                 color="green"
-                v-model="evaluationForm[4]"
-                val="Bien"
+                v-model="arregloNumero[4]"
+                :val=3
                 label="Bien"
               />
               <q-radio
@@ -252,8 +252,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="evaluationForm[4]"
-                val="Exelente"
+                v-model="arregloNumero[4]"
+                :val=4
                 label="Exelente"
               />
             </div>
@@ -274,17 +274,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="evaluationForm[5]"
-                val="Mal"
+                v-model="arregloNumero[5]"
+                :val=1
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="evaluationForm[5]"
+                v-model="arregloNumero[5]"
                 dark
                 dense
-                val="Regular"
+                :val=2
                 label="Regular"
               />
               <q-radio
@@ -292,8 +292,8 @@
                 dark
                 dense
                 color="green"
-                v-model="evaluationForm[5]"
-                val="Bien"
+                v-model="arregloNumero[5]"
+                :val=3
                 label="Bien"
               />
               <q-radio
@@ -301,8 +301,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="evaluationForm[5]"
-                val="Exelente"
+                v-model="arregloNumero[5]"
+                :val=4
                 label="Exelente"
               />
             </div>
@@ -323,17 +323,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="evaluationForm[6]"
-                val="Mal"
+                v-model="arregloNumero[6]"
+                :val=1
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="evaluationForm[6]"
+                v-model="arregloNumero[6]"
                 dark
                 dense
-                val="Regular"
+                :val=2
                 label="Regular"
               />
               <q-radio
@@ -341,8 +341,8 @@
                 dark
                 dense
                 color="green"
-                v-model="evaluationForm[6]"
-                val="Bien"
+                v-model="arregloNumero[6]"
+                :val=3
                 label="Bien"
               />
               <q-radio
@@ -350,8 +350,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="evaluationForm[6]"
-                val="Exelente"
+                v-model="arregloNumero[6]"
+                :val=4
                 label="Exelente"
               />
             </div>
@@ -374,7 +374,7 @@
 </template>
 
 <script>
-import { defineComponent, inject, ref } from "vue";
+import { defineComponent, inject, ref, watch } from "vue";
 import useUser from "src/Modules/User/composables/useUser";
 import { useQuasar } from "quasar";
 export default defineComponent({
@@ -399,12 +399,40 @@ export default defineComponent({
       "Exelente",
     ]);
 
+    const arregloNumero = ref([4,4,4,4,4,4,4]);
+
+    watch(
+      () => {
+        return arregloNumero.value[0] + 
+               arregloNumero.value[1] + 
+               arregloNumero.value[2] + 
+               arregloNumero.value[3] + 
+               arregloNumero.value[4] + 
+               arregloNumero.value[5];
+      },
+      (val) => {
+        arregloNumero.value[6] = Math.trunc(val / 6);
+      }
+    );
+
+    const valores = ref([
+      "Otro",
+      "Mal",
+      "Regular",
+      "Bien",
+      "Exelente"
+    ]);
+
     return {
       prompt,
       promptEvaluation,
       evaluationForm,
+      arregloNumero,
 
       onSubmitEvaluation: () => {
+        arregloNumero.value.forEach( (element, index) => {
+          evaluationForm.value[index] = valores.value[element];
+        });
         createEvaluationValue(evaluationForm.value);
       },
     };
