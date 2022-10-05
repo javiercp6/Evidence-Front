@@ -28,6 +28,21 @@
   padding: 0 20px;
 }
 
+.q-field__bottom {
+  padding: 1px 12px 0;
+}
+
+.q-field__native {
+  color: #ffffffa3;
+}
+/* .q-field__native {
+  color: #ec1818a3;
+} */
+
+.q-field__label {
+  color: #ffffff4d;
+}
+
 @media (min-width: 718px) {
   .container,
   .container-sm {

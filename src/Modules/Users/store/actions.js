@@ -20,7 +20,6 @@ export const getUsers = async ({ commit }) => {
 
 export const createUser = async ({ commit }, user) => {
   delete user.id;
-  user.password = "1234";
   try {
     const { data } = await api.post("/users", user);
     console.log(user);
@@ -28,8 +27,15 @@ export const createUser = async ({ commit }, user) => {
     commit("createUser", data);
     return { ok: true };
   } catch (error) {
-    console.log("mmmm");
-    return { ok: false, message: error.response.data.error.message };
+    console.log("mmmm", error.response.data);
+
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 

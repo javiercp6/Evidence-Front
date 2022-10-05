@@ -65,7 +65,9 @@
                     (val) =>
                       (val && val.length > 0) || 'Este campo es obligatorio',
                   ]"
-                  placeholder="Nombre"
+                  label="Usuario"
+                  input-style="color: black "
+                  label-color="grey-9"
                   type="text"
                 >
                   <template v-slot:prepend>
@@ -78,12 +80,13 @@
                   rounded
                   outlined
                   ref="contraseña"
-                  lazy-rules
+                  label="Contraseña"
+                  input-style="color: black "
+                  label-color="grey-9"
                   :rules="[
                     (val) =>
                       (val && val.length > 0) || 'Este campo es obligatorio',
                   ]"
-                  placeholder="Contraseña"
                   :type="isPwd ? 'password' : 'text'"
                 >
                   <template v-slot:prepend>

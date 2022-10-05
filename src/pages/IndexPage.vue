@@ -6,13 +6,22 @@
           <div
             class="col-12 col-md-6 vertical-middle self-center justify-start"
           >
-            <div class="cont">
-              <h2 class="h2Animation">SGEOA .<span>&#160;</span></h2>
+            <div class="q-mb-xl">
+              <q-img
+                src="~assets/SGEOA_ICONO_BLANCO_ok.svg"
+                style="width: 400px; cursor: pointer"
+                @click="start()"
+              ></q-img>
             </div>
+            <div style="width: 95%">
+              <q-separator size="2px" color="white" />
+            </div>
+
             <h4 class="text-h5 text-white">
               Gestiona el cumplimiento de los objetivos estratégicos trazados
-              por la facultad de una manera fácil y automatizada
+              por la Facultad de una manera fácil, automatizada y medible
             </h4>
+
             <q-btn
               class="text-black"
               unelevated
@@ -31,7 +40,7 @@
                   : 'width: 100px; max-width: 100%;'
               "
               class="responsive"
-              src="~assets/asset1.png"
+              src="~assets/asset3.png"
             />
           </div>
         </div>
@@ -229,13 +238,14 @@ const features = [
   flex-direction: column
   align-items: center
   justify-content: center
-  min-height: 90vh
+  min-height: 100vh
   position: relative
   overflow: hidden
 
 
 .waves
   position: absolute
+  /* bottom: -18px */
   bottom: -8px
   left: 0
   right: 0
@@ -254,35 +264,4 @@ const features = [
   color: #fff
   font-weight: bold
   text-align: center
-
-
-.cont
-
-  display: table
-
-
-.h2Animation
-  position: relative
-  float: left
-  background: $primary
-  color: #fff
-  font-size: 3.5em
-  margin-bottom: -10px
-
-
-h2 span
-  position: absolute
-  right: 0
-  width: 0
-  background: $primary
-  border-left: 1px solid #000
-  animation: escribir 3s steps(20) infinite alternate
-
-
-@keyframes escribir
-  from
-    width: 100%
-
-  to
-    width: 0
 </style>

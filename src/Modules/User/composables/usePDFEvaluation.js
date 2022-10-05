@@ -10,7 +10,8 @@ const usePDFEvaluation = () => {
   const generatePDFEvaluation = () => {
     const evaluation = computed(() => store.getters["indicator/evaluation"]);
     const name = computed(() => store.getters["auth/name"]);
-    const namePDF = "Evaluación Profesoral " + name.value + " 2022";
+    const namePDF =
+      "Evaluación Profesoral " + evaluation.value.user.name + " 2022";
     const indDocenteEducat = [];
     const indPolitIdeol = [];
     const indMetodologico = [];
@@ -119,7 +120,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  text: "NOMBRES Y APELLIDOS:",
+                  text: "NOMBRE Y APELLIDOS:",
                   italics: true,
                   fontSize: 10,
                   bold: true,
@@ -394,6 +395,7 @@ const usePDFEvaluation = () => {
           style: "tableExample",
           table: {
             widths: ["*"],
+
             body: [
               [
                 {
@@ -410,10 +412,499 @@ const usePDFEvaluation = () => {
             "Resultado de la Evaluación del curso: " + evaluation.value.value,
           margin: [0, 10, 0, 10],
         },
+
+        {
+          style: "tableExample",
+          table: {
+            widths: [350, "*"],
+
+            body: [
+              [
+                {
+                  text: "OPINIÓN DEL EVALUADO:",
+                  italics: true,
+                  fontSize: 10,
+                  bold: true,
+                  fillColor: "#CCCCCC",
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+              ],
+            ],
+          },
+          layout: {
+            defaultBorder: false,
+          },
+        },
+        {
+          style: "tableExample",
+          table: {
+            widths: [350, "*"],
+            heights: 100,
+
+            body: [
+              [
+                {
+                  border: [true, true, true, true],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  type: "circle",
+                  ul: ["Conforme.", "Discrepa y apela", "Discrepa y no apela."],
+                  margin: [20, 20, 0, 0],
+                },
+              ],
+            ],
+          },
+          layout: {
+            defaultBorder: false,
+          },
+        },
+
+        {
+          text: "Evaluador ",
+          margin: [0, 20, 0, 10],
+          bold: true,
+        },
+
+        {
+          style: "tableExample",
+          table: {
+            widths: [225, 115, 20, "*"],
+
+            body: [
+              [
+                {
+                  colSpan: 2,
+                  text: "NOMBRE Y APELLIDOS:",
+                  italics: true,
+                  fontSize: 10,
+                  bold: true,
+                  fillColor: "#CCCCCC",
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  rowSpan: 4,
+                  border: [true, true, true, true],
+                  fontSize: 8,
+
+                  text: "Cuño de la facultad o del Área",
+                },
+              ],
+              [
+                {
+                  colSpan: 2,
+                  text: name.value,
+                  fontSize: 10,
+
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "ddddd",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "ddddd",
+                },
+              ],
+              [
+                {
+                  text: "CARGO:",
+                  italics: true,
+                  fontSize: 10,
+                  bold: true,
+                  fillColor: "#CCCCCC",
+                  border: [true, true, true, true],
+                },
+                {
+                  text: "FECHA:",
+                  italics: true,
+                  fontSize: 10,
+                  bold: true,
+                  fillColor: "#CCCCCC",
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "xxxx",
+                },
+              ],
+              [
+                {
+                  text: "Decana Facultad 4",
+                  fontSize: 10,
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [true, true, true, true],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+              ],
+            ],
+          },
+          layout: {
+            defaultBorder: false,
+          },
+        },
+
+        {
+          text: "Evaluado",
+          margin: [0, 20, 0, 10],
+          bold: true,
+        },
+
+        {
+          style: "tableExample",
+          table: {
+            widths: [225, 115, 20, "*"],
+
+            body: [
+              [
+                {
+                  colSpan: 2,
+                  text: "NOMBRE Y APELLIDOS  DEL EVALUADO:",
+                  italics: true,
+                  fontSize: 10,
+                  bold: true,
+                  fillColor: "#CCCCCC",
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  rowSpan: 4,
+                  border: [true, true, true, true],
+                  fontSize: 8,
+
+                  text: "",
+                },
+              ],
+              [
+                {
+                  colSpan: 2,
+                  text: evaluation.value.user.name,
+                  fontSize: 10,
+
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+              ],
+              [
+                {
+                  text: "",
+                  border: [false, false, false, false],
+                },
+                {
+                  text: "",
+                  border: [false, false, false, false],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+              ],
+              [
+                {
+                  text: " ",
+
+                  border: [false, false, false, false],
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: " ",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+                {
+                  border: [false, false, false, false],
+
+                  text: "",
+                },
+              ],
+            ],
+          },
+          layout: {
+            defaultBorder: false,
+          },
+        },
+
+        {
+          text: "CERTIFICO:",
+          style: "header",
+          alignment: "center",
+          bold: true,
+          margin: [0, 60, 0, 0],
+        },
+
+        {
+          text: [
+            `Yo:  Yaimí Trujillo Casañola  que ocupo el cargo de Decana Facultad 4 certifico que (el/la) profesor(a)  ${evaluation.value.user.name} obtiene la evaluación de ${evaluation.value.value} en el año 2022.`,
+          ],
+          style: "header",
+          bold: true,
+        },
+
+        {
+          text: "Conclusiones Derivadas de la Evaluación",
+          style: "header",
+
+          bold: true,
+          margin: [0, 30, 0, 10],
+        },
+
+        {
+          style: "tableExample",
+          table: {
+            widths: ["*", "*"],
+
+            body: [
+              [
+                {
+                  text: "Marque con una (X)",
+                  italics: true,
+                  fontSize: 10,
+
+                  border: [true, true, false, false],
+                },
+                {
+                  border: [false, true, true, false],
+
+                  text: "",
+                },
+              ],
+              [
+                {
+                  type: "circle",
+                  ul: [
+                    "Pasar al nivel superior.",
+                    "Mantener el nivel salarial actual.",
+                    "Pasar al nivel salarial inmediato inferior.",
+                  ],
+                  fontSize: 11,
+                  margin: [10, 0, 0, 10],
+                  border: [true, false, false, true],
+                },
+                {
+                  border: [false, false, true, true],
+                  type: "circle",
+                  ul: [
+                    "Analizar para proceder a la ratificación o devolución de la categoría docente.",
+                    "Dar por terminada la relación laboral.",
+                    "Dar por terminado el contrato determinado o convenio como profesor a tiempo parcial.",
+                  ],
+                  fontSize: 11,
+                  margin: [0, 0, 0, 10],
+                },
+              ],
+              /* [
+                {
+                  text: "cc",
+                  border: [false, true, true, false],
+                },
+                {
+                  text: "dd",
+                  border: [false, false, true, true],
+                },
+              ],
+              [
+                {
+                  text: "ee ",
+
+                  border: [true, true, true, true],
+                },
+                {
+                  border: [true, true, true, true],
+
+                  text: " ff",
+                },
+              ], */
+            ],
+          },
+          layout: {
+            defaultBorder: false,
+          },
+        },
+
+        {
+          text: "Motivos de la no Evaluación",
+          style: "header",
+
+          bold: true,
+          margin: [0, 30, 0, 10],
+        },
+
+        {
+          style: "tableExample",
+          table: {
+            widths: ["*", "*"],
+
+            body: [
+              [
+                {
+                  text: "Marque con una (X)",
+                  italics: true,
+                  fontSize: 10,
+
+                  border: [true, true, false, false],
+                },
+                {
+                  border: [false, true, true, false],
+
+                  text: "",
+                },
+              ],
+              [
+                {
+                  type: "circle",
+                  ul: [
+                    "Enfermedad.",
+                    "Licencia sin sueldo y maternidad.",
+                    "Otra causa. Especificar.",
+                  ],
+                  fontSize: 11,
+                  margin: [10, 0, 0, 10],
+                  border: [true, false, false, true],
+                },
+                {
+                  border: [false, false, true, true],
+                  table: {
+                    widths: ["*"],
+                    heights: [50],
+                    body: [[{ text: "" }]],
+                  },
+                  margin: [0, 0, 10, 10],
+                },
+              ],
+            ],
+          },
+          layout: {
+            defaultBorder: false,
+          },
+        },
+
+        {
+          style: "tableExample",
+          margin: [0, 20, 0, 0],
+          table: {
+            widths: [370, "*"],
+            heights: [50],
+
+            body: [
+              [
+                {
+                  text: "",
+                  italics: true,
+                  fontSize: 10,
+
+                  border: [false, false, false, false],
+                },
+                {
+                  border: [true, true, true, false],
+
+                  text: "Cuño de la facultad o del área.",
+                  fontSize: 8,
+                },
+              ],
+              [
+                {
+                  text: "",
+                  italics: true,
+                  fontSize: 10,
+
+                  border: [false, false, false, false],
+                },
+                {
+                  border: [true, false, true, true],
+                  fontSize: 10,
+                  text: "Firma Decano",
+                  alignment: "right",
+                },
+              ],
+            ],
+          },
+          layout: {
+            defaultBorder: false,
+          },
+        },
       ],
     };
 
     pdfMake.createPdf(docDefinition).download(namePDF);
+    //pdfMake.createPdf(docDefinition).open();
   };
 
   return {

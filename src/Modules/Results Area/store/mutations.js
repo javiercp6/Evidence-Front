@@ -76,7 +76,7 @@ export const getIndicatorsModel = (state, indicators) => {
   state.indicatorsModel = indicators;
 };
 export const createIndicator = (state, data) => {
-  const indicator = { name: data.name, _id: data._id };
+  const indicator = { name: data.name, _id: data._id, category: data.category };
   state.area.objectives.forEach((element) => {
     element.criterions.forEach((e) => {
       if (e._id === data.criterion._id) {

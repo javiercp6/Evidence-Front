@@ -30,12 +30,12 @@
                   /></q-item-section>
                   <q-item-section>Exportar PDF</q-item-section>
                 </q-item>
-                <q-item clickable v-ripple>
+                <!-- <q-item clickable v-ripple>
                   <q-item-section avatar
                     ><q-icon color="red-5" name="delete"
                   /></q-item-section>
                   <q-item-section>Eliminar</q-item-section>
-                </q-item>
+                </q-item> -->
               </q-list>
             </q-menu>
           </q-btn>
@@ -424,6 +424,7 @@ export default defineComponent({
         promptCriterion.value = true;
       },
       onEditCriterion(idObjective, criterion) {
+        console.log(criterion);
         criterionForm.value.idObjective = idObjective;
         criterionForm.value.id = criterion._id;
         criterionForm.value.name = criterion.name;

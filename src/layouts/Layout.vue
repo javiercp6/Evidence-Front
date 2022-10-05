@@ -1,10 +1,28 @@
 <template>
   <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
-    <q-header elevated class="bg-blue-grey-10">
+    <q-header elevated class="bg-blue-grey-10" style="max-height: 50px">
       <FormChangePassword />
       <q-toolbar style="background-color: rgba(255, 255, 255, 0.05)">
         <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-        <q-toolbar-title>Logo</q-toolbar-title>
+        <q-toolbar-title>
+          <!-- <q-icon
+            name="img:icons/SGEOA_ICONO VIOLETA Y GRIS.svg"
+            color="primary"
+            style="width: 1000px"
+          ></q-icon>
+          <q-icon
+            size="120px"
+            name="img:icons/ejemplo.svg"
+            color="primary"
+          ></q-icon>
+          <svg>
+            <use xlink:href="icons/SGEOA_ICONO VIOLETA Y GRIS.svg#icon-1"></use>
+          </svg> -->
+          <q-img
+            src="~assets/SGEOA_ICONO_VIOLETA_Y_GRIS_ok.svg"
+            style="width: 200px"
+          />
+        </q-toolbar-title>
         <div class="q-gutter-sm row items-center no-wrap">
           <!-- <q-btn
             round
@@ -42,7 +60,7 @@
             v-if="authStatus === 'authenticated'"
             class="row items-center q-px-xs"
           >
-            <div class="q-px-xs">{{ username }}</div>
+            <div v-if="$q.screen.gt.xs" class="q-px-xs">{{ username }}</div>
             <q-btn round flat>
               <q-icon size="40px" name="account_circle" />
               <!-- <q-avatar size="26px"> </q-avatar> -->
@@ -240,8 +258,7 @@ export default {
   },
   setup() {
     const router = useRouter();
-    const { username, authStatus, role, name, logout, changePassword } =
-      useAuth();
+    const { username, authStatus, role, name, logout } = useAuth();
     const promptChangePassword = ref(false);
     provide("promptChangePassword", promptChangePassword);
 

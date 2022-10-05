@@ -20,8 +20,13 @@
             type="textarea"
             rows="3"
             input-style=" color: #ffffffa3 "
-            placeholder="Objetivo"
+            label="Objetivo"
             v-model="objectiveForm.name"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) =>
+                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+            ]"
           />
         </q-card-section>
 
@@ -31,13 +36,7 @@
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
-          <q-btn
-            color="primary"
-            rounded
-            label="Aceptar"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn color="primary" rounded label="Modificar" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -62,11 +61,13 @@ export default defineComponent({
       objectiveForm.value.id = "";
       objectiveForm.value.name = "";
       objectiveForm.value.criterions = [""];
+      promptEditObjective.value = false;
     };
 
     return {
       promptEditObjective,
       objectiveForm,
+      exp2: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/,
 
       reset,
 

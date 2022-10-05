@@ -27,6 +27,9 @@
         size="sm"
         @click="onCreateEvidence()"
       />
+      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+        Añadir Evidencia
+      </q-tooltip>
     </div>
   </div>
 
@@ -38,7 +41,12 @@
     <div
       class="text-blue-grey-1 q-pa-sm row items-center justify-center text-center"
     >
-      <q-item tag="a" target="_blank" :href="dir + evidence._id">
+      <q-item
+        tag="a"
+        target="_blank"
+        :href="dir + evidence._id"
+        style="border-radius: 10px"
+      >
         <q-icon name="attach_file" size="md" />
         <div v-if="evidence.file" class="text-caption">1 archivo</div>
         <div v-else class="text-caption">0 archivo</div>

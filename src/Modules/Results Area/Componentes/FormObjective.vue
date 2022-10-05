@@ -21,9 +21,14 @@
             type="textarea"
             rows="3"
             placeholder="Objetivo"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) =>
+                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+            ]"
             v-model="objectiveForm.name"
           />
-          <div class="row">
+          <div class="row q-pt-sm">
             <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Criterios</div>
             <div class="row q-ml-sm justify-center items-center">
               <div>
@@ -50,11 +55,16 @@
             :key="index"
             outlined
             dense
-            class="q-pa-xs"
+            class="q-pa-xs q-pb-sm"
             input-style=" color: #ffffffa3 "
             type="textarea"
             rows="3"
-            :placeholder="'Criterio' + index"
+            :placeholder="'Criterio ' + (index + 1)"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) =>
+                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+            ]"
             v-model="objectiveForm.criterions[index]"
           />
         </q-card-section>
@@ -65,13 +75,7 @@
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
-          <q-btn
-            color="primary"
-            rounded
-            label="Aceptar"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn color="primary" rounded label="Aceptar" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -94,12 +98,13 @@ export default defineComponent({
     const reset = () => {
       objectiveForm.value.name = "";
       objectiveForm.value.criterions = [""];
+      promptObjective.value = false;
     };
 
     return {
       promptObjective,
       objectiveForm,
-
+      exp2: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/,
       reset,
       addInputObjetives() {
         objectiveForm.value.criterions.length++;

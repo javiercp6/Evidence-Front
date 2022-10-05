@@ -21,7 +21,7 @@
             type="textarea"
             rows="3"
             input-style=" color: #ffffffa3 "
-            placeholder="Indicador"
+            label="Indicador"
             v-model="indicatorPersonalForm.name"
           />
           <div class="column q-py-xs">

@@ -29,17 +29,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="arregloNumero[0]"
-                :val=1
+                v-model="arrayNumber[0]"
+                :val="1"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="arregloNumero[0]"
+                v-model="arrayNumber[0]"
                 dark
                 dense
-                :val=2
+                :val="2"
                 label="Regular"
               />
               <q-radio
@@ -47,8 +47,8 @@
                 dark
                 dense
                 color="green"
-                v-model="arregloNumero[0]"
-                :val=3
+                v-model="arrayNumber[0]"
+                :val="3"
                 label="Bien"
               />
               <q-radio
@@ -56,8 +56,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="arregloNumero[0]"
-                :val=4
+                v-model="arrayNumber[0]"
+                :val="4"
                 label="Exelente"
               />
             </div>
@@ -78,17 +78,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="arregloNumero[1]"
-                :val=1
+                v-model="arrayNumber[1]"
+                :val="1"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="arregloNumero[1]"
+                v-model="arrayNumber[1]"
                 dark
                 dense
-                :val=2
+                :val="2"
                 label="Regular"
               />
               <q-radio
@@ -96,8 +96,8 @@
                 dark
                 dense
                 color="green"
-                v-model="arregloNumero[1]"
-                :val=3
+                v-model="arrayNumber[1]"
+                :val="3"
                 label="Bien"
               />
               <q-radio
@@ -105,8 +105,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="arregloNumero[1]"
-                :val=4
+                v-model="arrayNumber[1]"
+                :val="4"
                 label="Exelente"
               />
             </div>
@@ -127,17 +127,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="arregloNumero[2]"
-                :val=1
+                v-model="arrayNumber[2]"
+                :val="1"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="arregloNumero[2]"
+                v-model="arrayNumber[2]"
                 dark
                 dense
-                :val=2
+                :val="2"
                 label="Regular"
               />
               <q-radio
@@ -145,8 +145,8 @@
                 dark
                 dense
                 color="green"
-                v-model="arregloNumero[2]"
-                :val=3
+                v-model="arrayNumber[2]"
+                :val="3"
                 label="Bien"
               />
               <q-radio
@@ -154,8 +154,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="arregloNumero[2]"
-                :val=4
+                v-model="arrayNumber[2]"
+                :val="4"
                 label="Exelente"
               />
             </div>
@@ -176,17 +176,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="arregloNumero[3]"
-                :val=1
+                v-model="arrayNumber[3]"
+                :val="1"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="arregloNumero[3]"
+                v-model="arrayNumber[3]"
                 dark
                 dense
-                :val=2
+                :val="2"
                 label="Regular"
               />
               <q-radio
@@ -194,8 +194,8 @@
                 dark
                 dense
                 color="green"
-                v-model="arregloNumero[3]"
-                :val=3
+                v-model="arrayNumber[3]"
+                :val="3"
                 label="Bien"
               />
               <q-radio
@@ -203,8 +203,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="arregloNumero[3]"
-                :val=4
+                v-model="arrayNumber[3]"
+                :val="4"
                 label="Exelente"
               />
             </div>
@@ -225,17 +225,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="arregloNumero[4]"
-                :val=1
+                v-model="arrayNumber[4]"
+                :val="1"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="arregloNumero[4]"
+                v-model="arrayNumber[4]"
                 dark
                 dense
-                :val=2
+                :val="2"
                 label="Regular"
               />
               <q-radio
@@ -243,8 +243,8 @@
                 dark
                 dense
                 color="green"
-                v-model="arregloNumero[4]"
-                :val=3
+                v-model="arrayNumber[4]"
+                :val="3"
                 label="Bien"
               />
               <q-radio
@@ -252,8 +252,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="arregloNumero[4]"
-                :val=4
+                v-model="arrayNumber[4]"
+                :val="4"
                 label="Exelente"
               />
             </div>
@@ -274,17 +274,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="arregloNumero[5]"
-                :val=1
+                v-model="arrayNumber[5]"
+                :val="1"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="arregloNumero[5]"
+                v-model="arrayNumber[5]"
                 dark
                 dense
-                :val=2
+                :val="2"
                 label="Regular"
               />
               <q-radio
@@ -292,8 +292,8 @@
                 dark
                 dense
                 color="green"
-                v-model="arregloNumero[5]"
-                :val=3
+                v-model="arrayNumber[5]"
+                :val="3"
                 label="Bien"
               />
               <q-radio
@@ -301,8 +301,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="arregloNumero[5]"
-                :val=4
+                v-model="arrayNumber[5]"
+                :val="4"
                 label="Exelente"
               />
             </div>
@@ -323,17 +323,17 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 color="red-5"
-                v-model="arregloNumero[6]"
-                :val=1
+                v-model="arrayNumber[6]"
+                :val="1"
                 label="Mal"
               />
               <q-radio
                 class="text-blue-grey-1 q-px-xs"
                 color="orange-4"
-                v-model="arregloNumero[6]"
+                v-model="arrayNumber[6]"
                 dark
                 dense
-                :val=2
+                :val="2"
                 label="Regular"
               />
               <q-radio
@@ -341,8 +341,8 @@
                 dark
                 dense
                 color="green"
-                v-model="arregloNumero[6]"
-                :val=3
+                v-model="arrayNumber[6]"
+                :val="3"
                 label="Bien"
               />
               <q-radio
@@ -350,8 +350,8 @@
                 dark
                 dense
                 color="primary"
-                v-model="arregloNumero[6]"
-                :val=4
+                v-model="arrayNumber[6]"
+                :val="4"
                 label="Exelente"
               />
             </div>
@@ -399,38 +399,35 @@ export default defineComponent({
       "Exelente",
     ]);
 
-    const arregloNumero = ref([4,4,4,4,4,4,4]);
+    const arrayNumber = ref([4, 4, 4, 4, 4, 4, 4]);
 
     watch(
       () => {
-        return arregloNumero.value[0] + 
-               arregloNumero.value[1] + 
-               arregloNumero.value[2] + 
-               arregloNumero.value[3] + 
-               arregloNumero.value[4] + 
-               arregloNumero.value[5];
+        return (
+          arrayNumber.value[0] +
+          arrayNumber.value[1] +
+          arrayNumber.value[2] +
+          arrayNumber.value[3] +
+          arrayNumber.value[4] +
+          arrayNumber.value[5]
+        );
       },
       (val) => {
-        arregloNumero.value[6] = Math.trunc(val / 6);
+        console.log(val);
+        arrayNumber.value[6] = Math.trunc(val / 6);
       }
     );
 
-    const valores = ref([
-      "Otro",
-      "Mal",
-      "Regular",
-      "Bien",
-      "Exelente"
-    ]);
+    const valores = ref(["Otro", "Mal", "Regular", "Bien", "Exelente"]);
 
     return {
       prompt,
       promptEvaluation,
       evaluationForm,
-      arregloNumero,
+      arrayNumber,
 
       onSubmitEvaluation: () => {
-        arregloNumero.value.forEach( (element, index) => {
+        arrayNumber.value.forEach((element, index) => {
           evaluationForm.value[index] = valores.value[element];
         });
         createEvaluationValue(evaluationForm.value);

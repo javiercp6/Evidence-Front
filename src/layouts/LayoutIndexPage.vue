@@ -12,7 +12,9 @@
           class="md-and-up-hide"
         />
 
-        <q-toolbar-title> Logo</q-toolbar-title>
+        <q-toolbar-title>
+          <q-img src="~assets/SGEOA_ICONO_BLANCO_ok.svg" style="width: 200px"
+        /></q-toolbar-title>
 
         <div class="xs-hide sm-hide">
           <q-btn

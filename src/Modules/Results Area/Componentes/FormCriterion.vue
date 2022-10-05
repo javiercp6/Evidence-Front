@@ -20,18 +20,25 @@
             type="textarea"
             rows="3"
             input-style=" color: #ffffffa3 "
-            placeholder="Criterio de medida"
+            label="Criterio de medida"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) =>
+                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+            ]"
             v-model="criterionForm.name"
           />
           <q-input
             outlined
             dense
-            class="q-pa-xs"
-            type="number"
-            mask="##"
+            class="q-pa-xs q-pt-md"
             input-style=" color: #ffffffa3 "
-            placeholder="Catidad de cumplimientos"
-            v-model.number="criterionForm.todo"
+            label="Catidad de cumplimientos"
+            mask="###"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+            ]"
+            v-model="criterionForm.todo"
           />
         </q-card-section>
 
@@ -41,13 +48,7 @@
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
-          <q-btn
-            color="primary"
-            rounded
-            label="Aceptar"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn color="primary" rounded label="Aceptar" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -72,13 +73,15 @@ export default defineComponent({
       criterionForm.value.name = "";
       criterionForm.value.todo = null;
       editFormCriterion.value = false;
+      promptCriterion.value = false;
     };
 
     return {
       promptCriterion,
       criterionForm,
       editFormCriterion,
-      address: ref(null),
+      hex: /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/,
+      exp2: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/,
       reset,
       title: () => {
         return editFormCriterion.value

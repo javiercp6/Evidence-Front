@@ -27,7 +27,12 @@
             type="textarea"
             rows="3"
             input-style=" color: #ffffffa3 "
-            placeholder="Criterio de medida"
+            label="Indicador"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) =>
+                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+            ]"
             v-model="indicatorForm.name"
           />
           <div class="column q-py-xs">
@@ -60,8 +65,8 @@
               class="q-pa-xs text-blue-grey-1"
               dense
               v-model="indicatorForm.category"
-              val="RABAJO DE INVESTIGACIÓN E INNOVACIÓN"
-              label="RABAJO DE INVESTIGACIÓN E INNOVACIÓN"
+              val="TRABAJO DE INVESTIGACIÓN E INNOVACIÓN"
+              label="TRABAJO DE INVESTIGACIÓN E INNOVACIÓN"
               dark
             />
             <q-radio
@@ -81,13 +86,7 @@
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
-          <q-btn
-            color="primary"
-            rounded
-            label="Aceptar"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn color="primary" rounded label="Aceptar" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -113,12 +112,15 @@ export default defineComponent({
       indicatorForm.value.name = "";
       indicatorForm.value.category =
         "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO";
+      editFormIndicator.value = false;
+      promptIndicator.value = false;
     };
-    editFormIndicator.value = false;
+
     return {
       promptIndicator,
       indicatorForm,
       editFormIndicator,
+      exp2: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/,
       reset,
 
       onSubmitIndicator: async () => {

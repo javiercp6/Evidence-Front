@@ -312,7 +312,7 @@ export default defineComponent({
       id: "",
       name: "",
       username: "",
-      role: "",
+      role: "ROLE_ADMIN",
       faculty: "",
       department: "",
       category: "",

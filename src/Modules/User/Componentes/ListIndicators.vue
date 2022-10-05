@@ -32,7 +32,7 @@
           {{ indicator.name }}
         </div>
         <q-space />
-        <div v-if="!user" class="column q-ml-sm justify-center">
+        <div v-if="role === 'ROLE_CHIEF'" class="column q-ml-sm justify-center">
           <q-icon
             class="q-px-xs cursor-pointer"
             name="highlight_off"
@@ -69,7 +69,7 @@ export default defineComponent({
   setup(props) {
     const { getIndicatorsByUser, deleteIndicatorFromUser, indicators } =
       useUser();
-    const { uid } = useAuth();
+    const { uid, role } = useAuth();
 
     const router = useRouter();
     const route = useRoute();
@@ -91,7 +91,7 @@ export default defineComponent({
 
     return {
       indicators,
-
+      role,
       toPlanItem(idIndicator) {
         if (props.user) {
           router.push({

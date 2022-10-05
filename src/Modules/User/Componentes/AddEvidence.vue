@@ -18,7 +18,7 @@
             rounded
             class="q-pa-xs"
             input-style=" color: #ffffffa3 ; ::placeholder { opacity: .3}"
-            placeholder="Descripción"
+            label="Descripción"
             type="textarea"
             input-class="input-textarea"
             v-model="evidence.description"

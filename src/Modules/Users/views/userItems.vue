@@ -8,7 +8,10 @@
         </div>
 
         <q-space />
-        <div class="row items-center q-pr-sm" v-if="$q.screen.gt.xs">
+        <div
+          class="row items-center q-pr-sm"
+          v-if="$q.screen.gt.xs && role === 'ROLE_CHIEF'"
+        >
           <q-btn
             color="primary"
             label="Establecer Plan"
@@ -24,7 +27,7 @@
     </div>
     <q-page-sticky
       position="bottom-right"
-      v-if="!$q.screen.gt.xs"
+      v-if="!$q.screen.gt.xs && role === 'ROLE_CHIEF'"
       :offset="[18, 18]"
     >
       <q-btn
@@ -46,7 +49,7 @@ import {
   provide,
   inject,
 } from "vue";
-import useUser from "src/Modules/User/composables/useUser";
+import useAuth from "src/Modules/auth/composables/useAuth";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
@@ -63,6 +66,7 @@ export default defineComponent({
 
   setup() {
     const router = useRouter();
+    const { role } = useAuth();
     //const admin = ref(route.params.admin);
     //const nameUser = ref(route.params.nameUser);
     const promptEstablishIndicator = ref(false);
@@ -70,6 +74,7 @@ export default defineComponent({
 
     return {
       promptEstablishIndicator,
+      role,
       toPlanItem(idIndicator) {
         router.push({
           name: "planitem",

@@ -20,18 +20,19 @@
           @keyup.enter="prompt = false"
         /> -->
           <q-input
+            autofocus
             outlined
             dense
             class="q-pa-xs"
             input-style=" color: #ffffffa3 "
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
-              /* (val) => hex.test(val) || 'Prueba', */
+              (val) => exp.test(val) || 'Este campo solo acepta letras',
             ]"
-            placeholder="Nombre"
+            label="Nombre"
             v-model="areaForm.name"
           />
-          <div v-show="!editFormArea" class="row">
+          <div v-show="!editFormArea" class="row q-pt-sm">
             <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Objetivos</div>
             <div class="row q-ml-sm justify-center items-center">
               <div>
@@ -53,19 +54,26 @@
               </div>
             </div>
           </div>
-          <q-input
-            v-show="!editFormArea"
-            v-for="(objective, index) in areaForm.objectives"
-            :key="index"
-            outlined
-            dense
-            class="q-pa-xs"
-            input-style=" color: #ffffffa3 "
-            type="textarea"
-            rows="3"
-            :placeholder="'Objetivo' + index"
-            v-model="areaForm.objectives[index]"
-          />
+          <div v-if="!editFormArea">
+            <q-input
+              v-for="(objective, index) in areaForm.objectives"
+              :key="index"
+              outlined
+              dense
+              class="q-pa-xs q-pb-sm"
+              input-style=" color: #ffffffa3 "
+              type="textarea"
+              rows="3"
+              :label="'Objetivo ' + (index + 1)"
+              :rules="[
+                (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+                (val) =>
+                  exp2.test(val) ||
+                  `Este campo no acepta caracteres especiales `,
+              ]"
+              v-model="areaForm.objectives[index]"
+            />
+          </div>
         </q-card-section>
 
         <q-card-actions
@@ -74,13 +82,7 @@
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
-          <q-btn
-            color="primary"
-            rounded
-            label="Aceptar"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn color="primary" rounded label="Aceptar" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -92,12 +94,14 @@ import { defineComponent, inject, ref } from "vue";
 import { useQuasar } from "quasar";
 //import useAuth from "../composables/useAuth";
 import useArea from "../composables/useArea";
+
 export default defineComponent({
   name: "FormArea",
   setup() {
     const { createArea, editArea } = useArea();
     const $q = useQuasar();
-    const hex = /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/;
+    const exp = /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ\s]+$/;
+    const exp2 = /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/;
     const promptArea = inject("promptArea");
     const areaForm = inject("areaForm");
     const editFormArea = inject("editFormArea");
@@ -107,13 +111,15 @@ export default defineComponent({
       areaForm.value.name = "";
       areaForm.value.objectives = [""];
       editFormArea.value = false;
+      promptArea.value = false;
     };
 
     return {
       promptArea,
       editFormArea,
       areaForm,
-      hex,
+      exp,
+      exp2,
 
       reset,
       addInputObjetives() {
@@ -129,6 +135,7 @@ export default defineComponent({
 
       onSubmitArea: async () => {
         if (editFormArea.value) {
+          console.log("vvvv");
           const { ok, message } = await editArea(areaForm.value);
 
           if (!ok)
