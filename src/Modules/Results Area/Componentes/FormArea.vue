@@ -66,7 +66,6 @@
               rows="3"
               :label="'Objetivo ' + (index + 1)"
               :rules="[
-                (val) => (val && val.length > 0) || 'Este campo es obligatorio',
                 (val) =>
                   exp2.test(val) ||
                   `Este campo no acepta caracteres especiales `,
@@ -101,7 +100,7 @@ export default defineComponent({
     const { createArea, editArea } = useArea();
     const $q = useQuasar();
     const exp = /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ\s]+$/;
-    const exp2 = /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/;
+    const exp2 = /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:\r\n]+$/;
     const promptArea = inject("promptArea");
     const areaForm = inject("areaForm");
     const editFormArea = inject("editFormArea");

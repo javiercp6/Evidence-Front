@@ -1,6 +1,7 @@
 import authRouter from "../Modules/auth/router";
 import isAuthenticatedGuard from "src/Modules/auth/router/auth-guard";
 import isAdminChiefGuard from "src/Modules/auth/router/admin-chief-guard";
+import isUserChiefGuard from "src/Modules/auth/router/user-chief-guard";
 import isUserGuard from "src/Modules/auth/router/user-guard";
 import userRouter from "../Modules/User/router";
 import evaluationUserRouter from "../Modules/User/router/evaluation";
@@ -21,12 +22,12 @@ const routes = [
   },
   {
     path: "/user",
-    beforeEnter: [isAuthenticatedGuard, isUserGuard],
+    beforeEnter: [isAuthenticatedGuard, isUserChiefGuard],
     ...userRouter,
   },
   {
     path: "/evaluacion",
-    beforeEnter: [isAuthenticatedGuard, isUserGuard],
+    beforeEnter: [isAuthenticatedGuard, isUserChiefGuard],
     ...evaluationUserRouter,
   },
   {

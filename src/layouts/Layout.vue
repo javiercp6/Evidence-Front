@@ -120,7 +120,7 @@
       mini-to-overlay
       @mouseover="miniState = false"
       @mouseout="miniState = true"
-      :width="200"
+      :width="250"
       :breakpoint="500"
       bordered
       dark
@@ -150,7 +150,7 @@
               <q-icon name="crop_square" />
             </q-item-section>
 
-            <q-item-section>Areas </q-item-section>
+            <q-item-section>Áreas </q-item-section>
           </q-item>
           <q-item
             v-if="role === 'ROLE_CHIEF'"
@@ -176,11 +176,11 @@
               <q-icon name="people" />
             </q-item-section>
 
-            <q-item-section>Trabajadores </q-item-section>
+            <q-item-section>Usuarios </q-item-section>
           </q-item>
 
           <q-item
-            v-if="role === 'ROLE_USER'"
+            v-if="role === 'ROLE_USER' || role === 'ROLE_CHIEF'"
             clickable
             v-ripple
             to="/user"
@@ -190,11 +190,11 @@
               <q-icon name="format_list_bulleted" />
             </q-item-section>
 
-            <q-item-section> Objetivos </q-item-section>
+            <q-item-section> Objetivos Individuales</q-item-section>
           </q-item>
 
           <q-item
-            v-if="role === 'ROLE_USER'"
+            v-if="role === 'ROLE_USER' || role === 'ROLE_CHIEF'"
             clickable
             v-ripple
             to="/evaluacion"
@@ -204,7 +204,7 @@
               <q-icon name="fact_check" />
             </q-item-section>
 
-            <q-item-section> Evaluación </q-item-section>
+            <q-item-section> Evaluación Individual</q-item-section>
           </q-item>
 
           <q-separator dark />
