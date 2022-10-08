@@ -60,6 +60,16 @@
             ]"
           />
 
+          <q-input
+            outlined
+            dense
+            class="q-pa-xs q-pb-sm"
+            input-style=" color: #ffffffa3 "
+            label="Solapín"
+            v-model="userForm.solapin"
+            mask="A######"
+          />
+
           <!-- <q-input
             outlined
             dense
@@ -205,6 +215,7 @@ export default defineComponent({
       userForm.value.id = null;
       userForm.value.name = "";
       userForm.value.username = "";
+      userForm.value.solapin = "";
       userForm.value.role = "ROLE_ADMIN";
       userForm.value.faculty = "";
       userForm.value.department = "";

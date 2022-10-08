@@ -312,6 +312,7 @@ export default defineComponent({
       id: "",
       name: "",
       username: "",
+      solapin: "",
       role: "ROLE_ADMIN",
       faculty: "",
       department: "",
@@ -338,6 +339,7 @@ export default defineComponent({
         userForm.value.id = useritems._id;
         userForm.value.name = useritems.name;
         userForm.value.username = useritems.username;
+        userForm.value.solapin = useritems.solapin;
         userForm.value.role = useritems.role;
         userForm.value.faculty = useritems.faculty;
         userForm.value.department = useritems.department;
