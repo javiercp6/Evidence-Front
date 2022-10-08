@@ -117,6 +117,26 @@ const useUser = () => {
     /* return resp; */
   };
 
+  const createObservation = async (observation, _id) => {
+    $q.loading.show();
+    const resp = await store.dispatch("indicator/createObservation", {
+      observation,
+      _id,
+    });
+    $q.loading.hide();
+    return resp;
+  };
+
+  const deleteObservation = async (_id) => {
+    $q.loading.show();
+    const resp = await store.dispatch("indicator/createObservation", {
+      observation: null,
+      _id,
+    });
+    $q.loading.hide();
+    return resp;
+  };
+
   return {
     getIndicatorsByUser,
     getIndicatorById,
@@ -130,6 +150,8 @@ const useUser = () => {
     createIndicatorsPersonal,
     createEvaluationValue,
     deleteEvaluationValue,
+    createObservation,
+    deleteObservation,
     indicators: computed(() => store.getters["indicator/indicators"]),
     indicator: computed(() => store.getters["indicator/indicator"]),
     evaluation: computed(() => store.getters["indicator/evaluation"]),

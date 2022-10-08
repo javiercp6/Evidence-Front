@@ -19,9 +19,7 @@ export const getIndicatorsByUser = async ({ commit }, idUser) => {
 export const getIndicatorById = async ({ commit }, idIndicator) => {
   try {
     const { data } = await api.get(`/indicators/${idIndicator}`);
-    //const dataFile = await api.get(`/evidences/file/${idIndicator}`);
-    /* const router = useRouter();
-    router.push(data); */
+
     commit("getIndicatorById", data);
 
     return { ok: true };
@@ -158,6 +156,21 @@ export const createIndicatorsPersonal = async ({ commit }, indicator) => {
     );
     console.log(data);
     commit("createIndicatorsPersonal", data);
+
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: error.response.data.msg };
+  }
+};
+
+export const createObservation = async ({ commit }, observation) => {
+  try {
+    const { data } = await api.put(
+      `/indicators/${observation._id}`,
+      observation
+    );
+    console.log(data);
+    commit("createObservation", data.observation);
 
     return { ok: true };
   } catch (error) {

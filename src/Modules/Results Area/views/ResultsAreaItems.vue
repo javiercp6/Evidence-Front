@@ -14,6 +14,32 @@
       <div class="row">
         <div class="text-h5 text-blue-grey-1">{{ area.name }}</div>
         <q-space />
+        <div class="column justify-center">
+          <q-btn color="blue-grey-1" rounded flat>
+            <q-avatar
+              v-for="n in 5"
+              :key="n"
+              size="50px"
+              class="overlapping"
+              :style="` z-index: ${n}; transform: translateX(-${
+                (n - 1) * 40
+              }%)`"
+            >
+              <!-- <img :src="`https://cdn.quasar.dev/img/avatar${n + 1}.jpg`" /> -->
+              <q-icon size="60px" name="account_circle" />
+            </q-avatar>
+          </q-btn>
+          <q-avatar color="red" text-color="white" icon="directions" />
+          <q-tooltip
+            anchor="center left"
+            self="center right"
+            :offset="[10, 10]"
+          >
+            <!-- transition-show="slide-left"
+            transition-hide="slide-right" -->
+            Usuarios del area
+          </q-tooltip>
+        </div>
         <div class="col-auto">
           <q-btn color="blue-grey-1" round flat icon="more_vert">
             <q-menu auto-close>
@@ -511,6 +537,9 @@ export default defineComponent({
   width: 100%
   height: calc(calc(100vh - (50px + 48px)) - 64px)
 
+.overlapping
+  border: 2px solid black
+  //position: absolute
 
 .container-item-objectives
   border-radius:10px

@@ -10,6 +10,8 @@ const usePDFEvaluation = () => {
   const generatePDFEvaluation = () => {
     const evaluation = computed(() => store.getters["indicator/evaluation"]);
     const name = computed(() => store.getters["auth/name"]);
+    const fecha = new Date();
+    const hoy = new Date(Date.now());
     const namePDF =
       "Evaluación Profesoral " + evaluation.value.user.name + " 2022";
     const indDocenteEducat = [];
@@ -24,32 +26,68 @@ const usePDFEvaluation = () => {
         element.category === "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO"
       ) {
         element.indicators.forEach((indicator) => {
-          indDocenteEducat.push(indicator.name);
+          if (indicator.observation) {
+            indDocenteEducat.push([
+              indicator.name,
+              { ul: [indicator.observation] },
+            ]);
+          } else {
+            indDocenteEducat.push(indicator.name);
+          }
         });
       }
       if (element.category === "TRABAJO POLÍTICO-IDEOLÓGICO") {
         element.indicators.forEach((indicator) => {
-          indPolitIdeol.push(indicator.name);
+          if (indicator.observation) {
+            indPolitIdeol.push([
+              indicator.name,
+              { ul: [indicator.observation] },
+            ]);
+          } else {
+            indPolitIdeol.push(indicator.name);
+          }
         });
       }
       if (element.category === "TRABAJO METODOLÓGICO") {
         element.indicators.forEach((indicator) => {
-          indMetodologico.push(indicator.name);
+          if (indicator.observation) {
+            indMetodologico.push([
+              indicator.name,
+              { ul: [indicator.observation] },
+            ]);
+          } else {
+            indMetodologico.push(indicator.name);
+          }
         });
       }
       if (element.category === "TRABAJO DE INVESTIGACIÓN E INNOVACIÓN") {
         element.indicators.forEach((indicator) => {
-          indInvestig.push(indicator.name);
+          if (indicator.observation) {
+            indInvestig.push([indicator.name, { ul: [indicator.observation] }]);
+          } else {
+            indInvestig.push(indicator.name);
+          }
         });
       }
       if (element.category === "SUPERACIÓN") {
         element.indicators.forEach((indicator) => {
-          indSuperacion.push(indicator.name);
+          if (indicator.observation) {
+            indSuperacion.push([
+              indicator.name,
+              { ul: [indicator.observation] },
+            ]);
+          } else {
+            indSuperacion.push(indicator.name);
+          }
         });
       }
       if (element.category === "EXTENSIÓN UNIVERSITARIA") {
         element.indicators.forEach((indicator) => {
-          indExtUniv.push(indicator.name);
+          if (indicator.observation) {
+            indExtUniv.push([indicator.name, { ul: [indicator.observation] }]);
+          } else {
+            indExtUniv.push(indicator.name);
+          }
         });
       }
     });
@@ -59,7 +97,8 @@ const usePDFEvaluation = () => {
         title:
           "Evaluación profesoral de " +
           evaluation.value.user.name +
-          " en el año 2022",
+          " en el año " +
+          fecha.getFullYear(),
         author: name.value,
         creator: "SGEOA",
         producer: "SGEOA",
@@ -105,7 +144,7 @@ const usePDFEvaluation = () => {
                   fontSize: 10,
                 },
                 {
-                  text: "2022",
+                  text: fecha.getFullYear(),
                   italics: true,
                   fontSize: 10,
                 },
@@ -198,7 +237,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  ul: indDocenteEducat,
+                  ol: indDocenteEducat,
                   fontSize: 10,
                 },
               ],
@@ -238,7 +277,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  ul: indPolitIdeol,
+                  ol: indPolitIdeol,
                   fontSize: 10,
                 },
               ],
@@ -278,7 +317,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  ul: indMetodologico,
+                  ol: indMetodologico,
                   fontSize: 10,
                 },
               ],
@@ -318,7 +357,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  ul: indInvestig,
+                  ol: indInvestig,
                   fontSize: 10,
                 },
               ],
@@ -358,7 +397,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  ul: indSuperacion,
+                  ol: indSuperacion,
                   fontSize: 10,
                 },
               ],
@@ -399,7 +438,7 @@ const usePDFEvaluation = () => {
             body: [
               [
                 {
-                  ul: indExtUniv,
+                  ol: indExtUniv,
                   fontSize: 10,
                 },
               ],
@@ -568,8 +607,8 @@ const usePDFEvaluation = () => {
                 },
                 {
                   border: [true, true, true, true],
-
-                  text: "",
+                  fontSize: 10,
+                  text: hoy.toLocaleDateString(),
                 },
                 {
                   border: [false, false, false, false],
@@ -712,7 +751,11 @@ const usePDFEvaluation = () => {
 
         {
           text: [
-            `Yo:  Yaimí Trujillo Casañola  que ocupo el cargo de Decana Facultad 4 certifico que (el/la) profesor(a)  ${evaluation.value.user.name} obtiene la evaluación de ${evaluation.value.value} en el año 2022.`,
+            `Yo:  Yaimí Trujillo Casañola  que ocupo el cargo de Decana Facultad 4 certifico que (el/la) profesor(a)  ${
+              evaluation.value.user.name
+            } obtiene la evaluación de ${
+              evaluation.value.value
+            } en el año ${fecha.getFullYear()}.`,
           ],
           style: "header",
           bold: true,

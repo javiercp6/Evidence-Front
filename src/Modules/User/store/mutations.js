@@ -124,3 +124,7 @@ export const deleteEvaluationValue = (state) => {
   });
   delete state.evaluation.value;
 };
+
+export const createObservation = (state, observation) => {
+  state.indicator.observation = observation;
+};

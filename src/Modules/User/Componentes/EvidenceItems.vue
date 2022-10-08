@@ -13,8 +13,56 @@
       />
     </div>
   </div>
+
   <div class="col text-blue-grey-1 objectives q-ma-sm">
     {{ indicator.name }}
+  </div>
+
+  <div class="flex">
+    <div class="text-h5 q-pa-md text-blue-grey-1">Observación</div>
+    <div
+      v-if="user && !indicator.observation"
+      class="column q-ml-sm justify-center"
+    >
+      <q-btn
+        round
+        icon="add"
+        color="primary"
+        size="sm"
+        @click="onCreateObservation()"
+      />
+      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+        Añadir Observación
+      </q-tooltip>
+    </div>
+  </div>
+  <div
+    v-if="indicator.observation"
+    class="col text-blue-grey-1 objectives q-ma-sm"
+    @mouseover="showEditObs = true"
+    @mouseleave="showEditObs = false"
+  >
+    {{ indicator.observation }}
+    <q-icon
+      v-show="showEditObs"
+      class="q-px-xs cursor-pointer"
+      name="edit"
+      size="xs"
+      color="orange-4"
+      @click="onEditObservation(indicator.observation)"
+    />
+
+    <q-icon
+      v-show="showEditObs"
+      class="q-px-xs cursor-pointer"
+      name="delete"
+      size="xs"
+      color="red-5"
+      @click="onDeleteObservation(objective)"
+    />
+  </div>
+  <div v-else class="col text-blue-grey-1 objectives q-ma-sm">
+    No existe una observación
   </div>
   <div class="row inline q-pt-sm">
     <div class="text-h5 q-pa-md text-blue-grey-1 d-block">Evidencias</div>
@@ -84,6 +132,8 @@
   </div>
   <AddEvidence />
   <FormDeleteEvidence />
+  <FormObservation />
+  <FormDeleteObservation />
 </template>
 
 <script>
@@ -102,6 +152,12 @@ export default defineComponent({
     FormDeleteEvidence: defineAsyncComponent(() =>
       import("../Componentes/FormDeleteEvidence.vue")
     ),
+    FormObservation: defineAsyncComponent(() =>
+      import("../Componentes/FormObservation.vue")
+    ),
+    FormDeleteObservation: defineAsyncComponent(() =>
+      import("../Componentes/FormDeleteObservation.vue")
+    ),
   },
 
   props: {
@@ -117,6 +173,7 @@ export default defineComponent({
     const prompt = ref(false);
     const promptDeleteEvidence = ref(false);
     const editEvidence = ref(false);
+    const showEditObs = ref(false);
 
     const dir = ref("http://localhost:8080/api/evidences/file/");
     const evidence = ref({
@@ -125,16 +182,24 @@ export default defineComponent({
       description: "",
       files: null,
     });
+    const observation = ref("");
+    const promptObservation = ref(false);
+    const promptDeleteObservation = ref(false);
     provide("prompt", prompt);
     provide("promptDeleteEvidence", promptDeleteEvidence);
     provide("evidence", evidence);
     provide("editEvidence", editEvidence);
+    provide("observation", observation);
+    provide("promptObservation", promptObservation);
+    provide("promptDeleteObservation", promptDeleteObservation);
+    provide("idIndicator", idIndicator);
     getIndicatorById(idIndicator.value);
 
     return {
       prompt,
       indicator,
       dir,
+      showEditObs,
       onDenyIndicator: async () => {
         const { ok, message } = await denyIndicator(idIndicator.value);
         if (!ok)
@@ -166,6 +231,19 @@ export default defineComponent({
       onDeleteEvidence(evidenceDate) {
         evidence.value.id = evidenceDate._id;
         promptDeleteEvidence.value = true;
+      },
+
+      onCreateObservation() {
+        observation.value = "";
+        promptObservation.value = true;
+      },
+
+      onEditObservation(obs) {
+        observation.value = obs;
+        promptObservation.value = true;
+      },
+      onDeleteObservation() {
+        promptDeleteObservation.value = true;
       },
     };
   },
