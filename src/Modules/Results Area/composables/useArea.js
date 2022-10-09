@@ -20,6 +20,18 @@ const useArea = () => {
   };
   const createArea = async (area) => {
     $q.loading.show();
+    const aux = [];
+    area.objectives.forEach((element, index) => {
+      if (element) {
+        if (element.length !== 0) {
+          //area.objectives.splice(index, 1);
+          aux.push(element);
+        }
+      }
+    });
+
+    area.objectives = aux;
+
     const resp = await store.dispatch("area/createArea", area);
     $q.loading.hide();
     return resp;
@@ -63,6 +75,18 @@ const useArea = () => {
 
   const createObjective = async (objective) => {
     $q.loading.show();
+    const aux = [];
+    objective.criterions.forEach((element) => {
+      if (element) {
+        if (element.length !== 0) {
+          //area.objectives.splice(index, 1);
+          aux.push(element);
+        }
+      }
+    });
+
+    objective.criterions = aux;
+    console.log(objective, "composable area");
     const resp = await store.dispatch("area/createObjective", objective);
     $q.loading.hide();
     return resp;

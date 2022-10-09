@@ -24,7 +24,8 @@
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
               (val) =>
-                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+                exp2.test(val) ||
+                `Este campo contie un texto o caracter no válido `,
             ]"
             v-model="criterionForm.name"
           />
@@ -80,8 +81,7 @@ export default defineComponent({
       promptCriterion,
       criterionForm,
       editFormCriterion,
-      hex: /^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/,
-      exp2: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/,
+      exp2: /^(|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9](|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9!¡?¿"@/().;,:\r\n\s]+$))+$/,
       reset,
       title: () => {
         return editFormCriterion.value

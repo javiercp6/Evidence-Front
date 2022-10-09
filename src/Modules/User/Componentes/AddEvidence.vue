@@ -20,7 +20,11 @@
             input-style=" color: #ffffffa3 ; ::placeholder { opacity: .3}"
             label="Descripción"
             type="textarea"
-            input-class="input-textarea"
+            input-class="input-textarea "
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) => exp2.test(val) || 'Este campo solo acepta letras',
+            ]"
             v-model="evidence.description"
           />
           <q-input
@@ -32,7 +36,7 @@
             multiple
             rounded
             outlined
-            class="q-pa-xs"
+            class="q-pa-xs q-pt-md"
             input-style=" color: #ffffffa3 ; ::placeholder { opacity: .3}"
             type="file"
           />
@@ -44,13 +48,7 @@
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
-          <q-btn
-            color="primary"
-            rounded
-            label="Aceptar"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn color="primary" rounded label="Aceptar" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -75,11 +73,13 @@ export default defineComponent({
       evidence.value.description = "";
       evidence.value.files = null;
       editEvidence.value = false;
+      prompt.value = false;
     };
 
     return {
       prompt,
       evidence,
+      exp2: /^(|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9](|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9!¡?¿"@/().;,:\r\n\s]+$))+$/,
       reset,
 
       onSubmitEvidence: async () => {

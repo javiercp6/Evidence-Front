@@ -22,6 +22,12 @@
             rows="3"
             input-style=" color: #ffffffa3 "
             label="Indicador"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) =>
+                exp2.test(val) ||
+                `Este campo contie un texto o caracter no válido `,
+            ]"
             v-model="indicatorPersonalForm.name"
           />
           <div class="column q-py-xs">
@@ -83,13 +89,7 @@
           style="background-color: rgba(255, 255, 255, 0.1)"
         >
           <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
-          <q-btn
-            color="primary"
-            rounded
-            label="Aceptar"
-            v-close-popup
-            type="submit"
-          />
+          <q-btn color="primary" rounded label="Aceptar" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -117,11 +117,13 @@ export default defineComponent({
       indicatorPersonalForm.value.name = "";
       indicatorPersonalForm.value.category =
         "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO";
+      promptIndicatorPersonal.value = false;
     };
     //editFormIndicator.value = false;
     return {
       promptIndicatorPersonal,
       indicatorPersonalForm,
+      exp2: /^(|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9](|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9!¡?¿"@/().;,:\r\n\s]+$))+$/,
       reset,
 
       onSubmitIndicatorPersonal: async () => {

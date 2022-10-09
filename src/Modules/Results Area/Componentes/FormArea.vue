@@ -68,7 +68,7 @@
               :rules="[
                 (val) =>
                   exp2.test(val) ||
-                  `Este campo no acepta caracteres especiales `,
+                  `Este campo contie un texto o caracter no válido `,
               ]"
               v-model="areaForm.objectives[index]"
             />
@@ -100,7 +100,9 @@ export default defineComponent({
     const { createArea, editArea } = useArea();
     const $q = useQuasar();
     const exp = /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ\s]+$/;
-    const exp2 = /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:\r\n]+$/;
+    const exp2 =
+      /^(|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9](|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9!¡?¿"@/().;,:\r\n\s]+$))+$/;
+
     const promptArea = inject("promptArea");
     const areaForm = inject("areaForm");
     const editFormArea = inject("editFormArea");

@@ -13,8 +13,15 @@ export const getUsers = async ({ commit }) => {
 
     return { ok: true };
   } catch (error) {
-    console.log(error, "Error");
-    return { ok: false, message: error.response.data.msg };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -27,12 +34,12 @@ export const createUser = async ({ commit }, user) => {
     commit("createUser", data);
     return { ok: true };
   } catch (error) {
-    console.log("mmmm", error.response.data);
-
     if (error.response.data.error) {
       return { ok: false, message: error.response.data.error.msg };
     } else if (error.response.data.errors) {
       return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
     } else {
       return { ok: false, message: "Error inesperado" };
     }
@@ -47,12 +54,15 @@ export const editUser = async ({ commit }, user) => {
     commit("editUser", data);
     return { ok: true };
   } catch (error) {
-    console.log("mmmm", error.response.data);
-
-    return {
-      ok: false,
-      message: error.response.data.errors[0].msg || "Error inesperado",
-    };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -64,8 +74,14 @@ export const deleteUser = async ({ commit }, idUser) => {
     commit("deleteUser", data.id);
     return { ok: true };
   } catch (error) {
-    console.log("mmmm");
-
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };

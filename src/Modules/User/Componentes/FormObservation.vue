@@ -25,7 +25,8 @@
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
               (val) =>
-                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+                exp2.test(val) ||
+                `Este campo contie un texto o caracter no válido `,
             ]"
             v-model="observation"
           />
@@ -69,7 +70,7 @@ export default defineComponent({
       observation,
       promptObservation,
       reset,
-      exp2: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/,
+      exp2: /^(|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9](|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9!¡?¿"@/().;,:\r\n\s]+$))+$/,
 
       onSubmitObsetvation: async () => {
         const { ok, message } = await createObservation(

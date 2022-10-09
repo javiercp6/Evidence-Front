@@ -20,11 +20,13 @@
             input-style=" color: #ffffffa3 "
             type="textarea"
             rows="3"
-            placeholder="Objetivo"
+            label="Objetivo"
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
               (val) =>
-                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+                exp2.test(val) ||
+                `Este campo contien un texto o caracter no válido `,
+              ,
             ]"
             v-model="objectiveForm.name"
           />
@@ -59,11 +61,12 @@
             input-style=" color: #ffffffa3 "
             type="textarea"
             rows="3"
-            :placeholder="'Criterio ' + (index + 1)"
+            :label="'Criterio ' + (index + 1)"
             :rules="[
-              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
               (val) =>
-                exp2.test(val) || 'Este campo no acepta caracteres especiales',
+                exp2.test(val) ||
+                `Este campo contien un texto o caracter no válido `,
+              ,
             ]"
             v-model="objectiveForm.criterions[index]"
           />
@@ -104,7 +107,7 @@ export default defineComponent({
     return {
       promptObjective,
       objectiveForm,
-      exp2: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9 !¡?¿"@/().;,:]+$/,
+      exp2: /^(|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9](|[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ0-9!¡?¿"@/().;,:\r\n\s]+$))+$/,
       reset,
       addInputObjetives() {
         objectiveForm.value.criterions.length++;

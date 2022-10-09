@@ -61,7 +61,7 @@ export default defineComponent({
     const indicatorPersonalForm = ref({
       id: null,
       name: null,
-      category: null,
+      category: "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO",
     });
     const editFormIndicatorPersonal = ref(false);
     provide("promptIndicatorPersonal", promptIndicatorPersonal);

@@ -10,7 +10,15 @@ export const getArea = async ({ commit }) => {
 
     return { ok: true };
   } catch (error) {
-    return { ok: false, message: error.response.data.msg };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -22,20 +30,38 @@ export const getAreaById = async ({ commit }, idArea) => {
 
     return { ok: true };
   } catch (error) {
-    return { ok: false, message: error.response.data.msg };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
 export const createArea = async ({ commit }, area) => {
   delete area.id;
+  const ff = { objectives: area.objectives, name: area.name };
+  console.log(ff, "crear area");
   try {
     const { data } = await api.post("/areas", area);
     console.log(area);
     commit("createArea", data);
     return { ok: true };
   } catch (error) {
-    console.log("mmmm");
-    return { ok: false, message: error.response.data.error.message };
+    console.log(error.response.data);
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -49,7 +75,15 @@ export const editArea = async ({ commit }, area) => {
     commit("editArea", data);
     return { ok: true, message: data.msg };
   } catch (error) {
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -60,8 +94,15 @@ export const deleteArea = async ({ commit }, idArea) => {
     commit("deleteArea", idArea);
     return { ok: true };
   } catch (error) {
-    c;
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -77,8 +118,15 @@ export const createCriterion = async ({ commit }, criterion) => {
     commit("createCriterion", data);
     return { ok: true };
   } catch (error) {
-    console.log("xxx");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -93,8 +141,15 @@ export const editCriterion = async ({ commit }, criterion) => {
     commit("editCriterion", criterionTo);
     return { ok: true, message: data.msg };
   } catch (error) {
-    console.log("xxx");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -111,8 +166,15 @@ export const deleteCriterion = async ({ commit }, criterion) => {
     commit("deleteCriterion", idCriterion);
     return { ok: true, message: data.msg };
   } catch (error) {
-    console.log("xxx");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -129,8 +191,15 @@ export const createObjective = async ({ commit }, objective) => {
     commit("createObjective", data);
     return { ok: true };
   } catch (error) {
-    console.log("xxx");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -147,8 +216,15 @@ export const editObjective = async ({ commit }, objective) => {
     commit("editObjective", objAct);
     return { ok: true, message: data.msg };
   } catch (error) {
-    console.log("xxx");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -162,8 +238,15 @@ export const deleteObjective = async ({ commit }, objective) => {
     commit("deleteObjective", objective.id);
     return { ok: true };
   } catch (error) {
-    console.log("xxx");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -175,7 +258,15 @@ export const getIndicatorsModel = async ({ commit }) => {
 
     return { ok: true };
   } catch (error) {
-    return { ok: false, message: error.response.data.msg };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -191,8 +282,15 @@ export const createIndicator = async ({ commit }, indicator) => {
     commit("createIndicator", data);
     return { ok: true };
   } catch (error) {
-    console.log("mmmm");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -211,8 +309,15 @@ export const editIndicator = async ({ commit }, indicator) => {
     commit("editIndicator", indicatorTo);
     return { ok: true, message: data.msg };
   } catch (error) {
-    console.log("mmmm");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
@@ -223,8 +328,15 @@ export const deleteIndicator = async ({ commit }, indicator) => {
     commit("deleteIndicator", data);
     return { ok: true, message: data.msg };
   } catch (error) {
-    console.log("mmmm");
-    return { ok: false, message: error.response.data.error.message };
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
   }
 };
 
