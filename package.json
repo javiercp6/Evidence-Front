@@ -2,7 +2,7 @@
   "name": "gestion-evidencia-webpack",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "Gestionevidencia",
+  "productName": "SGEOA",
   "author": "javiercp6 <javiercp@estudiantes.uci.cu>",
   "private": true,
   "scripts": {

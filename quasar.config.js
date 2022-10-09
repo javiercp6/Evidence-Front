@@ -148,8 +148,8 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `Gestionevidencia`,
-        short_name: `Gestionevidencia`,
+        name: `Sistema de gestión para las evidencias de los objetivos del año`,
+        short_name: `SGEOA`,
         description: `A Quasar Project`,
         display: "standalone",
         orientation: "portrait",

@@ -7,8 +7,15 @@
       >
         <div class="row q-ml-sm q-mt-sm">
           <div class="col-12 fredoka text-subtitle1">
-            <router-link class="text-white" style="text-decoration: none" to="/"
-              >SGEOA
+            <router-link
+              class="text-white"
+              style="text-decoration: none"
+              to="/"
+            >
+              <q-img
+                src="~assets/SGEOA_S_BLANCO_ok.svg"
+                style="width: 30px; cursor: pointer"
+              ></q-img>
             </router-link>
           </div>
         </div>
@@ -36,7 +43,10 @@
               style="text-decoration: none"
               to="/"
             >
-              SGEOA
+              <q-img
+                src="~assets/SGEOA_S_VIOLETA_ok.svg"
+                style="width: 30px; cursor: pointer"
+              ></q-img>
             </router-link>
           </div>
         </div>
