@@ -157,7 +157,6 @@ export default defineComponent({
             color: "negative",
           });
         }
-        console.log("editar");
       },
     };
   },

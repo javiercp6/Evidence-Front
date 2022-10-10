@@ -130,7 +130,7 @@ const useUser = () => {
   const deleteObservation = async (_id) => {
     $q.loading.show();
     const resp = await store.dispatch("indicator/createObservation", {
-      observation: null,
+      observation: "",
       _id,
     });
     $q.loading.hide();
