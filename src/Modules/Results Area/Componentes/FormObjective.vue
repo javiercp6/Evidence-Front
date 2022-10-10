@@ -65,7 +65,7 @@
             :rules="[
               (val) =>
                 exp2.test(val) ||
-                `Este campo contien un texto o caracter no válido `,
+                `Este campo contie un texto o caracter no válido `,
               ,
             ]"
             v-model="objectiveForm.criterions[index]"

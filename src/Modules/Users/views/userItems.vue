@@ -15,7 +15,6 @@
           <q-btn
             color="primary"
             label="Establecer Plan"
-            size="sm"
             rounded
             @click="promptEstablishIndicator = true"
           >

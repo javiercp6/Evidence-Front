@@ -4,6 +4,7 @@
     <FormDeleteArea />
     <div class="row self-start justify-center q-ma-sm">
       <q-btn
+        v-if="role === 'ROLE_ADMIN'"
         color="primary"
         icon="add"
         label="Adicionar Área"
@@ -103,6 +104,7 @@
 import { defineComponent, defineAsyncComponent, ref, provide } from "vue";
 import { useQuasar } from "quasar";
 import useArea from "../composables/useArea";
+import useAuth from "src/Modules/auth/composables/useAuth";
 
 export default defineComponent({
   name: "ResultsAreaIndex",
@@ -116,6 +118,7 @@ export default defineComponent({
 
   setup() {
     const { getArea, deleteArea, areas } = useArea();
+    const { role } = useAuth();
     const $q = useQuasar();
     const promptArea = ref(false);
     const promptDeleteArea = ref(false);
@@ -135,7 +138,7 @@ export default defineComponent({
     getArea();
 
     return {
-      value: 30,
+      role,
       areas,
       promptArea,
       promptDeleteArea,

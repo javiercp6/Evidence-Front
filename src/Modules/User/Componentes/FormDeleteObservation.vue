@@ -18,7 +18,7 @@
         class="text-primary q-pa-md"
         style="background-color: rgba(255, 255, 255, 0.1)"
       >
-        <q-btn flat rounded label="Cancelar" v-close-popup @click="reset" />
+        <q-btn flat rounded label="Cancelar" v-close-popup />
         <q-btn
           color="primary"
           rounded
@@ -60,7 +60,6 @@ export default defineComponent({
             color: "positive",
           });
         }
-        reset();
       },
     };
   },

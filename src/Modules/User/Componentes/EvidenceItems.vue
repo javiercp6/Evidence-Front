@@ -25,6 +25,7 @@
       class="column q-ml-sm justify-center"
     >
       <q-btn
+        v-if="user"
         round
         icon="add"
         color="primary"
@@ -44,6 +45,7 @@
   >
     {{ indicator.observation }}
     <q-icon
+      v-if="user"
       v-show="showEditObs"
       class="q-px-xs cursor-pointer"
       name="edit"
@@ -53,6 +55,7 @@
     />
 
     <q-icon
+      v-if="user"
       v-show="showEditObs"
       class="q-px-xs cursor-pointer"
       name="delete"
