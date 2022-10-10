@@ -30,7 +30,7 @@
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
               /* (val) => hex.test(val) || 'Prueba', */
             ]"
-            placeholder="Contraseña actual"
+            label="Contraseña actual"
             :type="isPwd1 ? 'password' : 'text'"
           >
             <template v-slot:append>
@@ -52,7 +52,7 @@
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
             ]"
-            placeholder="Nueva Contraseña"
+            label="Nueva Contraseña"
             :type="isPwd ? 'password' : 'text'"
           >
             <template v-slot:append>
@@ -74,7 +74,7 @@
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
             ]"
-            placeholder="Confirmar Contraseña"
+            label="Confirmar Nueva Contraseña"
             :type="isPwd ? 'password' : 'text'"
           >
             <template v-slot:append>
