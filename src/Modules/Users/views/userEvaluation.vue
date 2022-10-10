@@ -85,7 +85,6 @@ export default defineComponent({
       generatePDFEvaluation,
       evaluation,
       onAddEvaluation() {
-        console.log("ggg");
         promptEvaluation.value = true;
       },
       colorBadge: (value) => {

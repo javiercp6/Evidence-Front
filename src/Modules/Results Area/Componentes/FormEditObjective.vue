@@ -73,7 +73,6 @@ export default defineComponent({
       reset,
 
       onSubmitEditObjective: async () => {
-        console.log("editar");
         const { ok, message } = await editObjective(objectiveForm.value);
 
         if (!ok)

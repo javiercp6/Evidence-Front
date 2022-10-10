@@ -26,7 +26,6 @@ export default defineComponent({
     const { getIndicatorById, indicator } = useUser();
     const route = useRoute();
     const idIndicator = ref(route.params.idIndicator);
-    console.log(idIndicator);
     const prompt = ref(false);
     const evidence = ref({
       idIndicator: idIndicator.value,

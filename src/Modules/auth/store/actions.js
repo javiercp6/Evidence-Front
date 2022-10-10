@@ -52,30 +52,11 @@ export const checkAuthentication = async ({ commit }) => {
 
   commit("loginUser", idToken);
   return { ok: true };
-  //Comprobar si el usuario está
-  // try {
-  //   const { data } = await authApi.post(":lookup", { idToken });
-  //   // console.log(data)
-  //   const { displayName, email } = data.users[0];
-  //
-  //   const user = {
-  //     name: displayName,
-  //     email,
-  //   };
-  //
-  //   commit("loginUser", { user, idToken, refreshToken });
-  //
-  //   return { ok: true };
-  // } catch (error) {
-  //   commit("logout");
-  //   return { ok: false, message: error.response.data.error.message };
-  // }
 };
 
 export const changePassword = async ({ commit }, passwords) => {
   try {
     const { data } = await api.put("/users/change/password", passwords);
-    console.log(data);
     //commit("loginUser", data);
 
     return { ok: true, message: data.msg };

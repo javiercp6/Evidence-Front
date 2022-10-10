@@ -244,7 +244,6 @@ export default defineComponent({
 
       onSubmitUser: async () => {
         if (editFormUser.value === true) {
-          console.log("Editar");
           const { ok, message } = await editUser(userForm.value);
           if (!ok)
             $q.notify({
@@ -271,7 +270,6 @@ export default defineComponent({
               color: "positive",
             });
           }
-          console.log("Crear");
         }
         editFormUser.value = false;
         reset();
@@ -300,10 +298,7 @@ export default defineComponent({
           departament.value = data;
           loading.value = false;
           departament.value = data;
-          console.log(departament);
-          console.log(data);
         } catch (error) {
-          console.log(error);
           /* $q.notify({
             message:
               error.response.data.msg || "Error al obtener los departamentos",

@@ -424,14 +424,12 @@ export default defineComponent({
         promptCriterion.value = true;
       },
       onEditCriterion(idObjective, criterion) {
-        console.log(criterion);
         criterionForm.value.idObjective = idObjective;
         criterionForm.value.id = criterion._id;
         criterionForm.value.name = criterion.name;
         criterionForm.value.todo = criterion.todo;
         editFormCriterion.value = true;
         promptCriterion.value = true;
-        console.log(criterionForm);
       },
       onDeleteCriterion(idObjective, idCriterion) {
         criterionForm.value.idObjective = idObjective;
@@ -457,13 +455,11 @@ export default defineComponent({
         }
       },
       onpromptIndicator(idCriterion) {
-        console.log("frfr");
         indicatorForm.value.idCriterion = idCriterion;
         promptIndicator.value = true;
       },
 
       onEditIndicator(indicator) {
-        console.log("frfr");
         indicatorForm.value.id = indicator._id;
         indicatorForm.value.name = indicator.name;
         indicatorForm.value.category = indicator.category;
@@ -472,13 +468,11 @@ export default defineComponent({
       },
 
       onDeleteIndicator(idIndicator) {
-        console.log("frfr");
         indicatorForm.value.id = idIndicator;
         promptDeleteIndicator.value = true;
       },
 
       deleteObjectivePromt(objective) {
-        console.log("tttt");
         objectiveForm.value.id = objective._id;
         objectiveForm.value.idArea = area.value._id;
         promptDeleteObjective.value = true;
@@ -491,7 +485,6 @@ export default defineComponent({
         promptEditObjective.value = true;
         objectiveForm.value.id = objective._id;
         objectiveForm.value.name = objective.name;
-        console.log(objectiveForm.value);
       },
     };
   },

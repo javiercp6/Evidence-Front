@@ -74,8 +74,6 @@ export default defineComponent({
         timeout: 1000,
       });
       getIndicatorsByUser(uid.value);
-
-      console.log(cantNotifications.value, "Connected to socket.io");
     });
 
     const getNotifications = async () => {
@@ -85,7 +83,6 @@ export default defineComponent({
           const { data } = await api.get(`/users/notification/${uid.value}`);
           notifications.value = data;
           visible.value = false;
-          console.log(data);
           socket.emit("views", "yes");
           cantNotifications.value = null;
         } catch (error) {

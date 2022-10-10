@@ -126,7 +126,6 @@ export default defineComponent({
 
       onSubmitIndicator: async () => {
         if (editFormIndicator.value) {
-          console.log("Editar");
           const { ok, message } = await editIndicator(indicatorForm.value);
           if (!ok)
             $q.notify({
@@ -153,7 +152,6 @@ export default defineComponent({
               color: "positive",
             });
           }
-          console.log("Crear");
         }
 
         reset();

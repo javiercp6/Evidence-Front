@@ -85,7 +85,6 @@ export default defineComponent({
       onSubmitEvidence: async () => {
         //const evidenceTo = Object.assign(evidence.value, { file: files.value });
         if (editEvidence.value) {
-          console.log("edit");
           const { ok, message } = await editevidence(evidence.value);
           if (!ok)
             $q.notify({
@@ -99,7 +98,6 @@ export default defineComponent({
             });
           }
         } else {
-          console.log("crearrr");
           const { ok, message } = await createevidence(evidence.value);
           if (!ok)
             $q.notify({

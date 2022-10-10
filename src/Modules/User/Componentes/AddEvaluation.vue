@@ -413,7 +413,6 @@ export default defineComponent({
         );
       },
       (val) => {
-        console.log(val);
         arrayNumber.value[6] = Math.trunc(val / 6);
       }
     );

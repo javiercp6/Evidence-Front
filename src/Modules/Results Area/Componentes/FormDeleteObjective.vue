@@ -53,7 +53,6 @@ export default defineComponent({
       promptDeleteObjective,
       reset,
       onDeleteObjective: async () => {
-        console.log("delete obj");
         const { ok, message } = await deleteObjective(objectiveForm.value);
         if (!ok)
           $q.notify({

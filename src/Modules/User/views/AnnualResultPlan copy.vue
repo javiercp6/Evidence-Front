@@ -45,7 +45,6 @@ export default defineComponent({
   name: "IndexPage",
 
   setup() {
-    console.log("Index page");
     return {
       value: 80,
     };

@@ -86,7 +86,6 @@ const useArea = () => {
     });
 
     objective.criterions = aux;
-    console.log(objective, "composable area");
     const resp = await store.dispatch("area/createObjective", objective);
     $q.loading.hide();
     return resp;

@@ -15,7 +15,6 @@ export const createArea = (state, areas) => {
 };
 
 export const editArea = (state, area) => {
-  console.log(area);
   const idx = state.areas.map((a) => a._id).indexOf(area._id);
   state.areas[idx].name = area.name;
 };
@@ -63,7 +62,6 @@ export const createObjective = (state, objective) => {
 export const editObjective = (state, objective) => {
   const idx = state.area.objectives.map((o) => o._id).indexOf(objective.id);
   state.area.objectives[idx].name = objective.name;
-  console.log(objective);
 };
 
 export const deleteObjective = (state, idObjective) => {
@@ -122,7 +120,6 @@ export const removeIndicatorModel = (state, idIndicator) => {
 };
 
 export const getUsersByString = (state, term) => {
-  console.log(term);
   if (term.length === 0) state.users;
   else
     state.users = state.users.filter((entry) =>

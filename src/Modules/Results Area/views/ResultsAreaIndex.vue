@@ -155,7 +155,6 @@ export default defineComponent({
         areaForm.value.name = areaitems.name;
         promptArea.value = true;
         editFormArea.value = true;
-        console.log(areaForm);
       },
       deleteAreaPromt(areaitems) {
         areaForm.value.id = areaitems._id;

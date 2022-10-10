@@ -22,7 +22,7 @@ export default defineComponent({
   },
 
   setup() {
-    console.log("User Indicator");
+    ("User Indicator");
   },
 });
 </script>

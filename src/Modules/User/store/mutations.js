@@ -27,7 +27,6 @@ export const deleteevidence = (state, evidence) => {
 
 export const editevidence = (state, evidence) => {
   //state.indicator.evidences.push(evidence);
-  console.log(evidence);
   const idx = state.indicator.evidences.map((e) => e._id).indexOf(evidence._id);
   state.indicator.evidences[idx] = evidence;
 };

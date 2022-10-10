@@ -132,7 +132,6 @@ export default defineComponent({
             color: "positive",
           });
         }
-        console.log("Crear");
 
         reset();
       },

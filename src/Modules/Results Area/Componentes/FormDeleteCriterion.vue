@@ -53,7 +53,6 @@ export default defineComponent({
       promptDeleteCriterion,
       reset,
       onDeleteCriterion: async () => {
-        console.log("delete obj");
         const { ok, message } = await deleteCriterion(criterionForm.value);
         if (!ok)
           $q.notify({

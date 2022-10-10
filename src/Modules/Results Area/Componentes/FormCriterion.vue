@@ -91,7 +91,6 @@ export default defineComponent({
 
       onSubmitCriterion: async () => {
         if (editFormCriterion.value) {
-          console.log("Editar");
           const { ok, message } = await editCriterion(criterionForm.value);
           if (!ok)
             $q.notify({
@@ -105,7 +104,6 @@ export default defineComponent({
             });
           }
         } else {
-          console.log({ criterionForm }, "submitCriterion");
           const { ok, message } = await createCriterion(criterionForm.value);
 
           if (!ok)
@@ -119,7 +117,6 @@ export default defineComponent({
               color: "positive",
             });
           }
-          console.log("Crear");
         }
         editFormCriterion.value = false;
         reset();

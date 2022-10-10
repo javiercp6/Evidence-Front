@@ -107,12 +107,10 @@ export default defineComponent({
       promptEstablishIndicator,
       indicatorSelected,
       onSubmitEstabilishIndicator: async () => {
-        console.log("Editar");
         const { ok, message } = await estabilishIndicator(
           indicatorSelected.value,
           idUser.value
         );
-        console.log(indicatorSelected.value);
         if (!ok)
           $q.notify({
             message,

@@ -7,7 +7,6 @@ import { api } from "boot/axios";
 export const getUsers = async ({ commit }) => {
   try {
     const { data } = await api.get("/users");
-    console.log(data);
     commit("getUsers", data.users);
     //commit("getUsers", data);
 
@@ -29,8 +28,6 @@ export const createUser = async ({ commit }, user) => {
   delete user.id;
   try {
     const { data } = await api.post("/users", user);
-    console.log(user);
-    console.log(data);
     commit("createUser", data);
     return { ok: true };
   } catch (error) {
@@ -49,8 +46,6 @@ export const createUser = async ({ commit }, user) => {
 export const editUser = async ({ commit }, user) => {
   try {
     const { data } = await api.put(`/users/${user.id}`, user);
-    console.log(user);
-    console.log(data);
     commit("editUser", data);
     return { ok: true };
   } catch (error) {
@@ -70,7 +65,6 @@ export const deleteUser = async ({ commit }, idUser) => {
   try {
     const { data } = await api.delete(`/users/${idUser}`);
 
-    console.log(data);
     commit("deleteUser", data.id);
     return { ok: true };
   } catch (error) {

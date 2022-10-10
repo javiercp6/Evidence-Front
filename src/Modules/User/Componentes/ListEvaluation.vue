@@ -67,13 +67,10 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const idUser = ref(route.params.idUser);
-    console.log(props.user);
     if (props.user) {
       getEvaluationByUser(uid.value);
-      console.log("se manda");
     } else {
       getEvaluationByUser(idUser.value);
-      console.log("no se manda");
     }
 
     return {

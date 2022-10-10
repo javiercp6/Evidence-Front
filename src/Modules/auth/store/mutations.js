@@ -13,7 +13,6 @@ export const loginUser = (state, idToken) => {
 
   const decoded = jwt_decode(idToken);
 
-  console.log(decoded, "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
   const { role, name, uid, username } = decoded;
   state.user = username;
   state.name = name;

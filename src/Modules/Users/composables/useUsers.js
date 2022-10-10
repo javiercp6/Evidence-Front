@@ -9,7 +9,6 @@ const useUsers = () => {
   const getUsers = async () => {
     $q.loading.show();
     const resp = await store.dispatch("users/getUsers");
-    console.log(resp);
     if (!resp.ok) {
       $q.notify({
         message: resp.message || "Error inesperado",

@@ -76,13 +76,10 @@ export default defineComponent({
     const idUser = ref(route.params.idUser);
     const promptDeleteIndicator = ref(false);
     const idIndicator = ref(null);
-    console.log(props.user);
     if (props.user) {
       getIndicatorsByUser(uid.value);
-      console.log("se manda");
     } else {
       getIndicatorsByUser(idUser.value);
-      console.log("no se manda");
     }
 
     provide("promptDeleteIndicator", promptDeleteIndicator);

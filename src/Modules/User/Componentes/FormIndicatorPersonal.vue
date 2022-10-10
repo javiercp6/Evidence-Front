@@ -128,7 +128,6 @@ export default defineComponent({
 
       onSubmitIndicatorPersonal: async () => {
         if (editFormIndicatorPersonal.value) {
-          console.log("Editar");
           const { ok, message } = await editIndicator(
             indicatorPersonalForm.value
           );
@@ -144,7 +143,6 @@ export default defineComponent({
             });
           }
         } else {
-          console.log("Creear");
           const { ok, message } = await createIndicatorsPersonal(
             indicatorPersonalForm.value,
             uid.value
@@ -161,7 +159,6 @@ export default defineComponent({
               color: "positive",
             });
           }
-          console.log("Crear");
         }
 
         reset();

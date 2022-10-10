@@ -7,7 +7,6 @@ import { useRouter, useRoute } from "vue-router";
 export const getIndicatorsByUser = async ({ commit }, idUser) => {
   try {
     const { data } = await api.get(`/indicators/user/${idUser}`);
-    console.log(data);
     commit("getIndicatorsByUser", data);
 
     return { ok: true };
@@ -107,7 +106,6 @@ export const editevidence = async ({ commit }, evidence) => {
 
     return { ok: true };
   } catch (error) {
-    console.log("erroe");
     return { ok: false /* , message: error.response.data.msg */ };
   }
 };
@@ -117,11 +115,9 @@ export const deleteevidence = async ({ commit }, evidence) => {
     const { data } = await api.delete(
       `/evidences/${evidence.id}/indicator/${evidence.idIndicator}`
     );
-    console.log(data);
     commit("deleteevidence", data);
     return { ok: true };
   } catch (error) {
-    console.log("erroe");
     return { ok: false /* , message: error.response.data.msg */ };
   }
 };
@@ -130,10 +126,8 @@ export const estabilishIndicator = async ({ commit }, indicatorsModelTo) => {
   const { idsIndicator, idUser } = indicatorsModelTo;
   const inds = { indicators: null };
   inds.indicators = idsIndicator;
-  console.log(inds);
   try {
     const { data } = await api.post(`/indicators/${idUser}`, inds);
-    console.log(data);
     commit("estabilishIndicator", data);
 
     return { ok: true };
@@ -175,7 +169,6 @@ export const deleteIndicatorFromUser = async ({ commit }, indicator) => {
 export const getEvaluationByUser = async ({ commit }, idUser) => {
   try {
     const { data } = await api.get(`/users/evaluation/${idUser}`);
-    console.log(data);
     commit("getEvaluationByUser", data);
 
     return { ok: true };
@@ -201,7 +194,6 @@ export const createIndicatorsPersonal = async ({ commit }, indicator) => {
       `/indicators/personal/${idUser}`,
       indicatorPersonal
     );
-    console.log(data);
     commit("createIndicatorsPersonal", data);
 
     return { ok: true };
@@ -224,7 +216,6 @@ export const createObservation = async ({ commit }, observation) => {
       `/indicators/${observation._id}`,
       observation
     );
-    console.log(data);
     commit("createObservation", data.observation);
 
     return { ok: true };

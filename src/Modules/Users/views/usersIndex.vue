@@ -285,14 +285,12 @@ export default defineComponent({
       },
 
       deleteUserPrompt(useritems) {
-        console.log(useritems);
         userForm.value.id = useritems._id;
         userForm.value.name = useritems.name;
         promptDeleteUser.value = true;
       },
 
       toPlanUser(idUser) {
-        console.log(idUser);
         router.push({
           name: "userItems",
           params: { idUser: `${idUser}` },
@@ -300,7 +298,6 @@ export default defineComponent({
       },
 
       toEvaluationUser(idUser) {
-        console.log(idUser);
         router.push({
           name: "userEvaluation",
           params: { idUser: `${idUser}` },

@@ -124,11 +124,9 @@ export default defineComponent({
 
       reset,
       addInputObjetives() {
-        console.log(areaForm.value.objectives.length);
         areaForm.value.objectives.length++;
       },
       removeInputObjetives() {
-        console.log(areaForm.value.objectives.length);
         if (areaForm.value.objectives.length > 1) {
           areaForm.value.objectives.length--;
         }
@@ -136,7 +134,6 @@ export default defineComponent({
 
       onSubmitArea: async () => {
         if (editFormArea.value) {
-          console.log("vvvv");
           const { ok, message } = await editArea(areaForm.value);
 
           if (!ok)
@@ -150,7 +147,6 @@ export default defineComponent({
               color: "positive",
             });
           }
-          console.log("editar");
         } else {
           const { ok, message } = await createArea(areaForm.value);
 
@@ -165,7 +161,6 @@ export default defineComponent({
               color: "positive",
             });
           }
-          console.log("Crear");
         }
         reset();
       },

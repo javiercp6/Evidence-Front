@@ -172,7 +172,6 @@ export default defineComponent({
     const route = useRoute();
     const $q = useQuasar();
     const idIndicator = ref(route.params.idIndicator);
-    console.log(idIndicator);
     const prompt = ref(false);
     const promptDeleteEvidence = ref(false);
     const editEvidence = ref(false);

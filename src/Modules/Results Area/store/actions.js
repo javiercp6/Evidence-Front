@@ -5,7 +5,6 @@ import { api } from "boot/axios";
 export const getArea = async ({ commit }) => {
   try {
     const { data } = await api.get("/areas");
-    console.log(data);
     commit("getArea", data);
 
     return { ok: true };
@@ -25,7 +24,6 @@ export const getArea = async ({ commit }) => {
 export const getAreaById = async ({ commit }, idArea) => {
   try {
     const { data } = await api.get(`/areas/${idArea}`);
-    console.log(data);
     commit("getAreaById", data);
 
     return { ok: true };
@@ -45,14 +43,11 @@ export const getAreaById = async ({ commit }, idArea) => {
 export const createArea = async ({ commit }, area) => {
   delete area.id;
   const ff = { objectives: area.objectives, name: area.name };
-  console.log(ff, "crear area");
   try {
     const { data } = await api.post("/areas", area);
-    console.log(area);
     commit("createArea", data);
     return { ok: true };
   } catch (error) {
-    console.log(error.response.data);
     if (error.response.data.error) {
       return { ok: false, message: error.response.data.error.msg };
     } else if (error.response.data.errors) {
@@ -71,7 +66,6 @@ export const editArea = async ({ commit }, area) => {
   const areaToSave = { _id: area.id, name: area.name };
   try {
     const { data } = await api.put(`/areas/${area.id}`, areaToSave);
-    console.log(data);
     commit("editArea", data);
     return { ok: true, message: data.msg };
   } catch (error) {
@@ -137,7 +131,6 @@ export const editCriterion = async ({ commit }, criterion) => {
   criterionTo.todo = criterion.todo;
   try {
     const { data } = await api.put(`/criterions/${criterion.id}`, criterion);
-    console.log(data);
     commit("editCriterion", criterionTo);
     return { ok: true, message: data.msg };
   } catch (error) {
@@ -161,7 +154,6 @@ export const deleteCriterion = async ({ commit }, criterion) => {
       `/criterions/${criterion.id}/objective/${criterion.idObjective}`
     );
     data.idObjective = criterion.idObjective;
-    console.log(data);
     //TODO: Hacer el commit
     commit("deleteCriterion", idCriterion);
     return { ok: true, message: data.msg };
@@ -185,8 +177,6 @@ export const createObjective = async ({ commit }, objective) => {
       `/objectives/${objective.idArea}`,
       objective
     );
-    console.log(data);
-    //data.idObjective = criterion.idObjective;
 
     commit("createObjective", data);
     return { ok: true };
@@ -211,7 +201,6 @@ export const editObjective = async ({ commit }, objective) => {
   objAct.name = objective.name;
   try {
     const { data } = await api.put(`/objectives/${objective.id}`, objective);
-    console.log(data);
 
     commit("editObjective", objAct);
     return { ok: true, message: data.msg };
@@ -233,7 +222,6 @@ export const deleteObjective = async ({ commit }, objective) => {
     const { data } = await api.delete(
       `/objectives/${objective.id}/area/${objective.idArea}`
     );
-    console.log(data);
 
     commit("deleteObjective", objective.id);
     return { ok: true };
@@ -253,7 +241,6 @@ export const deleteObjective = async ({ commit }, objective) => {
 export const getIndicatorsModel = async ({ commit }) => {
   try {
     const { data } = await api.get("/indicators/category");
-    console.log(data);
     commit("getIndicatorsModel", data);
 
     return { ok: true };
@@ -277,8 +264,6 @@ export const createIndicator = async ({ commit }, indicator) => {
       `/indicators/criterion/${indicator.idCriterion}`,
       indicator
     );
-    console.log(data);
-    console.log("Indicado r creatdo");
     commit("createIndicator", data);
     return { ok: true };
   } catch (error) {
@@ -305,7 +290,6 @@ export const editIndicator = async ({ commit }, indicator) => {
 
   try {
     const { data } = await api.put(`/indicators/${indicator.id}`, indicator);
-    console.log(data);
     commit("editIndicator", indicatorTo);
     return { ok: true, message: data.msg };
   } catch (error) {
@@ -324,7 +308,6 @@ export const editIndicator = async ({ commit }, indicator) => {
 export const deleteIndicator = async ({ commit }, indicator) => {
   try {
     const { data } = await api.delete(`/indicators/${indicator.id}`);
-    console.log(data, "dtata");
     commit("deleteIndicator", data);
     return { ok: true, message: data.msg };
   } catch (error) {
@@ -343,7 +326,6 @@ export const deleteIndicator = async ({ commit }, indicator) => {
 /* export const getUsers = async ({ commit }) => {
   try {
     const { data } = await api.get("/users");
-    console.log(data);
     commit("getUsers", data.users);
 
     return { ok: true };

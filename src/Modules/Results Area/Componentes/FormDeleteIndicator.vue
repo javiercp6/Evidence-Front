@@ -52,7 +52,6 @@ export default defineComponent({
       promptDeleteIndicator,
       reset,
       onDeleteIndicator: async () => {
-        console.log("delete obj");
         const { ok, message } = await deleteIndicator(indicatorForm.value);
         if (!ok)
           $q.notify({
