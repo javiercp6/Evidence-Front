@@ -153,6 +153,7 @@ const useUser = () => {
     createObservation,
     deleteObservation,
     indicators: computed(() => store.getters["indicator/indicators"]),
+    indicatorsUser: computed(() => store.getters["indicator/indicatorsUser"]),
     indicator: computed(() => store.getters["indicator/indicator"]),
     evaluation: computed(() => store.getters["indicator/evaluation"]),
     evaluationIndicators: computed(

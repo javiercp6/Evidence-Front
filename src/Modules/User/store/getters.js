@@ -5,6 +5,9 @@
 export const indicators = (state) => {
   return state.indicators;
 };
+export const indicatorsUser = (state) => {
+  return state.indicators.name;
+};
 
 export const indicator = (state) => {
   return state.indicator;

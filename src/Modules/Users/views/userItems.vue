@@ -3,8 +3,7 @@
     <div class="q-ma-md container-objectives">
       <div class="row justify-end">
         <div class="text-h6 q-pa-md text-blue-grey-1">
-          Plan Individual
-          <!-- {{ idUser }} {{ admin }}  -->
+          Plan Individual - {{ indicatorsUser }}
         </div>
 
         <q-space />
@@ -49,6 +48,7 @@ import {
   inject,
 } from "vue";
 import useAuth from "src/Modules/auth/composables/useAuth";
+import useUser from "src/Modules/User/composables/useUser";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
@@ -66,6 +66,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { role } = useAuth();
+    const { indicatorsUser } = useUser();
     //const admin = ref(route.params.admin);
     //const nameUser = ref(route.params.nameUser);
     const promptEstablishIndicator = ref(false);
@@ -74,6 +75,7 @@ export default defineComponent({
     return {
       promptEstablishIndicator,
       role,
+      indicatorsUser,
       toPlanItem(idIndicator) {
         router.push({
           name: "planitem",
