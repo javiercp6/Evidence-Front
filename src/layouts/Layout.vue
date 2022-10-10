@@ -224,13 +224,9 @@
       <router-view />
       <div class="bg-blue-grey-10">
         <div
-          class="q-pa-sm"
-          style="background-color: rgba(255, 255, 255, 0.05)"
+          class="q-pa-sm column justify-center"
+          style="background-color: rgba(255, 255, 255, 0.05); height: 50px"
         >
-          <div class="text-center q-pb-sm">
-            <div class="text-subtitle1 text-blue-grey-1">Síguenos</div>
-            <div class="q-gutter-md" style="font-size: 2em"></div>
-          </div>
           <div class="text-center text-blue-grey-1">
             © 2022 Sistema de gestión para las evidencias de los objetivos del
             año. Facultad 4. UCI
