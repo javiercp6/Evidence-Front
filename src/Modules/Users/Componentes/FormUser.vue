@@ -237,7 +237,12 @@ export default defineComponent({
         "Facultad de Tecnologías Educativas",
         "Facultad de Ciencias y Tecnologías Educativas",
       ],
-      category: ["Profesor auxiliar", "Profesor Principal"],
+      category: [
+        "Profesor titular",
+        "Profesor auxiliar",
+        "Profesor asistente",
+        "Instructor",
+      ],
       loading,
       exp: /^[A-Za-zñÑáéíóúàèìòùÁÉÍÓÚÀÈÌÒÙüÜçÇ\s]+$/,
       reset,
