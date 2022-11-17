@@ -1,0 +1,11 @@
+{
+  "name": "gestion-evidencia-webpack",
+  "version": "0.0.1",
+  "description": "A Quasar Project",
+  "author": "javiercp6 <javiercp@estudiantes.uci.cu>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/cli": "^2.0.0",
+    "@capacitor/core": "^2.0.0"
+  }
+}

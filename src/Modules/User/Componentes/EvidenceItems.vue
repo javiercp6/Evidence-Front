@@ -129,6 +129,7 @@
         </q-btn>
       </div>
     </div>
+    <!-- <div>{{ toFormatDate(evidence.date) }}</div> -->
   </div>
   <div v-if="!indicator.evidences[0]" class="flex flex-center">
     <h6 class="text-blue-grey-1">No existen evidencias</h6>
@@ -183,6 +184,9 @@ export default defineComponent({
       idIndicator: idIndicator.value,
       description: "",
       files: null,
+      /* date: new Date(Date.now()).toLocaleDateString().split("T", 1)[0], */
+      date: new Date(Date.now()).toISOString().split("T", 1)[0],
+      //date: new Date(Date.now()),
     });
     const observation = ref("");
     const promptObservation = ref(false);
@@ -227,7 +231,9 @@ export default defineComponent({
       onEditEvidence(evidenceDate) {
         evidence.value.id = evidenceDate._id;
         evidence.value.description = evidenceDate.description;
+        evidence.value.date = evidenceDate.date.split("T", 1)[0];
         editEvidence.value = true;
+        console.log(evidence);
         prompt.value = true;
       },
       onDeleteEvidence(evidenceDate) {
@@ -246,6 +252,9 @@ export default defineComponent({
       },
       onDeleteObservation() {
         promptDeleteObservation.value = true;
+      },
+      toFormatDate(date) {
+        return date.toLocaleDateString();
       },
     };
   },

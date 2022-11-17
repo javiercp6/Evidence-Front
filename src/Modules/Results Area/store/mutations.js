@@ -127,3 +127,11 @@ export const getUsersByString = (state, term) => {
     );
   //state.users = users;
 };
+
+export const getYear = (state, year) => {
+  state.year = year;
+};
+
+export const getYears = (state, years) => {
+  state.years = years;
+};

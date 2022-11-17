@@ -8,6 +8,18 @@
         </div>
         <q-space />
         <div class="row items-center q-px-md">
+          <div class="column justify-center q-pr-xs">
+            <q-select
+              outlined
+              dense
+              class="q-pa-xs q-pb-sm"
+              input-style="color: #ffffffa3 "
+              bg-color="green"
+              popup-content-style="background-color: #37474f; color: white"
+              v-model="year"
+              :options="years"
+            />
+          </div>
           <div class="">
             <q-btn
               color="primary"
@@ -17,17 +29,6 @@
               @click="onCreateIndicatorPersonal()"
             />
           </div>
-
-          <!-- <div class="q-pl-sm">
-            <q-btn
-              color="primary"
-              icon="picture_as_pdf"
-              label=" Exportar PDF"
-              rounded
-              outline
-              @click="generatePDFEvaluation()"
-            />
-          </div> -->
         </div>
       </div>
       <ListEvaluation :user="true" />
@@ -38,6 +39,7 @@
 
 <script>
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
+import useArea from "src/Modules/Results Area/composables/useArea";
 //import usePDFEvaluation from "../composables/usePDFEvaluation";
 
 import { useRouter } from "vue-router";
@@ -57,6 +59,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     //const { generatePDFEvaluation } = usePDFEvaluation();
+    const { getYears, getYear, years, year } = useArea();
     const promptIndicatorPersonal = ref(false);
     const indicatorPersonalForm = ref({
       id: null,
@@ -70,6 +73,8 @@ export default defineComponent({
 
     return {
       //generatePDFEvaluation,
+      years,
+      year,
       onCreateIndicatorPersonal() {
         indicatorPersonalForm.value = {
           id: null,

@@ -49,9 +49,16 @@
 </template>
 
 <script>
-import { defineComponent, defineAsyncComponent, ref, provide } from "vue";
+import {
+  defineComponent,
+  defineAsyncComponent,
+  ref,
+  provide,
+  watch,
+} from "vue";
 import useUser from "src/Modules/User/composables/useUser";
 import useAuth from "src/Modules/auth/composables/useAuth";
+import useArea from "src/Modules/Results Area/composables/useArea";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
@@ -70,21 +77,32 @@ export default defineComponent({
     const { getIndicatorsByUser, deleteIndicatorFromUser, indicators } =
       useUser();
     const { uid, role } = useAuth();
+    const { year } = useArea();
 
     const router = useRouter();
     const route = useRoute();
     const idUser = ref(route.params.idUser);
     const promptDeleteIndicator = ref(false);
     const idIndicator = ref(null);
+
+    provide("promptDeleteIndicator", promptDeleteIndicator);
+    provide("idIndicator", idIndicator);
+    provide("idUser", idUser);
+
     if (props.user) {
       getIndicatorsByUser(uid.value);
     } else {
       getIndicatorsByUser(idUser.value);
     }
-
-    provide("promptDeleteIndicator", promptDeleteIndicator);
-    provide("idIndicator", idIndicator);
-    provide("idUser", idUser);
+    watch(year, (newValue) => {
+      if (props.user) {
+        getIndicatorsByUser(uid.value);
+      } else {
+        getIndicatorsByUser(idUser.value);
+      }
+      //getArea(newValue);
+      console.log(newValue, "En el componente listIndicator");
+    });
 
     return {
       indicators,

@@ -6,7 +6,9 @@
     >
       <q-form @submit.prevent="onSubmitIndicator">
         <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
-          <div class="text-h6 text-blue-grey-1">Nuevo Indicador</div>
+          <div class="text-h6 text-blue-grey-1">
+            {{ editFormIndicator ? "Modificar indicador" : "Nuevo indicador" }}
+          </div>
         </q-card-section>
 
         <q-card-section
@@ -107,6 +109,7 @@ export default defineComponent({
     const promptIndicator = inject("promptIndicator");
     const indicatorForm = inject("indicatorForm");
     const editFormIndicator = inject("editFormIndicator");
+    const year = inject("year");
 
     const reset = () => {
       indicatorForm.value.id = null;
@@ -139,7 +142,11 @@ export default defineComponent({
             });
           }
         } else {
-          const { ok, message } = await createIndicator(indicatorForm.value);
+          console.log(year, "prueba year indicator");
+          const { ok, message } = await createIndicator(
+            indicatorForm.value,
+            year.value
+          );
 
           if (!ok)
             $q.notify({

@@ -1,0 +1,7 @@
+{
+  "appId": "com.sgeoa.app",
+  "appName": "SGEOA",
+  "bundledWebRuntime": false,
+  "npmClient": "[object Object]",
+  "webDir": "www"
+}

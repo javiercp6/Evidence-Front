@@ -6,6 +6,19 @@
           Plan Individual
           <!-- {{ idUser }} {{ admin }}  -->
         </div>
+        <q-space />
+        <div class="column justify-center">
+          <q-select
+            outlined
+            dense
+            class="q-pa-xs q-pb-sm"
+            input-style="color: #ffffffa3 "
+            bg-color="green"
+            popup-content-style="background-color: #37474f; color: white"
+            v-model="year"
+            :options="years"
+          />
+        </div>
       </div>
       <ListIndicators :user="true" />
     </div>
@@ -13,7 +26,9 @@
 </template>
 
 <script>
-import { defineComponent, defineAsyncComponent } from "vue";
+import { defineComponent, defineAsyncComponent, watch } from "vue";
+import useArea from "src/Modules/Results Area/composables/useArea";
+//import useUser from "src/Modules/Results Area/composables/useArea";
 
 import { useRouter } from "vue-router";
 
@@ -28,8 +43,17 @@ export default defineComponent({
 
   setup() {
     const router = useRouter();
+    const { getYears, getYear, years, year } = useArea();
+
+    const start = async () => {
+      await getYear(), await getYears();
+      //getArea(year.value);
+    };
+    start();
 
     return {
+      years,
+      year,
       toPlanItem(idIndicator) {
         router.push({
           name: "planitem",

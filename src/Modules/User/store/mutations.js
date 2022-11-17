@@ -100,6 +100,7 @@ export const deleteIndicatorFromUser = (state, indicator) => {
 
 export const getEvaluationByUser = (state, evaluation) => {
   state.evaluation = evaluation;
+  console.log(evaluation);
 };
 
 export const createIndicatorsPersonal = (state, indicator) => {
@@ -111,10 +112,10 @@ export const createIndicatorsPersonal = (state, indicator) => {
 };
 
 export const createEvaluationValue = (state, evaluation) => {
-  state.evaluation.indicators.forEach((ind, index) => {
-    ind.value = evaluation[index];
+  state.evaluation.indicators.forEach((ind) => {
+    ind.value = evaluation.categories[ind.category];
   });
-  state.evaluation.value = evaluation[6];
+  state.evaluation.value = evaluation.total;
 };
 
 export const deleteEvaluationValue = (state) => {

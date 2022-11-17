@@ -1,14 +1,16 @@
-import { computed } from "vue";
+import { computed, ref, inject } from "vue";
 import { useStore } from "vuex";
 import { useQuasar } from "quasar";
+import { api } from "boot/axios";
 
 const useArea = () => {
   const store = useStore();
   const $q = useQuasar();
+  const year = inject("year");
 
-  const getArea = async () => {
+  const getArea = async (year) => {
     $q.loading.show();
-    const resp = await store.dispatch("area/getArea");
+    const resp = await store.dispatch("area/getArea", year);
     $q.loading.hide();
     return resp;
   };
@@ -18,7 +20,7 @@ const useArea = () => {
     $q.loading.hide();
     return resp;
   };
-  const createArea = async (area) => {
+  const createArea = async (area, year) => {
     $q.loading.show();
     const aux = [];
     area.objectives.forEach((element, index) => {
@@ -31,6 +33,7 @@ const useArea = () => {
     });
 
     area.objectives = aux;
+    area.year = year;
 
     const resp = await store.dispatch("area/createArea", area);
     $q.loading.hide();
@@ -106,8 +109,9 @@ const useArea = () => {
   };
 
   const getIndicatorsModel = async () => {
+    console.log(year);
     $q.loading.show();
-    const resp = await store.dispatch("area/getIndicatorsModel");
+    const resp = await store.dispatch("area/getIndicatorsModel", year.value);
     $q.loading.hide();
     return resp;
   };
@@ -119,6 +123,7 @@ const useArea = () => {
   };
 
   const createIndicator = async (indicator) => {
+    indicator.year = year;
     $q.loading.show();
     const resp = await store.dispatch("area/createIndicator", indicator);
     $q.loading.hide();
@@ -139,6 +144,29 @@ const useArea = () => {
     return resp;
   };
 
+  const getYears = async () => {
+    $q.loading.show();
+    const resp = await store.dispatch("area/getYears");
+    $q.loading.hide();
+    return resp;
+  };
+  const getYear = async (yearParam) => {
+    $q.loading.show();
+    console.log(year);
+    if (yearParam) {
+      const { data } = await api.get(`/years/last`);
+      //const resp = await store.dispatch("area/getYear");
+      year.value = data;
+    }
+    if (!year.value) {
+      const { data } = await api.get(`/years/last`);
+      //const resp = await store.dispatch("area/getYear");
+      year.value = data;
+    }
+    $q.loading.hide();
+    //return resp;
+  };
+
   return {
     getArea,
     getAreaById,
@@ -156,9 +184,14 @@ const useArea = () => {
     createIndicator,
     editIndicator,
     deleteIndicator,
+    getYears,
+    getYear,
     areas: computed(() => store.getters["area/areas"]),
     area: computed(() => store.getters["area/area"]),
     indicatorsModel: computed(() => store.getters["area/indicatorsModel"]),
+    years: computed(() => store.getters["area/years"]),
+    //year: computed(() => store.getters["area/year"]),
+    year,
   };
 };
 

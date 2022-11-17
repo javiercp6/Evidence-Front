@@ -9,7 +9,7 @@
         style="background-color: rgba(255, 255, 255, 0.1)"
       >
         <div class="text-subtitle1 text-center text-blue-grey-1 q-pa-xs">
-          ¿Está seguro que desea eliminar esta area de resultado clave?
+          ¿Está seguro que desea eliminar esta Área de Resultado Clave?
         </div>
       </q-card-section>
 

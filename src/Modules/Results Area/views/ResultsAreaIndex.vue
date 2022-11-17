@@ -2,16 +2,66 @@
   <q-page padding class="row items-center bg-blue-grey-10">
     <FormArea />
     <FormDeleteArea />
-    <div class="row self-start justify-center q-ma-sm">
-      <q-btn
-        v-if="role === 'ROLE_ADMIN'"
-        color="primary"
-        icon="add"
-        label="Adicionar Área"
-        rounded
-        @click="addAreaPrompt()"
-      />
+    <FormYear />
+    <DeleteYear />
+    <div class="row self-start justify-center q-ma-sm" style="width: 100%">
+      <div class="column justify-center">
+        <q-btn
+          v-if="role === 'ROLE_ADMIN'"
+          color="primary"
+          icon="add"
+          label="Adicionar Área"
+          rounded
+          @click="addAreaPrompt()"
+        />
+      </div>
+      <q-space />
+
+      <div class="column justify-center q-pr-md">
+        <q-btn
+          v-if="role === 'ROLE_ADMIN'"
+          color="primary"
+          outline
+          icon="add"
+          label="Añadir Año"
+          rounded
+          @click="addYearPromt()"
+        />
+      </div>
+      <div class="column justify-center">
+        <q-select
+          outlined
+          dense
+          class="q-pa-xs q-pb-sm"
+          input-style="color: #ffffffa3 "
+          bg-color="green"
+          popup-content-style="background-color: #37474f; color: white"
+          v-model="year"
+          :options="years"
+        />
+      </div>
+      <div class="column justify-center">
+        <q-btn color="blue-grey-1" round flat icon="more_vert">
+          <q-menu auto-close>
+            <q-list>
+              <q-item clickable v-ripple @click="addYearPromt()">
+                <q-item-section avatar
+                  ><q-icon color="primary" name="add"
+                /></q-item-section>
+                <q-item-section>Añadir año</q-item-section>
+              </q-item>
+              <q-item clickable v-ripple @click="deleteYearPromt()">
+                <q-item-section avatar
+                  ><q-icon color="red-5" name="delete"
+                /></q-item-section>
+                <q-item-section>Eliminar año</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
+      </div>
     </div>
+
     <div
       class="fit row wrap justify-evenly items-start content-start q-ma-md container-objectives"
     >
@@ -101,7 +151,14 @@
 </template>
 
 <script>
-import { defineComponent, defineAsyncComponent, ref, provide } from "vue";
+import {
+  defineComponent,
+  defineAsyncComponent,
+  ref,
+  provide,
+  inject,
+  watch,
+} from "vue";
 import { useQuasar } from "quasar";
 import useArea from "../composables/useArea";
 import useAuth from "src/Modules/auth/composables/useAuth";
@@ -114,15 +171,23 @@ export default defineComponent({
     FormDeleteArea: defineAsyncComponent(() =>
       import("../Componentes/FormDeleteArea.vue")
     ),
+    FormYear: defineAsyncComponent(() => import("../Componentes/FormYear.vue")),
+    DeleteYear: defineAsyncComponent(() =>
+      import("../Componentes/DeleteYear.vue")
+    ),
   },
 
   setup() {
-    const { getArea, deleteArea, areas } = useArea();
+    const { getArea, deleteArea, getYears, getYear, areas, years, year } =
+      useArea();
     const { role } = useAuth();
     const $q = useQuasar();
     const promptArea = ref(false);
     const promptDeleteArea = ref(false);
     const editFormArea = ref(false);
+    const yearLocal = inject("year");
+    const promtYear = ref(false);
+    const promtDeleteYear = ref(false);
 
     const areaForm = ref({
       id: "",
@@ -132,10 +197,22 @@ export default defineComponent({
     provide("promptArea", promptArea);
     provide("promptDeleteArea", promptDeleteArea);
     provide("editFormArea", editFormArea);
+    provide("promtYear", promtYear);
+    provide("promtDeleteYear", promtDeleteYear);
 
     provide("areaForm", areaForm);
 
-    getArea();
+    const start = async () => {
+      await getYear(), await getYears();
+      getArea(year.value);
+    };
+    start();
+
+    //console.log(yearLocal, "fff");
+    watch(year, (newValue) => {
+      getArea(newValue);
+      console.log(newValue, "fff");
+    });
 
     return {
       role,
@@ -143,12 +220,20 @@ export default defineComponent({
       promptArea,
       promptDeleteArea,
       areaForm,
+      year,
+      years,
       addAreaPrompt() {
         areaForm.value.id = "";
         areaForm.value.name = "";
         areaForm.value.objectives = [""];
         editFormArea.value = false;
         promptArea.value = true;
+      },
+      addYearPromt() {
+        promtYear.value = true;
+      },
+      deleteYearPromt() {
+        promtDeleteYear.value = true;
       },
       editAreaPrompt(areaitems) {
         areaForm.value.id = areaitems._id;

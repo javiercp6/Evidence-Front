@@ -13,3 +13,11 @@ export const area = (state) => {
 export const indicatorsModel = (state) => {
   return state.indicatorsModel;
 };
+
+export const year = (state) => {
+  return state.year;
+};
+
+export const years = (state) => {
+  return state.years;
+};

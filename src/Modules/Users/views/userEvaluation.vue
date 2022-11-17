@@ -16,6 +16,18 @@
         </div>
         <q-space />
         <div class="row items-center q-px-md">
+          <div class="column justify-center q-pr-sm">
+            <q-select
+              outlined
+              dense
+              class="q-pa-xs q-pb-sm"
+              input-style="color: #ffffffa3 "
+              bg-color="green"
+              popup-content-style="background-color: #37474f; color: white"
+              v-model="year"
+              :options="years"
+            />
+          </div>
           <div class="">
             <q-btn
               color="primary"
@@ -48,6 +60,7 @@
 import { defineComponent, defineAsyncComponent, provide, ref } from "vue";
 import usePDFEvaluation from "../../User/composables/usePDFEvaluation";
 import useUser from "src/Modules/User/composables/useUser";
+import useArea from "src/Modules/Results Area/composables/useArea";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -65,6 +78,7 @@ export default defineComponent({
   setup() {
     const { generatePDFEvaluation } = usePDFEvaluation();
     const { evaluation, deleteEvaluationValue } = useUser();
+    const { years, year } = useArea();
     const promptIndicatorPersonal = ref(false);
     const indicatorPersonalForm = ref({
       id: null,
@@ -84,6 +98,8 @@ export default defineComponent({
     return {
       generatePDFEvaluation,
       evaluation,
+      years,
+      year,
       onAddEvaluation() {
         promptEvaluation.value = true;
       },

@@ -6,7 +6,9 @@
     >
       <q-form @submit.prevent="onSubmitArea">
         <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
-          <div class="text-h6 text-blue-grey-1">Nueva Área</div>
+          <div class="text-h6 text-blue-grey-1">
+            {{ editFormArea ? "Modificar Área" : "Nueva Área" }}
+          </div>
         </q-card-section>
 
         <q-card-section
@@ -106,6 +108,7 @@ export default defineComponent({
     const promptArea = inject("promptArea");
     const areaForm = inject("areaForm");
     const editFormArea = inject("editFormArea");
+    const year = inject("year");
 
     const reset = () => {
       areaForm.value.id = null;
@@ -148,7 +151,7 @@ export default defineComponent({
             });
           }
         } else {
-          const { ok, message } = await createArea(areaForm.value);
+          const { ok, message } = await createArea(areaForm.value, year.value);
 
           if (!ok)
             $q.notify({
@@ -172,10 +175,4 @@ export default defineComponent({
 <style lang="sass" scoped>
 .card-evidencia
   border-radius: 10px
-
-.q-field__control
-  background: yellow !important
-
-.input-textarea
-  color: #ffffffa3
 </style>

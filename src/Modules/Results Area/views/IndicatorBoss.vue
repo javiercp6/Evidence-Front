@@ -5,27 +5,19 @@
         <div class="text-h5 q-pa-md text-blue-grey-1">
           Plan general de indicadores
         </div>
-        <!-- <q-space />
-        <div class="col-auto">
-          <q-btn color="blue-grey-1" round flat icon="more_vert">
-            <q-menu auto-close>
-              <q-list>
-                <q-item clickable v-ripple @click="aa">
-                  <q-item-section avatar
-                    ><q-icon color="orange-4" name="add"
-                  /></q-item-section>
-                  <q-item-section>Añadir Objetivos</q-item-section>
-                </q-item>
-                <q-item clickable v-ripple>
-                  <q-item-section avatar
-                    ><q-icon color="red-5" name="delete"
-                  /></q-item-section>
-                  <q-item-section>Eliminar</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-        </div> -->
+        <q-space />
+        <div class="column justify-center">
+          <q-select
+            outlined
+            dense
+            class="q-pa-xs q-pb-sm"
+            input-style="color: #ffffffa3 "
+            bg-color="green"
+            popup-content-style="background-color: #37474f; color: white"
+            v-model="year"
+            :options="years"
+          />
+        </div>
       </div>
 
       <div class="q-pa-sm">
@@ -57,7 +49,7 @@
 </template>
 
 <script>
-import { defineComponent, defineAsyncComponent } from "vue";
+import { defineComponent, defineAsyncComponent, watch } from "vue";
 import useUser from "src/Modules/User/composables/useUser";
 import useArea from "../composables/useArea";
 import { useRouter, useRoute } from "vue-router";
@@ -67,14 +59,32 @@ export default defineComponent({
 
   setup() {
     //const { indicators } = useUser();
-    const { getIndicatorsModel, indicatorsModel } = useArea();
+    const {
+      getIndicatorsModel,
+      getYear,
+      getYears,
+      indicatorsModel,
+      years,
+      year,
+    } = useArea();
 
     const router = useRouter();
 
-    getIndicatorsModel();
+    const start = async () => {
+      await getYear(), await getYears();
+      getIndicatorsModel(year.value);
+    };
+    start();
+
+    watch(year, (newValue) => {
+      getIndicatorsModel(newValue);
+      console.log(newValue, "fff");
+    });
 
     return {
       indicatorsModel,
+      years,
+      year,
     };
   },
 });

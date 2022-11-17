@@ -4,9 +4,11 @@ import { useRouter, useRoute } from "vue-router";
 
 // }
 
-export const getIndicatorsByUser = async ({ commit }, idUser) => {
+export const getIndicatorsByUser = async ({ commit }, user) => {
   try {
-    const { data } = await api.get(`/indicators/user/${idUser}`);
+    const { data } = await api.get(
+      `/indicators/user/${user.idUser}?year=${user.year}`
+    );
     commit("getIndicatorsByUser", data);
 
     return { ok: true };
@@ -123,8 +125,8 @@ export const deleteevidence = async ({ commit }, evidence) => {
 };
 
 export const estabilishIndicator = async ({ commit }, indicatorsModelTo) => {
-  const { idsIndicator, idUser } = indicatorsModelTo;
-  const inds = { indicators: null };
+  const { idsIndicator, idUser, year } = indicatorsModelTo;
+  const inds = { indicators: null, year };
   inds.indicators = idsIndicator;
   try {
     const { data } = await api.post(`/indicators/${idUser}`, inds);
@@ -166,9 +168,12 @@ export const deleteIndicatorFromUser = async ({ commit }, indicator) => {
   }
 };
 
-export const getEvaluationByUser = async ({ commit }, idUser) => {
+export const getEvaluationByUser = async ({ commit }, user) => {
+  console.log(user);
   try {
-    const { data } = await api.get(`/users/evaluation/${idUser}`);
+    const { data } = await api.get(
+      `/users/evaluation/${user.idUser}?year=${user.year}`
+    );
     commit("getEvaluationByUser", data);
 
     return { ok: true };
@@ -217,6 +222,29 @@ export const createObservation = async ({ commit }, observation) => {
       observation
     );
     commit("createObservation", data.observation);
+
+    return { ok: true };
+  } catch (error) {
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
+  }
+};
+
+export const createEvaluationValue = async ({ commit }, evaluation) => {
+  try {
+    const { data } = await api.post(
+      `/evaluations/${evaluation.idUser}`,
+      evaluation
+    );
+    console.log(data);
+    commit("createEvaluationValue", data);
 
     return { ok: true };
   } catch (error) {

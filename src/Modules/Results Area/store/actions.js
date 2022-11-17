@@ -2,9 +2,10 @@ import { api } from "boot/axios";
 // export const myAction = async ({ commit }) => {
 
 // }
-export const getArea = async ({ commit }) => {
+export const getArea = async ({ commit }, year) => {
+  console.log(year);
   try {
-    const { data } = await api.get("/areas");
+    const { data } = await api.get(`/areas?year=${year}`);
     commit("getArea", data);
 
     return { ok: true };
@@ -238,9 +239,9 @@ export const deleteObjective = async ({ commit }, objective) => {
   }
 };
 
-export const getIndicatorsModel = async ({ commit }) => {
+export const getIndicatorsModel = async ({ commit }, year) => {
   try {
-    const { data } = await api.get("/indicators/category");
+    const { data } = await api.get(`/indicators/category?year=${year}`);
     commit("getIndicatorsModel", data);
 
     return { ok: true };
@@ -309,6 +310,42 @@ export const deleteIndicator = async ({ commit }, indicator) => {
   try {
     const { data } = await api.delete(`/indicators/${indicator.id}`);
     commit("deleteIndicator", data);
+    return { ok: true, message: data.msg };
+  } catch (error) {
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
+  }
+};
+
+export const getYear = async ({ commit }) => {
+  try {
+    const { data } = await api.get(`/years/last`);
+    commit("getYear", data);
+    return { ok: true, message: data.msg };
+  } catch (error) {
+    if (error.response.data.error) {
+      return { ok: false, message: error.response.data.error.msg };
+    } else if (error.response.data.errors) {
+      return { ok: false, message: error.response.data.errors[0].msg };
+    } else if (error.response.data.msg) {
+      return { ok: false, message: error.response.data.msg };
+    } else {
+      return { ok: false, message: "Error inesperado" };
+    }
+  }
+};
+
+export const getYears = async ({ commit }) => {
+  try {
+    const { data } = await api.get(`/years`);
+    commit("getYears", data);
     return { ok: true, message: data.msg };
   } catch (error) {
     if (error.response.data.error) {

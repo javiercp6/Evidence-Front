@@ -7,6 +7,18 @@
         </div>
 
         <q-space />
+        <div class="column justify-center q-pr-xs">
+          <q-select
+            outlined
+            dense
+            class="q-pa-xs q-pb-sm"
+            input-style="color: #ffffffa3 "
+            bg-color="green"
+            popup-content-style="background-color: #37474f; color: white"
+            v-model="year"
+            :options="years"
+          />
+        </div>
         <div
           class="row items-center q-pr-sm"
           v-if="$q.screen.gt.xs && role === 'ROLE_CHIEF'"
@@ -49,6 +61,7 @@ import {
 } from "vue";
 import useAuth from "src/Modules/auth/composables/useAuth";
 import useUser from "src/Modules/User/composables/useUser";
+import useArea from "src/Modules/Results Area/composables/useArea";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
@@ -67,6 +80,7 @@ export default defineComponent({
     const router = useRouter();
     const { role } = useAuth();
     const { indicatorsUser } = useUser();
+    const { years, year } = useArea();
     //const admin = ref(route.params.admin);
     //const nameUser = ref(route.params.nameUser);
     const promptEstablishIndicator = ref(false);
@@ -76,6 +90,8 @@ export default defineComponent({
       promptEstablishIndicator,
       role,
       indicatorsUser,
+      years,
+      year,
       toPlanItem(idIndicator) {
         router.push({
           name: "planitem",

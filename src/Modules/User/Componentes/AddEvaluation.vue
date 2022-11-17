@@ -377,12 +377,15 @@
 import { defineComponent, inject, ref, watch } from "vue";
 import useUser from "src/Modules/User/composables/useUser";
 import { useQuasar } from "quasar";
+import { useRoute } from "vue-router";
 export default defineComponent({
   name: "FormEvidencia",
   setup() {
     const { createEvaluationValue } = useUser();
     const $q = useQuasar();
+    const route = useRoute();
     const promptEvaluation = inject("promptEvaluation");
+    const idUser = ref(route.params.idUser);
 
     /* const reset = () => {
       evidence.value.id = null;
@@ -429,7 +432,7 @@ export default defineComponent({
         arrayNumber.value.forEach((element, index) => {
           evaluationForm.value[index] = valores.value[element];
         });
-        createEvaluationValue(evaluationForm.value);
+        createEvaluationValue(evaluationForm.value, idUser.value);
       },
     };
   },

@@ -2,6 +2,8 @@ export default () => ({
   areas: [],
   area: [],
   indicatorsModel: [],
+  year: null,
+  years: [],
   /* users: [], */
   /* user: null,
     idToken: null,

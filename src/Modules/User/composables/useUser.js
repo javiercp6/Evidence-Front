@@ -1,14 +1,19 @@
-import { computed } from "vue";
+import { computed, inject } from "vue";
 import { useStore } from "vuex";
 import { useQuasar } from "quasar";
 
 const useUser = () => {
   const store = useStore();
   const $q = useQuasar();
+  const year = inject("year");
 
   const getIndicatorsByUser = async (idUser) => {
     $q.loading.show();
-    const resp = await store.dispatch("indicator/getIndicatorsByUser", idUser);
+    console.log(idUser, "jojo");
+    const resp = await store.dispatch("indicator/getIndicatorsByUser", {
+      idUser,
+      year: year.value,
+    });
     $q.loading.hide();
     return resp;
   };
@@ -38,6 +43,9 @@ const useUser = () => {
       description: evidence.description,
       FormData,
     }; */
+    const aa = { date: null };
+    aa.date = evidence.date;
+    console.log(aa);
     $q.loading.show();
     const resp = await store.dispatch("indicator/createevidence", evidence);
     $q.loading.hide();
@@ -58,14 +66,15 @@ const useUser = () => {
     return resp;
   };
 
-  const estabilishIndicator = async (indicatorsModel, idUser) => {
+  const estabilishIndicator = async (indicatorsModel, idUser, yearUltimate) => {
     $q.loading.show();
     const idsIndicator = [];
+    //console.log(yearUltimate, "Ultimate añooo");
     //const objAux = {"_id": "62a803df7ac0a54e052bbaa9"}
     indicatorsModel.forEach((indicator) => {
       idsIndicator.push({ _id: indicator });
     });
-    const indicatorsModelTo = { idsIndicator, idUser };
+    const indicatorsModelTo = { idsIndicator, idUser, year: yearUltimate };
     const resp = await store.dispatch(
       "indicator/estabilishIndicator",
       indicatorsModelTo
@@ -87,7 +96,10 @@ const useUser = () => {
 
   const getEvaluationByUser = async (idUser) => {
     $q.loading.show();
-    const resp = await store.dispatch("indicator/getEvaluationByUser", idUser);
+    const resp = await store.dispatch("indicator/getEvaluationByUser", {
+      idUser,
+      year: year.value,
+    });
     $q.loading.hide();
     return resp;
   };
@@ -95,6 +107,7 @@ const useUser = () => {
   const createIndicatorsPersonal = async (indicatorPersonal, idUser) => {
     $q.loading.show();
     const indicadorPersonalTo = { indicatorPersonal, idUser };
+    indicadorPersonalTo.indicatorPersonal.year = year;
     const resp = await store.dispatch(
       "indicator/createIndicatorsPersonal",
       indicadorPersonalTo
@@ -103,10 +116,49 @@ const useUser = () => {
     return resp;
   };
 
-  const createEvaluationValue = (evaluation) => {
-    //const resp = store.dispatch("indicator/getEvaluationByUser", idUser);
-    store.commit("indicator/createEvaluationValue", evaluation);
+  const createEvaluationValue = (evaluation, idUser) => {
+    //store.commit("indicator/createEvaluationValue", evaluation);
+    const evaluationTo = {
+      idUser,
+      year: year.value,
+      categories: {
+        "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO": evaluation[0],
+        "TRABAJO POLÍTICO-IDEOLÓGICO": evaluation[1],
+        "TRABAJO METODOLÓGICO": evaluation[2],
+        "TRABAJO DE INVESTIGACIÓN E INNOVACIÓN": evaluation[3],
+        SUPERACIÓN: evaluation[4],
+        "EXTENSIÓN UNIVERSITARIA": evaluation[5],
+      },
+      total: evaluation[6],
+    };
+    console.log(evaluationTo);
+    const resp = store.dispatch(
+      "indicator/createEvaluationValue",
+      evaluationTo
+    );
+    /* return resp; */
+  };
 
+  const getEvaluationValue = () => {
+    //store.commit("indicator/createEvaluationValue", evaluation);
+    const evaluationTo = {
+      idUser,
+      year: year.value,
+      categories: {
+        "TRABAJO DOCENTE-EDUCATIVO EN PREGRADO Y POSGRADO": evaluation[0],
+        "TRABAJO POLÍTICO-IDEOLÓGICO": evaluation[1],
+        "TRABAJO METODOLÓGICO": evaluation[2],
+        "TRABAJO DE INVESTIGACIÓN E INNOVACIÓN": evaluation[3],
+        SUPERACIÓN: evaluation[4],
+        "EXTENSIÓN UNIVERSITARIA": evaluation[5],
+      },
+      total: evaluation[6],
+    };
+    console.log(evaluationTo);
+    const resp = store.dispatch(
+      "indicator/createEvaluationValue",
+      evaluationTo
+    );
     /* return resp; */
   };
 
