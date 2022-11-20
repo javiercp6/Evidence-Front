@@ -26,6 +26,7 @@
           <q-btn
             color="primary"
             label="Establecer Plan"
+            :disable="year !== years.at(-1)"
             rounded
             @click="promptEstablishIndicator = true"
           >

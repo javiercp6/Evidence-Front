@@ -25,6 +25,7 @@
               color="primary"
               icon="add"
               label="Añadir"
+              :disable="year !== years.at(-1)"
               rounded
               @click="onCreateIndicatorPersonal()"
             />

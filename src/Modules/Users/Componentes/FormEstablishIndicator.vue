@@ -8,18 +8,6 @@
         <q-card style="background-color: rgba(255, 255, 255, 0.1)">
           <q-card-section class="row">
             <div class="text-h6 text-blue-grey-1">Establecer Plan</div>
-            <q-space />
-            <div class="column justify-center">
-              <q-select
-                outlined
-                dense
-                input-style="color: #ffffffa3 "
-                bg-color="green"
-                popup-content-style="background-color: #37474f; color: white"
-                v-model="year"
-                :options="years"
-              />
-            </div>
           </q-card-section>
 
           <q-card-section class="q-pt-none">
@@ -86,13 +74,8 @@ import { useRouter, useRoute } from "vue-router";
 export default defineComponent({
   name: "FormArea",
   setup() {
-    const {
-      getIndicatorsModel,
-      removeIndicatorModel,
-      indicatorsModel,
-      year,
-      years,
-    } = useArea();
+    const { getIndicatorsModel, removeIndicatorModel, indicatorsModel, years } =
+      useArea();
     const { estabilishIndicator } = useUser();
     const $q = useQuasar();
     const route = useRoute();
@@ -102,17 +85,11 @@ export default defineComponent({
 
     getIndicatorsModel();
 
-    watch(year, (newValue) => {
-      getIndicatorsModel();
-      console.log(newValue, "fff");
-    });
-
     return {
       indicatorsModel,
       idUser,
       promptEstablishIndicator,
       indicatorSelected,
-      year,
       years,
       onSubmitEstabilishIndicator: async () => {
         const { ok, message } = await estabilishIndicator(
