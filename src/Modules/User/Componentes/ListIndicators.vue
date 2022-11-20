@@ -32,7 +32,10 @@
           {{ indicator.name }}
         </div>
         <q-space />
-        <div v-if="role === 'ROLE_CHIEF'" class="column q-ml-sm justify-center">
+        <div
+          v-if="role === 'ROLE_CHIEFA' || role === 'ROLE_CHIEFA'"
+          class="column q-ml-sm justify-center"
+        >
           <q-icon
             class="q-px-xs cursor-pointer"
             name="highlight_off"

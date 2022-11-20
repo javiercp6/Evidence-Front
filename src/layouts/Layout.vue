@@ -140,7 +140,7 @@
           </q-item>
 
           <q-item
-            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEF'"
+            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEFA'"
             clickable
             v-ripple
             to="/area"
@@ -153,7 +153,7 @@
             <q-item-section>Áreas </q-item-section>
           </q-item>
           <q-item
-            v-if="role === 'ROLE_CHIEF'"
+            v-if="role === 'ROLE_CHIEFD'"
             clickable
             v-ripple
             to="/indicadores"
@@ -166,7 +166,7 @@
             <q-item-section>Plan General </q-item-section>
           </q-item>
           <q-item
-            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEF'"
+            v-if="role === 'ROLE_ADMIN' || role === 'ROLE_CHIEFD'"
             clickable
             v-ripple
             to="/usuarios"
@@ -180,7 +180,11 @@
           </q-item>
 
           <q-item
-            v-if="role === 'ROLE_USER' || role === 'ROLE_CHIEF'"
+            v-if="
+              role === 'ROLE_USER' ||
+              role === 'ROLE_CHIEFA' ||
+              role === 'ROLE_CHIEFD'
+            "
             clickable
             v-ripple
             to="/user"
@@ -194,7 +198,11 @@
           </q-item>
 
           <q-item
-            v-if="role === 'ROLE_USER' || role === 'ROLE_CHIEF'"
+            v-if="
+              role === 'ROLE_USER' ||
+              role === 'ROLE_CHIEFA' ||
+              role === 'ROLE_CHIEFD'
+            "
             clickable
             v-ripple
             to="/evaluacion"
@@ -208,14 +216,6 @@
           </q-item>
 
           <q-separator dark />
-
-          <q-item clickable v-ripple class="item-link">
-            <q-item-section avatar>
-              <q-icon name="help" />
-            </q-item-section>
-
-            <q-item-section class="text-blue-grey-1"> Ayuda </q-item-section>
-          </q-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>

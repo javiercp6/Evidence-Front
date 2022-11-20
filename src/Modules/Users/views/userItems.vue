@@ -21,7 +21,7 @@
         </div>
         <div
           class="row items-center q-pr-sm"
-          v-if="$q.screen.gt.xs && role === 'ROLE_CHIEF'"
+          v-if="$q.screen.gt.xs && role === 'ROLE_CHIEFD'"
         >
           <q-btn
             color="primary"
@@ -37,7 +37,7 @@
     </div>
     <q-page-sticky
       position="bottom-right"
-      v-if="!$q.screen.gt.xs && role === 'ROLE_CHIEF'"
+      v-if="!$q.screen.gt.xs && role === 'ROLE_CHIEFD'"
       :offset="[18, 18]"
     >
       <q-btn

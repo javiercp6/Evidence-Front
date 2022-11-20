@@ -144,11 +144,10 @@
             popup-content-style="background-color: #37474f; color: white"
             :loading="loading"
             v-model="userForm.department"
-            :options="departament"
+            :options="departaments"
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
             ]"
-            @popup-show="getDepartament()"
           />
           <div style="border-radius: 10px" class="q-pa-xs">
             <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Rol</div>
@@ -173,8 +172,16 @@
                 class="text-blue-grey-1 q-px-xs"
                 dark
                 dense
-                val="ROLE_CHIEF"
+                val="ROLE_CHIEFA"
                 label="Jefe de Área"
+                v-model="userForm.role"
+              />
+              <q-radio
+                class="text-blue-grey-1 q-px-xs"
+                dark
+                dense
+                val="ROLE_CHIEFD"
+                label="Jefe de Departamento"
                 v-model="userForm.role"
               />
             </div>
@@ -201,16 +208,18 @@ import { useQuasar } from "quasar";
 import { api } from "boot/axios";
 //import useAuth from "../composables/useAuth";
 import useUsers from "../composables/useUsers";
+import useArea from "src/Modules/Results Area/composables/useArea";
 export default defineComponent({
   name: "FormArea",
   setup() {
     const { createUser, editUser } = useUsers();
+    const { getDepartaments, departaments } = useArea();
     const $q = useQuasar();
     const promptUser = inject("promptUser");
     const userForm = inject("userForm");
     const editFormUser = inject("editFormUser");
     const loading = ref(false);
-    const departament = ref([""]);
+    getDepartaments();
     const reset = () => {
       userForm.value.id = null;
       userForm.value.name = "";
@@ -228,7 +237,7 @@ export default defineComponent({
       promptUser,
       userForm,
       editFormUser,
-      departament,
+      departaments,
       faculty: [
         "Facultad 1",
         "Facultad 2",
@@ -295,21 +304,6 @@ export default defineComponent({
           });
         }
         userForm.value.resetpassword = false;
-      },
-      getDepartament: async () => {
-        try {
-          loading.value = true;
-          const { data } = await api.get("/areas/names");
-          departament.value = data;
-          loading.value = false;
-          departament.value = data;
-        } catch (error) {
-          /* $q.notify({
-            message:
-              error.response.data.msg || "Error al obtener los departamentos",
-            color: "negative",
-          }); */
-        }
       },
     };
   },

@@ -166,8 +166,10 @@ export default {
             router.push("/user");
           } else if (role.value === "ROLE_ADMIN") {
             router.push("/area");
-          } else if (role.value === "ROLE_CHIEF") {
+          } else if (role.value === "ROLE_CHIEFA") {
             router.push("/area");
+          } else if (role.value === "ROLE_CHIEFD") {
+            router.push("/indicadores");
           }
           loading.value = false;
         } else {
