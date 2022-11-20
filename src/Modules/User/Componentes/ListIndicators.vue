@@ -33,7 +33,7 @@
         </div>
         <q-space />
         <div
-          v-if="role === 'ROLE_CHIEFA' || role === 'ROLE_CHIEFA'"
+          v-if="role === 'ROLE_CHIEFA' || role === 'ROLE_CHIEFD'"
           class="column q-ml-sm justify-center"
         >
           <q-icon
