@@ -4,6 +4,7 @@
     <FormDeleteArea />
     <FormYear />
     <DeleteYear />
+    <AdmDepartament />
     <div class="row self-start justify-center q-ma-sm" style="width: 100%">
       <div class="column justify-center">
         <q-btn
@@ -44,6 +45,12 @@
         <q-btn color="blue-grey-1" round flat icon="more_vert">
           <q-menu auto-close>
             <q-list>
+              <q-item clickable v-ripple @click="addDepartamentPromt()">
+                <q-item-section avatar
+                  ><q-icon color="primary" name="add"
+                /></q-item-section>
+                <q-item-section>Gestionar Departamento</q-item-section>
+              </q-item>
               <q-item clickable v-ripple @click="addYearPromt()">
                 <q-item-section avatar
                   ><q-icon color="primary" name="add"
@@ -175,6 +182,9 @@ export default defineComponent({
     DeleteYear: defineAsyncComponent(() =>
       import("../Componentes/DeleteYear.vue")
     ),
+    AdmDepartament: defineAsyncComponent(() =>
+      import("../Componentes/AdmDepartement.vue")
+    ),
   },
 
   setup() {
@@ -188,6 +198,7 @@ export default defineComponent({
     const yearLocal = inject("year");
     const promtYear = ref(false);
     const promtDeleteYear = ref(false);
+    const DepartamentPromt = ref(false);
 
     const areaForm = ref({
       id: "",
@@ -199,6 +210,7 @@ export default defineComponent({
     provide("editFormArea", editFormArea);
     provide("promtYear", promtYear);
     provide("promtDeleteYear", promtDeleteYear);
+    provide("DepartamentPromt", DepartamentPromt);
 
     provide("areaForm", areaForm);
 
@@ -244,6 +256,10 @@ export default defineComponent({
       deleteAreaPromt(areaitems) {
         areaForm.value.id = areaitems._id;
         promptDeleteArea.value = true;
+      },
+      addDepartamentPromt() {
+        console.log("www");
+        DepartamentPromt.value = true;
       },
     };
   },

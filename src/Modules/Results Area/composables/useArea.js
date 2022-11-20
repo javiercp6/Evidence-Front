@@ -7,6 +7,7 @@ const useArea = () => {
   const store = useStore();
   const $q = useQuasar();
   const year = inject("year");
+  const departaments = ref([]);
 
   const getArea = async (year) => {
     $q.loading.show();
@@ -167,6 +168,26 @@ const useArea = () => {
     //return resp;
   };
 
+  const createDepartament = async (departament) => {
+    const { data } = await api.put(`/years/departments`, departament);
+    console.log(data);
+    departaments.value.push(data);
+  };
+
+  const getDepartaments = async () => {
+    console.log("adc");
+    const { data } = await api.get(`/years/departments`);
+    departaments.value = data;
+  };
+
+  const deleteDepartament = async (departament) => {
+    console.log(departament);
+    const { data } = await api.delete(`/years/departments/${departament}`);
+    departaments.value = departaments.value.filter(
+      (department) => department !== data
+    );
+  };
+
   return {
     getArea,
     getAreaById,
@@ -192,6 +213,10 @@ const useArea = () => {
     years: computed(() => store.getters["area/years"]),
     //year: computed(() => store.getters["area/year"]),
     year,
+    createDepartament,
+    getDepartaments,
+    departaments,
+    deleteDepartament,
   };
 };
 
