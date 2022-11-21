@@ -149,7 +149,7 @@
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
             ]"
           />
-          <div style="border-radius: 10px" class="q-pa-xs">
+          <div style="border-radius: 10px" class="q-pa-xs q-pb-md">
             <div class="text-subtitle1 text-blue-grey-1 q-pa-xs">Rol</div>
             <div class="q-gutter-sm">
               <q-radio
@@ -186,6 +186,22 @@
               />
             </div>
           </div>
+          <q-select
+            v-if="userForm.role === 'ROLE_CHIEFA'"
+            outlined
+            dense
+            class="q-pa-xs q-pb-sm"
+            input-style="color: #ffffffa3 "
+            label="Área"
+            bg-color="green"
+            popup-content-style="background-color: #37474f; color: white"
+            :loading="loading"
+            v-model="userForm.area"
+            :options="optionAreas"
+            :rules="[
+              (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+            ]"
+          />
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary q-pa-md q-mx-sm">
@@ -213,13 +229,27 @@ export default defineComponent({
   name: "FormArea",
   setup() {
     const { createUser, editUser } = useUsers();
-    const { getDepartaments, departaments } = useArea();
+    const { getDepartaments, departaments, years } = useArea();
     const $q = useQuasar();
     const promptUser = inject("promptUser");
     const userForm = inject("userForm");
     const editFormUser = inject("editFormUser");
+    const optionAreas = ref([]);
+    const areas = ref([]);
     const loading = ref(false);
     getDepartaments();
+
+    const selectArea = async () => {
+      loading.value = true;
+      const { data } = await api.get(`/areas/names?year=${years.value.at(-1)}`);
+      console.log(data);
+      areas.value = data;
+      data.forEach((a) => {
+        optionAreas.value.push(a.name);
+      });
+      loading.value = false;
+    };
+    selectArea();
     const reset = () => {
       userForm.value.id = null;
       userForm.value.name = "";
@@ -229,6 +259,8 @@ export default defineComponent({
       userForm.value.faculty = "";
       userForm.value.department = "";
       userForm.value.category = "";
+      userForm.value.area = "";
+      userForm.value.areaId = null;
       editFormUser.value = false;
       promptUser.value = false;
     };
@@ -238,6 +270,7 @@ export default defineComponent({
       userForm,
       editFormUser,
       departaments,
+      optionAreas,
       faculty: [
         "Facultad 1",
         "Facultad 2",
@@ -257,7 +290,20 @@ export default defineComponent({
       reset,
 
       onSubmitUser: async () => {
+        const addIdArea = () => {
+          const aux = false;
+          areas.value.forEach((a) => {
+            if (a.name === userForm.value.area) {
+              userForm.value.areaId = a.id;
+            }
+          });
+        };
         if (editFormUser.value === true) {
+          addIdArea();
+          console.log(userForm.value);
+          const area = { a: null };
+          area.a = userForm.value.areaId;
+          console.log(area);
           const { ok, message } = await editUser(userForm.value);
           if (!ok)
             $q.notify({
@@ -271,6 +317,7 @@ export default defineComponent({
             });
           }
         } else {
+          addIdArea();
           const { ok, message } = await createUser(userForm.value);
 
           if (!ok)

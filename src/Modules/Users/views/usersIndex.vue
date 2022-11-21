@@ -253,6 +253,8 @@ export default defineComponent({
       faculty: "",
       department: "",
       category: "",
+      area: "",
+      areaId: null,
     });
     const editFormUser = ref(false);
     const promptDeleteUser = ref(false);

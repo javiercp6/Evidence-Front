@@ -46,6 +46,7 @@ export const createUser = async ({ commit }, user) => {
 export const editUser = async ({ commit }, user) => {
   try {
     const { data } = await api.put(`/users/${user.id}`, user);
+    console.log(data);
     commit("editUser", data);
     return { ok: true };
   } catch (error) {
