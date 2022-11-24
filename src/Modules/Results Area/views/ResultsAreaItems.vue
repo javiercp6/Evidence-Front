@@ -14,7 +14,7 @@
       <div class="row">
         <div class="text-h5 text-blue-grey-1">{{ area.name }}</div>
         <q-space />
-        <div class="col-auto">
+        <div v-if="role !== 'ROLE_CHIEFA'" class="col-auto">
           <q-btn color="blue-grey-1" round flat icon="more_vert">
             <q-menu auto-close>
               <q-list>
@@ -30,12 +30,6 @@
                   /></q-item-section>
                   <q-item-section>Exportar PDF</q-item-section>
                 </q-item>
-                <!-- <q-item clickable v-ripple>
-                  <q-item-section avatar
-                    ><q-icon color="red-5" name="delete"
-                  /></q-item-section>
-                  <q-item-section>Eliminar</q-item-section>
-                </q-item> -->
               </q-list>
             </q-menu>
           </q-btn>
@@ -50,7 +44,7 @@
         <div class="row q-pt-sm">
           <div class="text-h6 text-blue-grey-1 d-block">Objetivo</div>
           <q-space />
-          <div class="col-auto">
+          <div v-if="role !== 'ROLE_CHIEFA'" class="col-auto">
             <q-btn color="blue-grey-1" round flat icon="more_vert">
               <q-menu auto-close>
                 <q-list>
@@ -78,15 +72,6 @@
               </q-menu>
             </q-btn>
           </div>
-          <!-- <div class="column q-ml-sm justify-center">
-            <q-btn
-              round
-              icon="add"
-              color="primary"
-              size="sm"
-              @click="prompt = true"
-            />
-          </div> -->
         </div>
         <div class="q-ma-sm">
           <div
@@ -94,15 +79,10 @@
             @mouseover="showEditObj = true"
             @mouseleave="showEditObj = false"
           >
-            <!-- <q-icon color="green" name="check_circle" size="xs" />
-        <q-icon color="red" name="cancel" size="xs" /> -->
-
-            <!--  <q-icon name="circle" size="xs" /> -->
-
             {{ objective.name }}
 
             <q-icon
-              v-show="showEditObj"
+              v-show="showEditObj && role !== 'ROLE_CHIEFA'"
               class="q-px-xs cursor-pointer"
               name="edit"
               size="xs"
@@ -111,7 +91,7 @@
             />
 
             <q-icon
-              v-show="showEditObj"
+              v-show="showEditObj && role !== 'ROLE_CHIEFA'"
               class="q-px-xs cursor-pointer"
               name="delete"
               size="xs"
@@ -122,15 +102,6 @@
         </div>
         <div class="row inline q-pt-sm">
           <div class="text-h6 text-blue-grey-1 d-block">Criterio de medida</div>
-          <!-- <div class="column q-ml-sm justify-center">
-            <q-btn
-              round
-              icon="add"
-              color="primary"
-              size="sm"
-              @click="prompt = true"
-            />
-          </div> -->
         </div>
         <div
           v-if="objective.criterions.length === 0"
@@ -148,9 +119,6 @@
             @mouseover="showEditCrit = true"
             @mouseleave="showEditCrit = false"
           >
-            <!-- <q-icon color="green" name="check_circle" size="xs" />
-        <q-icon color="red" name="cancel" size="xs" /> -->
-            <!-- <q-icon name="circle" size="xs" /> -->
             <q-expansion-item
               expand-icon-toggle
               expand-separator
@@ -179,7 +147,7 @@
                       {{ criterion.name }}
 
                       <q-icon
-                        v-show="showEditCrit"
+                        v-show="showEditCrit && role !== 'ROLE_CHIEFA'"
                         class="q-px-xs cursor-pointer"
                         name="edit"
                         size="xs"
@@ -187,7 +155,7 @@
                         @click="onEditCriterion(objective._id, criterion)"
                       />
                       <q-icon
-                        v-show="showEditCrit"
+                        v-show="showEditCrit && role !== 'ROLE_CHIEFA'"
                         class="q-px-xs cursor-pointer"
                         name="delete"
                         size="xs"
@@ -219,7 +187,7 @@
                     {{ criterion.indicator.name }}
 
                     <q-icon
-                      v-show="showEditCrit"
+                      v-show="showEditCrit && role !== 'ROLE_CHIEFA'"
                       class="q-px-xs cursor-pointer"
                       name="edit"
                       size="xs"
@@ -227,7 +195,7 @@
                       @click="onEditIndicator(criterion.indicator)"
                     />
                     <q-icon
-                      v-show="showEditCrit"
+                      v-show="showEditCrit && role !== 'ROLE_CHIEFA'"
                       class="q-px-xs cursor-pointer"
                       name="delete"
                       size="xs"
@@ -326,6 +294,7 @@ import {
 } from "vue";
 import usePDFEvaluationArea from "../composables/usePDFEvaluationArea";
 import useArea from "../composables/useArea";
+import useAuth from "src/Modules/auth/composables/useAuth";
 import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
@@ -363,6 +332,7 @@ export default defineComponent({
 
   setup() {
     const { getAreaById, area } = useArea();
+    const { role } = useAuth();
     const { generatePDFEvaluationArea } = usePDFEvaluationArea();
     const route = useRoute();
     const prompt = ref(false);
@@ -418,6 +388,7 @@ export default defineComponent({
       showEditObj,
       showEditCrit,
       area,
+      role,
       generatePDFEvaluationArea,
       onCreateCriterion(idObjective) {
         criterionForm.value.idObjective = idObjective;
