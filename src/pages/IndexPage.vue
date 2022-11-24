@@ -28,7 +28,7 @@
               rounded
               color="white"
               label="Iniciar"
-              icon="bolt"
+              icon="power_settings_new"
               @click="start()"
             />
           </div>

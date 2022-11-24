@@ -6,7 +6,9 @@
     >
       <q-form @submit.prevent="onSubmitYear">
         <q-card-section style="background-color: rgba(255, 255, 255, 0.1)">
-          <div class="text-h6 text-blue-grey-1">Añadir un nuevo año</div>
+          <div class="text-h6 text-blue-grey-1">
+            Añadir un nuevo departamento
+          </div>
         </q-card-section>
 
         <q-card-section

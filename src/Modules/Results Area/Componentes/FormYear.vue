@@ -22,6 +22,7 @@
             input-style=" color: #ffffffa3 "
             :rules="[
               (val) => (val && val.length > 0) || 'Este campo es obligatorio',
+              (val) => (val && val > 2001) || 'El año debe ser mayor que 2001',
             ]"
             label="Año"
             v-model="yearForm.year"
